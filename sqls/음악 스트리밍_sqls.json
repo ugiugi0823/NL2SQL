@@ -1,0 +1,502 @@
+[
+  {
+    "query": "재생목록 '여름 히트곡'의 설명을 '뜨거운 여름을 위한 최고의 곡들'로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET playlist_name='뜨거운 여름을 위한 최고의 곡들' WHERE playlist_name='여름 히트곡'",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 아티스트 정보를 데이터베이스에 등록해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (artist_id, artist_name) VALUES (1, 'New Artist')",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 가장 많이 재생한 아티스트의 이름과 재생 횟수를 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT artist_name, SUM(play_count) AS total_play_count FROM sample GROUP BY artist_name ORDER BY total_play_count DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "재생 횟수가 10회 이하인 노래를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE play_count <= 10",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자별로 가장 많이 재생한 곡의 제목과 재생 횟수를 그룹화해서 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT user_id, song_title, MAX(play_count) FROM sample GROUP BY user_id",
+    "retry_count": 1
+  },
+  {
+    "query": "재생 횟수가 10 미만인 곡들을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE play_count < 10",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 많이 재생된 노래의 제목과 재생 수를 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT song_title, play_count FROM sample ORDER BY play_count DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "아티스트 '더블 브이'의 장르를 '힙합'으로 변경해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='힙합' WHERE artist_name='더블 브이'",
+    "retry_count": 1
+  },
+  {
+    "query": "2022년 이후에 발매된 앨범의 제목과 아티스트 이름을 발매일 순으로 10개 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT album_title, artist_name FROM sample WHERE release_date >= '2022-01-01' ORDER BY release_date LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자 프로필의 국가 정보를 '한국'으로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET country='한국'",
+    "retry_count": 5,
+    "error_msg": "no such column: country"
+  },
+  {
+    "query": "팔로워가 50명 이하인 아티스트를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE artist_id IN (SELECT artist_id FROM sample GROUP BY artist_id HAVING COUNT(user_id) <= 50)",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 앨범의 발매일을 2022년 10월 1일로 바꿔줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2022-10-01' WHERE album_id=특정_앨범_ID",
+    "retry_count": 5,
+    "error_msg": "no such column: 특정_앨범_ID"
+  },
+  {
+    "query": "마지막 로그인 후 2년이 지난 사용자를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE user_id IN (SELECT user_id FROM sample WHERE julianday('now') - julianday(updated_at) > 730)",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 아티스트 정보를 음악 스트리밍 서비스에 추가해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (artist_id, artist_name, created_at, updated_at) VALUES (NULL, 'New Artist', datetime('now'), datetime('now'))",
+    "retry_count": 4
+  },
+  {
+    "query": "재생 수가 10회 이하인 노래를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE play_count <= 10",
+    "retry_count": 1
+  },
+  {
+    "query": "리뷰가 없는 앨범을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE album_id NOT IN (SELECT DISTINCT album_id FROM sample WHERE rating IS NOT NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 만든 재생목록을 시스템에 추가해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, user_id, playlist_id, playlist_name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 3, and there are 0 supplied."
+  },
+  {
+    "query": "가장 최근에 추가된 재생목록을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE playlist_id = (SELECT playlist_id FROM sample ORDER BY created_at DESC LIMIT 1)",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 재생 시간이 4분 이하인 곡의 제목을 길이 순으로 정렬해서 5개만 알려줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT song_title FROM sample WHERE duration <= '00:04:00' ORDER BY duration LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "앨범 '여름 바람'의 발매일을 '2023-07-15'로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2023-07-15' WHERE album_title='여름 바람'",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자의 프로필 이미지를 새로운 사진으로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET profile_image='새로운 사진' WHERE user_id=사용자_ID",
+    "retry_count": 5,
+    "error_msg": "no such column: profile_image"
+  },
+  {
+    "query": "팔로워가 100명 이하인 아티스트를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE artist_id IN (SELECT artist_id FROM sample GROUP BY artist_id HAVING COUNT(user_id) <= 100)",
+    "retry_count": 1
+  },
+  {
+    "query": "노래 '봄날'의 장르를 '발라드'로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='발라드' WHERE song_title='봄날'",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 아티스트를 음악 라이브러리에 넣어줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (artist_id, artist_name) VALUES (NULL, '신규 아티스트 이름')",
+    "retry_count": 1
+  },
+  {
+    "query": "재생목록 '힐링 음악'의 설명을 '편안한 음악 모음'으로 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET playlist_name='편안한 음악 모음' WHERE playlist_name='힐링 음악'",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 평점이 4.5 이상인 아티스트의 이름과 평균 평점을 조회하세요.",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT artist_name, AVG(rating) FROM sample GROUP BY artist_id HAVING AVG(rating) >= 4.5",
+    "retry_count": 1
+  },
+  {
+    "query": "항목이 비어 있는 재생목록을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE playlist_id IN (SELECT playlist_id FROM sample GROUP BY playlist_id HAVING COUNT(song_id) = 0)",
+    "retry_count": 1
+  },
+  {
+    "query": "2022년에 발매된 앨범의 제목과 발매일을 출시일 순으로 보여주세요.",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT album_title, release_date FROM sample WHERE strftime('%Y', release_date) = '2022' ORDER BY release_date",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 아티스트 정보를 데이터베이스에 등록해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (artist_id, artist_name) VALUES (?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 2, and there are 0 supplied."
+  },
+  {
+    "query": "새 앨범 정보를 데이터베이스에 등록해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, user_id, username, email, password, playlist_id, playlist_name, song_id, song_title, artist_id, artist_name, album_id, album_title, genre, duration, release_date, play_count, favorite, rating) VALUES (NULL, '2023-10-01 00:00:00', '2023-10-01 00:00:00', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'New Album Title', 'Genre', '00:00:00', '2023-10-01', 0, 0, 0.0)",
+    "retry_count": 4
+  },
+  {
+    "query": "만든 지 1년 넘은 재생목록을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE playlist_id IS NOT NULL AND created_at < datetime('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 최근에 추가된 곡 5개의 제목과 아티스트를 추가 날짜 순으로 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT song_title, artist_name FROM sample ORDER BY created_at DESC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 가장 많이 재생한 아티스트의 이름을 10개까지 인기 순으로 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT artist_name FROM sample GROUP BY artist_id ORDER BY SUM(play_count) DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 많이 재생된 상위 10곡의 제목과 아티스트를 조회하세요.",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT song_title, artist_name FROM sample ORDER BY play_count DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 평점이 4.5 이상인 노래의 제목과 평균 평점을 평점 순으로 정렬해 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT song_title, AVG(rating) AS average_rating FROM sample GROUP BY song_id HAVING average_rating >= 4.5 ORDER BY average_rating DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "팔로워 수가 100명 이하인 아티스트를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE artist_id IN (SELECT artist_id FROM sample GROUP BY artist_id HAVING COUNT(user_id) <= 100)",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 즐겨찾기된 곡을 아티스트 이름과 함께 순위별로 보여주세요.",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT song_title, artist_name FROM sample WHERE favorite = 1 ORDER BY play_count DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자 '이영수'의 프로필 사진을 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET updated_at=CURRENT_TIMESTAMP WHERE username='이영수'",
+    "retry_count": 1
+  },
+  {
+    "query": "가입한 지 1년 이상 되었으나 활동이 없는 사용자를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE user_id IN (SELECT user_id FROM sample WHERE created_at <= datetime('now', '-1 year') AND play_count IS NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자별로 생성한 재생목록의 수를 집계해서 3개 이상 재생목록이 있는 사용자만 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT user_id, COUNT(DISTINCT playlist_id) AS playlist_count FROM sample GROUP BY user_id HAVING playlist_count >= 3",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자 프로필의 닉네임을 '뮤직러버'로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET username='뮤직러버' WHERE user_id=1",
+    "retry_count": 1
+  },
+  {
+    "query": "재생 횟수가 100만 이상인 곡들의 제목과 아티스트를 재생 횟수 순으로 정렬하여 10개만 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT song_title, artist_name FROM sample WHERE play_count >= 1000000 ORDER BY play_count DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "새 음원을 스트리밍 서비스에 추가해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, user_id, username, email, password, playlist_id, playlist_name, song_id, song_title, artist_id, artist_name, album_id, album_title, genre, duration, release_date, play_count, favorite, rating) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, NULL, NULL, NULL, NULL, NULL, NULL, 1, 'New Song Title', 1, 'New Artist', 1, 'New Album', 'Pop', '00:03:30', '2023-10-01', 0, 0, NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 아티스트의 이름을 '김가수'로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET artist_name='김가수' WHERE artist_name='특정 아티스트'",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 아티스트의 장르를 록으로 변경해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='록' WHERE artist_id=특정_아티스트_ID",
+    "retry_count": 5,
+    "error_msg": "no such column: 특정_아티스트_ID"
+  },
+  {
+    "query": "노래 수가 5곡 미만인 재생목록을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE playlist_id IN (SELECT playlist_id FROM sample GROUP BY playlist_id HAVING COUNT(DISTINCT song_id) < 5)",
+    "retry_count": 1
+  },
+  {
+    "query": "앨범 'Thriller'의 발매일을 1983년 11월 30일로 수정해주세요",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='1983-11-30' WHERE album_title='Thriller'",
+    "retry_count": 1
+  },
+  {
+    "query": "2021년에 발매된 앨범 중 가장 많이 스트리밍된 앨범의 제목과 아티스트 이름을 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT album_title, artist_name FROM sample WHERE release_date BETWEEN '2021-01-01' AND '2021-12-31' GROUP BY album_id ORDER BY SUM(play_count) DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 만든 새로운 재생목록을 데이터베이스에 등록해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, user_id, playlist_id, playlist_name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 3, and there are 0 supplied."
+  },
+  {
+    "query": "20세기 이후 태어난 아티스트 중 팔로워가 가장 많은 상위 3명의 이름과 팔로워 수를 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT artist_name, MAX(play_count) AS followers FROM sample WHERE release_date >= '2000-01-01' GROUP BY artist_name ORDER BY followers DESC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 만든 새로운 재생목록을 시스템에 추가해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, user_id, playlist_id, playlist_name) VALUES (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, ?, ?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 3, and there are 0 supplied."
+  },
+  {
+    "query": "평점이 3.0 이하인 앨범을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE album_id IN (SELECT album_id FROM sample WHERE rating <= 3.0)",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 최근에 추가된 재생목록의 이름과 생성 날짜를 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT playlist_name, created_at FROM sample ORDER BY created_at DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 노래의 장르를 '록'에서 '팝'으로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='팝' WHERE genre='록'",
+    "retry_count": 5
+  },
+  {
+    "query": "구독자가 업로드한 새 앨범을 시스템에 삽입해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, user_id, album_id, album_title, release_date) VALUES (datetime('now'), datetime('now'), ?, ?, ?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 4, and there are 0 supplied."
+  },
+  {
+    "query": "마지막 로그인 날짜가 1년 이상 지난 사용자를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE user_id IN (SELECT user_id FROM sample WHERE updated_at <= datetime('now', '-1 year'))",
+    "retry_count": 1
+  },
+  {
+    "query": "팔로워 수가 100명 이하인 아티스트를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE artist_id IN (SELECT artist_id FROM sample GROUP BY artist_id HAVING COUNT(user_id) <= 100)",
+    "retry_count": 1
+  },
+  {
+    "query": "2022년 발매된 앨범 중 평균 평점이 가장 높은 앨범의 제목과 아티스트를 알려줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT album_title, artist_name FROM sample WHERE release_date BETWEEN '2022-01-01' AND '2022-12-31' GROUP BY album_id ORDER BY AVG(rating) DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "노래 '비 오는 날의 수채화'의 재생 횟수를 100으로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET play_count=100 WHERE song_title='비 오는 날의 수채화'",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 곡의 길이를 3분 45초로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration='00:03:45' WHERE song_id=1",
+    "retry_count": 4
+  },
+  {
+    "query": "사용자가 만든 재생목록의 수를 사용자별로 집계해서 5개만 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT username, COUNT(DISTINCT playlist_id) AS playlist_count FROM sample GROUP BY user_id ORDER BY playlist_count DESC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "평점이 3.0 이하인 앨범을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE album_id IN (SELECT album_id FROM sample GROUP BY album_id HAVING AVG(rating) <= 3.0)",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 앨범의 발매일을 2023년 5월 1일로 바꿔줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2023-05-01' WHERE album_id=특정_앨범_ID",
+    "retry_count": 5,
+    "error_msg": "no such column: 특정_앨범_ID"
+  },
+  {
+    "query": "2020년 이전에 발매된 앨범을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE release_date < '2020-01-01'",
+    "retry_count": 1
+  },
+  {
+    "query": "재생목록 '여행 노래'의 설명을 '신나는 여행을 위한 음악 모음'으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET playlist_name='신나는 여행을 위한 음악 모음' WHERE playlist_name='여행 노래'",
+    "retry_count": 1
+  },
+  {
+    "query": "마지막으로 로그인한 날짜가 1년 이상된 사용자를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE updated_at <= DATETIME('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "재생목록의 이름을 '여름 히트곡'으로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET playlist_name='여름 히트곡'",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 가장 좋아하는 아티스트의 이름을 'BTS'로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET artist_name='BTS' WHERE artist_id=(SELECT artist_id FROM sample WHERE user_id=(SELECT user_id FROM sample GROUP BY user_id ORDER BY COUNT(CASE WHEN favorite=1 THEN song_id END) DESC LIMIT 1) GROUP BY artist_id ORDER BY COUNT(CASE WHEN favorite=1 THEN song_id END) DESC LIMIT 1)",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 생성한 재생목록의 수를 사용자별로 그룹화하여 가장 많은 재생목록을 가진 사용자부터 순서대로 5명만 보여주세요.",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT user_id, username, COUNT(DISTINCT playlist_id) AS playlist_count FROM sample GROUP BY user_id, username ORDER BY playlist_count DESC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "재생 횟수가 10회 미만인 노래들을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE play_count < 10",
+    "retry_count": 1
+  }
+]

@@ -1,0 +1,495 @@
+[
+  {
+    "query": "재고가 0인 상품 정보를 모두 삭제해",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE stock_quantity = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "결제 번호 9982의 결제 금액을 150000원으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET total_amount=150000 WHERE id=9982",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 번호 1023의 가격을 25000원으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET price=25000 WHERE id=1023",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 설명을 최신 정보로 수정해 주세요.",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET product_description='최신 정보' WHERE id=1",
+    "retry_count": 1
+  },
+  {
+    "query": "고객 아이디 67890의 결제 수단을 '신용카드'로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET payment_method='신용카드' WHERE customer_id=67890",
+    "retry_count": 1
+  },
+  {
+    "query": "카테고리별로 재고가 가장 적은 상품의 이름과 재고 수량을 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT product_name, stock_quantity FROM sample WHERE (category_id, stock_quantity) IN (SELECT category_id, MIN(stock_quantity) FROM sample GROUP BY category_id)",
+    "retry_count": 1
+  },
+  {
+    "query": "구매 후 일주일 이내에 반품된 주문 기록을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = 'returned' AND julianday(updated_at) - julianday(created_at) <= 7",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자 ID 55577의 이메일 주소를 'newemail@example.com'으로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET customer_id=55577 WHERE customer_id=55577",
+    "retry_count": 2
+  },
+  {
+    "query": "리뷰가 없는 상품을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id NOT IN (SELECT product_id FROM sample WHERE product_description IS NOT NULL)",
+    "retry_count": 5,
+    "error_msg": "no such column: product_id"
+  },
+  {
+    "query": "각 고객별로 총 구매 금액이 100만원 이상인 고객의 이름과 총 구매 금액을 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT customer_id, SUM(total_amount) AS total_purchase FROM sample GROUP BY customer_id HAVING total_purchase >= 1000000",
+    "retry_count": 1
+  },
+  {
+    "query": "고객 ID 789의 연락처를 010-1234-5678으로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET shipping_address='010-1234-5678' WHERE customer_id=789",
+    "retry_count": 1
+  },
+  {
+    "query": "1개월 내 신규 등록된 상품의 이름과 가격을 등록일 순으로 정렬하여 상위 10개 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT product_name, price FROM sample WHERE created_at >= datetime('now', '-1 month') ORDER BY created_at LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 고객 정보를 데이터베이스에 등록해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "신상품 목록에 새로운 전자제품을 등록해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (datetime('now'), datetime('now'), '전자제품', '최신 전자제품 설명', 299.99, 100, 1, '브랜드명', 'SKU12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 0.00, 299.99)",
+    "retry_count": 1
+  },
+  {
+    "query": "재고가 없는 상품을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE stock_quantity = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "스마트폰 카테고리에 속한 상품 중 리뷰 수가 100개 이상인 상품의 이름과 평균 평점을 조회하세요",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT product_name, AVG(price) FROM sample WHERE category_id = (SELECT id FROM sample WHERE product_name = '스마트폰') AND stock_quantity >= 100 GROUP BY product_name",
+    "retry_count": 1
+  },
+  {
+    "query": "배송이 30일 이상 지연된 주문을 데이터베이스에서 제거해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = '배송 지연' AND julianday('now') - julianday(updated_at) > 30",
+    "retry_count": 1
+  },
+  {
+    "query": "회원 탈퇴 요청한 고객의 계정을 삭제해",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE customer_id IN (SELECT DISTINCT customer_id FROM sample WHERE order_status = '탈퇴 요청')",
+    "retry_count": 1
+  },
+  {
+    "query": "회원 등급별로 평균 구매 금액을 계산해서 등급별로 상위 3개의 등급을 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT customer_id, AVG(total_amount) AS avg_purchase FROM sample GROUP BY customer_id ORDER BY avg_purchase DESC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 ID 11223의 재고 수량을 50개로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET stock_quantity=50 WHERE id=11223",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 상태를 '배송 완료'로 변경해 주세요.",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET order_status='배송 완료'",
+    "retry_count": 1
+  },
+  {
+    "query": "재고가 0인 상품들을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE stock_quantity = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "2023년에 등록된 신상품의 이름과 가격을 가격 내림차순으로 10개만 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT product_name, price FROM sample WHERE strftime('%Y', created_at) = '2023' ORDER BY price DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 금액이 0원인 주문을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE total_amount = 0.00",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 주문 내역을 데이터베이스에 입력해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'Example Product', 'This is an example product description.', 99.99, 10, 1, 'Example Brand', 'EX12345', 1001, 501, 'Processing', 'Credit Card', 'Paid', '123 Example St, City, Country', 'Standard', 5.00, 'DISCOUNT10', 10.00, 94.99)",
+    "retry_count": 1
+  },
+  {
+    "query": "회원 ID 54321의 이메일 주소를 newemail@example.com으로 변경해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET customer_id=54321 WHERE customer_id=54321",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 번호 12345의 배송 상태를 '배송 중'으로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET order_status='배송 중' WHERE order_id=12345",
+    "retry_count": 1
+  },
+  {
+    "query": "배송이 완료된 주문들 중 평균 배송 시간이 3일 이상인 주문의 수를 계산하여 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT COUNT(*) FROM sample WHERE order_status = '배송 완료' AND (JULIANDAY(updated_at) - JULIANDAY(created_at)) >= 3",
+    "retry_count": 1
+  },
+  {
+    "query": "활성화되지 않은 사용자 계정을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status IS NULL AND payment_status IS NULL",
+    "retry_count": 1
+  },
+  {
+    "query": "50만원 이상 구매한 고객의 이름과 이메일을 조회하세요",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT customer_id FROM sample WHERE total_amount >= 500000",
+    "retry_count": 1
+  },
+  {
+    "query": "신제품을 상품 목록에 등록해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (NULL, '2023-10-01 00:00:00', '2023-10-01 00:00:00', '신제품', '신제품 설명', 100.00, 50, 1, '브랜드명', 'SKU12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 0.00, 100.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 카테고리 '전자기기'의 이름을 '디지털 기기'로 바꿔줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET product_name='디지털 기기' WHERE product_name='전자기기'",
+    "retry_count": 1
+  },
+  {
+    "query": "결제가 실패한 주문 내역을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE payment_status = '실패'",
+    "retry_count": 1
+  },
+  {
+    "query": "카테고리별로 가장 많이 판매된 상품의 이름과 판매량을 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT product_name, MAX(sold_quantity) FROM (SELECT product_name, category_id, SUM(stock_quantity) - MIN(stock_quantity) AS sold_quantity FROM sample GROUP BY product_name, category_id) GROUP BY category_id",
+    "retry_count": 1
+  },
+  {
+    "query": "고객의 신규 주문 내역을 데이터베이스에 추가해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', 'Sample Product', 'This is a sample product description.', 99.99, 10, 1, 'Sample Brand', 'SKU12345', 1, 1, 'Pending', 'Credit Card', 'Unpaid', '123 Sample St, Sample City, SS', 'Standard', 5.00, 'DISCOUNT10', 10.00, 94.99)",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 상품을 상품 목록에 추가해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (NULL, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'New Product', 'Description of the new product', 99.99, 100, 1, 'BrandName', 'SKU12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "결제 실패 기록이 있는 주문들을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE payment_status = '결제 실패'",
+    "retry_count": 1
+  },
+  {
+    "query": "배송 상태가 '배송 완료'인 주문의 주문 번호와 배송 일자를 최신 순으로 5개만 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT order_id, updated_at FROM sample WHERE order_status = '배송 완료' ORDER BY updated_at DESC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 ID 67890의 가격을 20000원으로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET price=20000 WHERE id=67890",
+    "retry_count": 1
+  },
+  {
+    "query": "배송 완료 상태의 주문 중 배송 시간이 가장 짧은 5개의 주문번호와 배송 시간을 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT order_id, MIN(updated_at - created_at) AS shipping_time FROM sample WHERE order_status = '배송 완료' GROUP BY order_id ORDER BY shipping_time ASC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 상품의 재고 수량을 100개로 수정해 주세요.",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET stock_quantity=100 WHERE product_name='특정 상품명'",
+    "retry_count": 1
+  },
+  {
+    "query": "고객의 새로운 주문 정보를 데이터베이스에 입력해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES ('2023-10-01 12:00:00', '2023-10-01 12:00:00', 'Sample Product', 'This is a sample product description.', 99.99, 10, 1, 'Sample Brand', 'SKU12345', 1001, 5001, 'Processing', 'Credit Card', 'Paid', '123 Sample St, Sample City, SC 12345', 'Standard', 5.99, 'DISCOUNT10', 10.00, 95.98)",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 6개월 내에 주문된 상품 중 가장 많이 팔린 상품의 이름과 판매량을 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT product_name, COUNT(*) AS sales_count FROM sample WHERE created_at >= DATE('now', '-6 months') GROUP BY product_name ORDER BY sales_count DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "재고가 0인 상품을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE stock_quantity = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 내역을 시스템에 저장해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'Sample Product', 'This is a sample product description.', 99.99, 10, 1, 'Sample Brand', 'SKU12345', 1001, 5001, 'Processing', 'Credit Card', 'Paid', '123 Sample Street, Sample City, Sample Country', 'Standard', 5.00, 'DISCOUNT10', 10.00, 94.99)",
+    "retry_count": 2
+  },
+  {
+    "query": "결제 금액이 100,000원 이상인 주문의 주문 번호와 고객 이름을 조회해",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT order_id, customer_id FROM sample WHERE total_amount >= 100000",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 번호 98765의 배송 주소를 '서울특별시 강남구'로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET shipping_address='서울특별시 강남구' WHERE order_id=98765",
+    "retry_count": 1
+  },
+  {
+    "query": "2023년 1월 이후 주문된 상품의 이름과 주문 날짜를 최신순으로 10개 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT product_name, created_at FROM sample WHERE created_at >= '2023-01-01' ORDER BY created_at DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 번호 98765의 결제 상태를 '결제 취소'로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET payment_status='결제 취소' WHERE order_id=98765",
+    "retry_count": 1
+  },
+  {
+    "query": "배송이 취소된 주문을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = '배송 취소'",
+    "retry_count": 1
+  },
+  {
+    "query": "회원의 전화번호를 새 연락처로 변경해 주세요.",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "죄송합니다. 제공된 스키마에는 회원의 전화번호를 나타내는 컬럼이 없습니다.",
+    "retry_count": 5,
+    "error_msg": "near \"죄송합니다\": syntax error"
+  },
+  {
+    "query": "배송이 완료된 주문 기록을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = '배송 완료'",
+    "retry_count": 1
+  },
+  {
+    "query": "구매 횟수가 1회 이하인 고객 정보를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE customer_id IN (SELECT customer_id FROM sample GROUP BY customer_id HAVING COUNT(order_id) <= 1)",
+    "retry_count": 1
+  },
+  {
+    "query": "반품 요청된 상품들을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = '반품 요청'",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 1년간 구매된 상품 중 가장 많이 팔린 상위 10개의 상품명을 판매량 순으로 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT product_name FROM sample WHERE created_at >= datetime('now', '-1 year') GROUP BY product_name ORDER BY COUNT(*) DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "결제가 실패한 거래 내역을 시스템에서 삭제해",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE payment_status = '실패'",
+    "retry_count": 1
+  },
+  {
+    "query": "상품 코드 112233의 재고 수량을 50개로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET stock_quantity=50 WHERE sku='112233'",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 고객 정보를 데이터베이스에 등록해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 평점이 3점 이하인 상품 리뷰를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id IN (SELECT id FROM sample WHERE product_name IN (SELECT product_name FROM sample GROUP BY product_name HAVING AVG(price) <= 3))",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 최근에 주문된 상품의 이름과 주문 날짜를 보여주세요",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT product_name, created_at FROM sample ORDER BY created_at DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자가 1년 이상 로그인하지 않은 계정을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE updated_at <= datetime('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 번호 12345의 배송 상태를 '배송 완료'로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET order_status='배송 완료' WHERE order_id=12345",
+    "retry_count": 1
+  },
+  {
+    "query": "주문 번호 564의 배송 상태를 '배송 완료'로 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET order_status='배송 완료' WHERE order_id=564",
+    "retry_count": 1
+  },
+  {
+    "query": "재고가 10개 이하인 상품의 이름과 남은 재고 수량을 가격 내림차순으로 정렬하여 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT product_name, stock_quantity FROM sample WHERE stock_quantity <= 10 ORDER BY price DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "모든 고객의 평균 주문 금액을 계산하세요",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT AVG(total_amount) FROM sample",
+    "retry_count": 1
+  },
+  {
+    "query": "고객의 배송 주소를 새로 이사한 곳으로 업데이트해 주세요.",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET shipping_address='새로운 배송 주소' WHERE customer_id=고객_ID",
+    "retry_count": 5,
+    "error_msg": "no such column: 고객_ID"
+  },
+  {
+    "query": "고객별 총 구매 금액을 계산하고, 구매 금액이 500,000원 이상인 고객의 이름과 총 구매 금액을 내림차순으로 정렬해",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT customer_id, SUM(total_amount) AS total_purchase FROM sample GROUP BY customer_id HAVING total_purchase >= 500000 ORDER BY total_purchase DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "배송 날짜가 지난 예약 배송을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE order_status = '예약 배송' AND updated_at < datetime('now')",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 상품을 목록에 추가해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, product_name, product_description, price, stock_quantity, category_id, brand, sku, order_id, customer_id, order_status, payment_method, payment_status, shipping_address, shipping_method, shipping_cost, discount_code, discount_amount, total_amount) VALUES (NULL, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'New Product', 'Description of the new product', 99.99, 100, 1, 'BrandName', 'SKU12345', NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0.00, NULL, 0.00, 99.99)",
+    "retry_count": 1
+  },
+  {
+    "query": "5만원 이상 결제한 주문의 주문 번호와 총 결제 금액을 내림차순으로 정렬하여 20개까지 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT order_id, total_amount FROM sample WHERE total_amount >= 50000 ORDER BY total_amount DESC LIMIT 20",
+    "retry_count": 1
+  }
+]

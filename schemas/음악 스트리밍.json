@@ -1,0 +1,23 @@
+{
+  "id": {"type": "INTEGER", "comment": "기본키"},
+  "created_at": {"type": "DATETIME", "comment": "생성일시"},
+  "updated_at": {"type": "DATETIME", "comment": "수정일시"},
+  "user_id": {"type": "INTEGER", "comment": "사용자 ID"},
+  "username": {"type": "VARCHAR(50)", "comment": "사용자 이름"},
+  "email": {"type": "VARCHAR(100)", "comment": "사용자 이메일"},
+  "password": {"type": "VARCHAR(255)", "comment": "암호화된 비밀번호"},
+  "playlist_id": {"type": "INTEGER", "comment": "재생목록 ID"},
+  "playlist_name": {"type": "VARCHAR(100)", "comment": "재생목록 이름"},
+  "song_id": {"type": "INTEGER", "comment": "노래 ID"},
+  "song_title": {"type": "VARCHAR(200)", "comment": "노래 제목"},
+  "artist_id": {"type": "INTEGER", "comment": "아티스트 ID"},
+  "artist_name": {"type": "VARCHAR(100)", "comment": "아티스트 이름"},
+  "album_id": {"type": "INTEGER", "comment": "앨범 ID"},
+  "album_title": {"type": "VARCHAR(200)", "comment": "앨범 제목"},
+  "genre": {"type": "VARCHAR(50)", "comment": "장르"},
+  "duration": {"type": "TIME", "comment": "노래 길이"},
+  "release_date": {"type": "DATE", "comment": "발매일"},
+  "play_count": {"type": "INTEGER", "comment": "재생 횟수"},
+  "favorite": {"type": "BOOLEAN", "comment": "즐겨찾기 여부"},
+  "rating": {"type": "FLOAT", "comment": "사용자 평점"}
+}

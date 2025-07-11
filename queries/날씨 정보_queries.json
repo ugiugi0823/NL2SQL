@@ -1,0 +1,380 @@
+{
+  "queries": [
+    {
+      "nl": "일출 시간이 '06:00' 이후인 지역의 기록을 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "기온이 0도 이하인 지역의 모든 기상 경보를 삭제해줘",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "기온이 30도 이상인 지역의 습도를 50%로 변경해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "제주도 지역의 날씨 상태가 '맑음'인 경우 풍속을 5m/s로 조정해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "최근 7일간 기온이 30도 이상인 지역의 데이터를 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "습도가 90% 이상인 지역의 기상 정보를 삭제해줘",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "강수량이 50mm 이상인 경우 해당 데이터를 리스트로 제공해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "일출 시간이 오전 6시 이후인 지역의 기온과 풍속을 보여줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "강원도 지역의 습도가 80% 이하인 경우 강수량을 10mm로 설정해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "서울의 기온이 20도 이상인 날씨 정보를 제공해줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "체감 온도가 25도 이하인 기상 정보를 찾아줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "체감 온도가 25도 이하인 지역의 목록을 조회해주세요",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "최근 30일 동안의 강수량이 50mm 이상인 지역의 데이터를 삭제해줘",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "기온이 30도 이상인 지역의 습도를 50%로 변경해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "강수량이 10mm 이상인 지역의 습도를 확인해줘",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2022년 1월 1일 이후 관측된 기상 경보가 있는 데이터를 제공해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "습도가 50% 이하인 지역의 기온과 풍속을 리스트로 확인해줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "최근 일주일 간의 평균 기온을 알려줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "관측 시간이 2023년 이후인 지역의 풍속을 5m/s로 업데이트해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "풍속이 5m/s 이상인 날씨 데이터를 찾아줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "최근 7일 동안의 기온이 30도 이상인 지역의 날씨 상태를 알려줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "최근 7일 동안의 강수량이 10mm 이상인 지역을 리스트로 보여줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "풍속이 10m/s 이상인 지역의 운량을 80%로 수정해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "부산 지역의 기압이 NULL인 경우 기압을 1013hPa로 업데이트해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "관측 시간이 12시 이후인 날씨 상태를 조회해주세요",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "최근 7일 동안 관측된 날씨 상태가 맑은 지역의 평균 기온을 알려줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "날씨 상태가 '비'인 경우 강수량을 10mm로 수정해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "서울 지역의 기온이 30도 이상인 날씨 정보를 제공해줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "서울 지역의 기온이 25도 이하이면서 습도가 80% 이상인 경우 날씨 상태를 '안개'로 변경해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "강수량이 50mm 이하인 지역의 모든 기록을 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "기압이 1000hPa 이하인 지역의 자외선 지수를 3으로 변경해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "가시거리가 5km 미만인 지역의 날씨 정보를 제공해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "습도가 80% 이상인 지역의 강수량과 풍속을 확인해줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "기온이 30도 이하이고 강수량이 없는 지역의 데이터를 확인해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "습도가 NULL인 지역의 기온을 20도로 설정해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "서울 지역의 기온이 30도 이상인 데이터 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "상세히 보여줘, 기온이 30도 이상인 지역의 강수량과 습도를 포함한 날씨 정보를 제공해줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "기온이 20도 미만이거나 강수량이 50mm 이상인 지역을 리스트로 보여줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "자외선 지수가 6 이상인 날씨 정보를 상세히 확인해줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "습도가 90% 이상인 지역의 날씨 정보를 확인해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "풍속이 10m/s 이상인 경우의 데이터는 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "부산 지역의 날씨 상태가 '비'인 경우 강수량을 10mm로 설정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "대구 지역의 운량이 50% 이상인 경우 자외선 지수를 8로 변경해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "날씨 상태가 '비'인 지역의 강수량을 20mm로 바꿔줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "습도가 80% 이상인 지역의 날씨 상태를 확인해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "일출 시간이 오전 6시 이후인 지역의 기압과 운량을 찾아줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "서울 지역의 기온이 30도 이상인 경우의 날씨 상태를 제공해줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "강수량이 10mm 이하인 지역의 기온과 풍향을 상세히 알려줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "관측 시간이 2023년 10월 1일 이후인 지역의 기압을 1010hPa로 업데이트해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "해가 진 이후의 지역별 습도와 강수량을 리스트로 확인해줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2022년 이후 생성된 날씨 정보를 제공해줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "기온이 30도 이하인 지역의 강수량과 자외선 지수를 상세히 보여줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "서울 지역의 기온을 30도로 설정해줘",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "서울 지역의 기온이 30도 이상인 경우 습도를 50%로 변경해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "일출 시간이 '06:00'인 지역의 자외선 지수를 5로 설정해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "습도가 70% 이하인 지역의 날씨 상태를 조회해주세요",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "최근 7일 동안 강수량이 10mm 이하인 지역의 습도를 확인해줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "습도가 90% 이하인 지역의 날씨 정보를 확인해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "관측 시간이 NULL인 날씨 정보는 모두 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "최근 7일 동안의 기온이 30도 이상인 지역의 리스트를 제공해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "기온이 15도 이하인 모든 지역의 풍속을 5m/s로 수정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "관측 시간이 NULL인 모든 지역의 자외선 지수를 3으로 설정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "일출 시간이 6시 이후인 지역의 기록을 찾아서 삭제해줘",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "습도가 70% 이상인 지역의 기온과 풍속을 리스트로 제공해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "일출 시간이 '06:00' 이후인 지역의 기온과 습도를 상세히 조회해주세요",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "체감 온도가 30도 이상인 지역의 날씨 상태를 모두 제거해줘",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "일출 시간이 6시 이후인 지역의 체감 온도를 리스트로 보여줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "습도 지수가 80% 이상인 지역의 날씨 정보를 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "풍속이 10m/s 이상인 지역의 기상 경보를 찾아줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "서울 지역의 기온이 30도 이상인 경우 체감 온도를 35도로 변경해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    }
+  ],
+  "retry_counts": {
+    "SELECT": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "INSERT": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "UPDATE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "DELETE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    }
+  }
+}

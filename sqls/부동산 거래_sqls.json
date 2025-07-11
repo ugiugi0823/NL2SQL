@@ -1,0 +1,493 @@
+[
+  {
+    "query": "서울에 위치한 아파트 매물 중 가격이 10억 이상인 매물의 주소와 가격을 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT property_address, listing_price FROM sample WHERE property_address LIKE '%서울%' AND property_type = '아파트' AND listing_price >= 1000000000",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 정보를 데이터베이스에 추가해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (agent_id, agent_name, agent_contact) VALUES (?, ?, ?)",
+    "retry_count": 5,
+    "error_msg": "Incorrect number of bindings supplied. The current statement uses 3, and there are 0 supplied."
+  },
+  {
+    "query": "평균 거래 금액이 5억 넘는 매물의 중개인을 중개 횟수 순으로 정렬하여 3명만 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT agent_name FROM sample WHERE listing_price > 500000000 GROUP BY agent_id HAVING COUNT(*) > 0 ORDER BY COUNT(*) DESC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "김철수 중개인의 프로필을 부동산 시스템에 추가해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (agent_id, agent_name, agent_contact) VALUES (NULL, '김철수', NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "거래가 완료된 지 5년 이상 지난 매물 정보를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '완료' AND transaction_date <= datetime('now', '-5 years')",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 ID가 123인 부동산의 가격을 500,000,000원으로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET listing_price=500000000 WHERE id=123",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 내역의 날짜를 2023년 10월 15일로 변경해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET transaction_date='2023-10-15'",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 김철수의 연락처를 010-1234-5678로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET agent_contact='010-1234-5678' WHERE agent_name='김철수'",
+    "retry_count": 1
+  },
+  {
+    "query": "계약 기간이 만료된 임대 계약을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '임대' AND transaction_date < datetime('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "활동이 중지된 중개인의 정보를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE agent_id IN (SELECT agent_id FROM sample WHERE listing_status = 'inactive')",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 내역 ID가 456인 항목의 거래 상태를 완료로 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET contract_status='완료' WHERE id=456",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 리스트에서 30억 이상인 아파트의 주소를 가격 내림차순으로 10개만 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT property_address FROM sample WHERE property_type = '아파트' AND listing_price >= 3000000000 ORDER BY listing_price DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 1년 내에 거래된 내역이 없는 계약 기록을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '계약 완료' AND transaction_date < datetime('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 1년간 거래가 없는 매물을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE transaction_date < datetime('now', '-1 year')",
+    "retry_count": 1
+  },
+  {
+    "query": "거래가 완료된 5년 이상 된 매물을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '완료' AND year_built <= strftime('%Y', 'now', '-5 years')",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 ID가 123인 아파트의 가격을 10억으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET listing_price=1000000000 WHERE id=123",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 부동산 매물을 시스템에 등록해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '123 Main St', 'Apartment', 350000.00, 101, 'John Doe', '555-1234', '2023-10-01 10:00:00', 'Pending', 201, 301, 85.00, 3, 2, 1, 2010, 250.00, 'Spacious apartment in downtown.', 'Available')",
+    "retry_count": 1
+  },
+  {
+    "query": "서울에 위치한 아파트 매물의 가격을 내림차순으로 10개 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT listing_price FROM sample WHERE property_address LIKE '%서울%' AND property_type = '아파트' ORDER BY listing_price DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "매매 유형이 '전세'인 매물 중 면적이 85제곱미터 이상인 매물의 주소를 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT property_address FROM sample WHERE property_type = '전세' AND property_size >= 85.00",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 이름과 그가 거래한 매물의 평균 가격을 중개인 이름 기준으로 그룹화하여 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT agent_name, AVG(listing_price) FROM sample GROUP BY agent_name",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 거래 내역을 데이터베이스에 입력해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '123 Main St', 'Apartment', 350000.00, 101, 'John Doe', '555-1234', '2023-10-01 10:00:00', 'Completed', 201, 301, 85.00, 3, 2, 1, 2005, 250.00, 'Spacious apartment in the city center', 'Sold')",
+    "retry_count": 1
+  },
+  {
+    "query": "전세가 아닌 매물 중에서 가장 높은 가격으로 거래된 매물의 주소와 가격을 알려줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT property_address, listing_price FROM sample WHERE property_type != '전세' ORDER BY listing_price DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 홍길동의 연락처를 010-1234-5678로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET agent_contact='010-1234-5678' WHERE agent_name='홍길동'",
+    "retry_count": 1
+  },
+  {
+    "query": "각 지역별로 거래된 총 매물 수를 계산하고, 매물 수가 50개 이상인 지역만 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT property_address, COUNT(*) AS total_properties FROM sample GROUP BY property_address HAVING total_properties >= 50",
+    "retry_count": 1
+  },
+  {
+    "query": "계약이 만료된 매물을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '만료됨'",
+    "retry_count": 1
+  },
+  {
+    "query": "계약번호 456의 거래 상태를 '완료'로 변경해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET contract_status='완료' WHERE id=456",
+    "retry_count": 1
+  },
+  {
+    "query": "올해 체결된 계약 건수와 평균 계약 금액을 지역별로 그룹화하여 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT property_address, COUNT(*) AS 계약_건수, AVG(listing_price) AS 평균_계약_금액 FROM sample WHERE strftime('%Y', transaction_date) = strftime('%Y', 'now') AND contract_status = '체결' GROUP BY property_address",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 1년간 거래가 없는 매물을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE transaction_date < datetime('now', '-1 year') OR transaction_date IS NULL",
+    "retry_count": 1
+  },
+  {
+    "query": "최종 거래 금액이 1억 이하인 거래 내역을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE listing_price <= 100000000",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 설명을 '남향의 밝은 아파트'로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET property_description='남향의 밝은 아파트'",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 계약이 체결된 날짜를 기준으로 최근 5개의 계약 정보를 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT * FROM sample WHERE contract_status = '신규' ORDER BY transaction_date DESC LIMIT 5",
+    "retry_count": 1
+  },
+  {
+    "query": "등록 후 6개월 이내에 판매되지 않은 매물 정보를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE listing_status != '판매됨' AND created_at <= datetime('now', '-6 months')",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 ID 345의 가격을 3억 원으로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET listing_price=300000000 WHERE id=345",
+    "retry_count": 1
+  },
+  {
+    "query": "서울 지역에서 거래된 아파트의 평균 거래 가격을 구해줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT AVG(listing_price) FROM sample WHERE property_address LIKE '%서울%' AND property_type = '아파트' AND contract_status = '거래 완료'",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 내역 456의 상태를 '완료'로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET contract_status='완료' WHERE id=456",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 리뷰 점수가 3.0 미만인 중개인 정보를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE agent_id IN (SELECT agent_id FROM sample GROUP BY agent_id HAVING AVG(listing_price) < 3.0)",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 김민수의 전화번호를 010-1234-5678로 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET agent_contact='010-1234-5678' WHERE agent_name='김민수'",
+    "retry_count": 1
+  },
+  {
+    "query": "계약이 만료된지 3년이 지난 거래 내역을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE contract_status = '만료' AND transaction_date <= datetime('now', '-3 years')",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인이 5명 이상인 거래 내역을 중개인 수 기준으로 내림차순 정렬하여 상위 3개만 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT agent_id, COUNT(*) AS agent_count FROM sample GROUP BY agent_id HAVING agent_count >= 5 ORDER BY agent_count DESC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "이 매물의 가격을 5억 원으로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET listing_price=500000000 WHERE id=1",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 리뷰 점수가 1.0 이하인 중개인 기록을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE agent_id IN (SELECT agent_id FROM sample GROUP BY agent_id HAVING AVG(listing_price) <= 1.0)",
+    "retry_count": 1
+  },
+  {
+    "query": "가격이 10억 이상인 매물 중 거래가 성사되지 않은 것을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE listing_price >= 1000000000 AND contract_status != '성사됨'",
+    "retry_count": 1
+  },
+  {
+    "query": "2022년에 거래된 매물 중 중개인이 '김철수'인 매물의 평균 거래 가격을 알려줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT AVG(listing_price) FROM sample WHERE strftime('%Y', transaction_date) = '2022' AND agent_name = '김철수'",
+    "retry_count": 1
+  },
+  {
+    "query": "매물 ID 101의 상태를 '판매 중'으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET listing_status='판매 중' WHERE id=101",
+    "retry_count": 1
+  },
+  {
+    "query": "서울 강남구에 위치한 아파트 매물을 데이터베이스에 새로 등록해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '서울 강남구', '아파트', 1000000000.00, 1, '홍길동', '010-1234-5678', NULL, '등록', NULL, NULL, 85.00, 3, 2, 1, 2020, 50000.00, '서울 강남구에 위치한 최신 아파트입니다.', '판매중')",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 거래된 주택 정보를 데이터베이스에 업데이트해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '123 Main St', '주택', 500000.00, 101, 'John Doe', '123-456-7890', '2023-10-01 10:00:00', '완료', 201, 301, 120.50, 3, 2, 1, 2005, 150.00, '아름다운 주택', '거래 완료')",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 이름을 김민수에서 이지훈으로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET agent_name='이지훈' WHERE agent_name='김민수'",
+    "retry_count": 1
+  },
+  {
+    "query": "서울 강남구에 위치한 주소의 우편번호를 12345로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET property_address = REPLACE(property_address, '서울 강남구', '서울 강남구 12345') WHERE property_address LIKE '서울 강남구%'",
+    "retry_count": 1
+  },
+  {
+    "query": "계약서의 만료일을 2024년 12월 31일로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET contract_status='만료', transaction_date='2024-12-31' WHERE contract_status='활성'",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 매물 정보를 데이터베이스에 등록해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (NULL, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '123 Main St', 'Apartment', 350000.00, 1, 'John Doe', '123-456-7890', NULL, 'Available', NULL, 2, 85.00, 3, 2, 1, 2005, 150.00, 'Spacious apartment in the city center', 'Active')",
+    "retry_count": 4
+  },
+  {
+    "query": "최근 1년 내에 체결된 계약의 평균 가격을 구하고, 이 평균보다 높은 가격의 계약 정보를 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT * FROM sample WHERE contract_status = '체결' AND transaction_date >= datetime('now', '-1 year') AND listing_price > (SELECT AVG(listing_price) FROM sample WHERE contract_status = '체결' AND transaction_date >= datetime('now', '-1 year'))",
+    "retry_count": 1
+  },
+  {
+    "query": "활동이 중지된 중개인 계정을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE agent_id IN (SELECT agent_id FROM sample WHERE listing_status = 'inactive')",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 중개인 정보를 시스템에 추가해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (agent_id, agent_name, agent_contact) VALUES (1, '홍길동', '010-1234-5678')",
+    "retry_count": 1
+  },
+  {
+    "query": "서울 지역에서 가장 최근에 거래된 10개 아파트의 주소와 거래 금액을 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT property_address, listing_price FROM sample WHERE property_type = '아파트' AND property_address LIKE '%서울%' ORDER BY transaction_date DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "부동산 ID 789의 주차 공간 정보를 '유료 주차'로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET parking_spaces='유료 주차' WHERE id=789",
+    "retry_count": 1
+  },
+  {
+    "query": "3개월 이상 연락이 없는 고객 정보를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE updated_at <= datetime('now', '-3 months')",
+    "retry_count": 1
+  },
+  {
+    "query": "김중개인이 중개한 거래 내역 중에서 가장 최근 거래의 상세 정보를 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT * FROM sample WHERE agent_name = '김중개인' ORDER BY transaction_date DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "부동산 중개인별로 올해 완료된 거래 건수를 집계하여 거래 건수가 5건 이상인 중개인의 이름과 거래 건수를 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT agent_name, COUNT(*) AS transaction_count FROM sample WHERE contract_status = '완료' AND strftime('%Y', transaction_date) = strftime('%Y', 'now') GROUP BY agent_name HAVING transaction_count >= 5",
+    "retry_count": 1
+  },
+  {
+    "query": "등록 날짜가 3년 이상 지난 비활성 매물 정보를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE listing_status = '비활성' AND created_at <= datetime('now', '-3 years')",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 내역 ID 101의 구매자를 홍길동으로 변경해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET buyer_id=(SELECT id FROM sample WHERE agent_name='홍길동') WHERE id=101",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 중개인을 시스템에 추가해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (agent_id, agent_name, agent_contact) VALUES (NULL, 'New Agent Name', '010-1234-5678')",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 내역이 없는 중개인을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE agent_id NOT IN (SELECT DISTINCT agent_id FROM sample WHERE transaction_date IS NOT NULL)",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 금액이 10억 이상인 매물의 매물 ID와 거래 날짜를 거래 금액 내림차순으로 정렬해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT id, transaction_date FROM sample WHERE listing_price >= 1000000000 ORDER BY listing_price DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "가격이 지나치게 높은 매물을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE listing_price > 1000000000",
+    "retry_count": 1
+  },
+  {
+    "query": "계약 번호 789의 계약 종료일을 2024-12-31로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET transaction_date='2024-12-31' WHERE id=789",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 매물을 부동산 데이터베이스에 등록해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, property_address, property_type, listing_price, agent_id, agent_name, agent_contact, transaction_date, contract_status, buyer_id, seller_id, property_size, number_of_rooms, number_of_bathrooms, parking_spaces, year_built, hoa_fees, property_description, listing_status) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '123 Main St', 'Apartment', 350000.00, 101, 'John Doe', '555-1234', '2023-10-01 10:00:00', 'Pending', 201, 301, 85.00, 3, 2, 1, 2005, 250.00, 'Spacious apartment in downtown', 'Available')",
+    "retry_count": 1
+  },
+  {
+    "query": "명확한 주소 정보가 없는 매물 목록을 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE property_address IS NULL OR property_address = ''",
+    "retry_count": 1
+  },
+  {
+    "query": "2022년에 거래된 부동산의 거래 금액을 합산하여 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT SUM(listing_price) FROM sample WHERE strftime('%Y', transaction_date) = '2022'",
+    "retry_count": 1
+  },
+  {
+    "query": "중개인 이름과 그 중개인이 거래한 매물 수를 계산하고, 매물 수가 가장 많은 중개인 상위 10명을 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT agent_name, COUNT(*) AS transaction_count FROM sample GROUP BY agent_name ORDER BY transaction_count DESC LIMIT 10",
+    "retry_count": 1
+  },
+  {
+    "query": "거래 ID 789의 계약 날짜를 2023년 11월 15일로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET transaction_date='2023-11-15' WHERE id=789",
+    "retry_count": 1
+  }
+]

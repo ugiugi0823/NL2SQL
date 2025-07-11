@@ -1,0 +1,23 @@
+{
+  "id": {"type": "INTEGER", "comment": "기본키"},
+  "created_at": {"type": "DATETIME", "comment": "생성일시"},
+  "updated_at": {"type": "DATETIME", "comment": "수정일시"},
+  "book_id": {"type": "INTEGER", "comment": "도서 ID"},
+  "member_id": {"type": "INTEGER", "comment": "회원 ID"},
+  "loan_date": {"type": "DATETIME", "comment": "대출일"},
+  "return_date": {"type": "DATETIME", "comment": "반납일"},
+  "due_date": {"type": "DATETIME", "comment": "반납 예정일"},
+  "book_title": {"type": "VARCHAR(255)", "comment": "도서 제목"},
+  "author": {"type": "VARCHAR(255)", "comment": "저자"},
+  "isbn": {"type": "VARCHAR(13)", "comment": "ISBN 번호"},
+  "member_name": {"type": "VARCHAR(100)", "comment": "회원 이름"},
+  "member_email": {"type": "VARCHAR(100)", "comment": "회원 이메일"},
+  "member_phone": {"type": "VARCHAR(15)", "comment": "회원 전화번호"},
+  "book_genre": {"type": "VARCHAR(50)", "comment": "도서 장르"},
+  "book_publisher": {"type": "VARCHAR(100)", "comment": "출판사"},
+  "book_language": {"type": "VARCHAR(50)", "comment": "도서 언어"},
+  "loan_status": {"type": "VARCHAR(20)", "comment": "대출 상태"},
+  "fine_amount": {"type": "DECIMAL(5,2)", "comment": "연체료"},
+  "staff_id": {"type": "INTEGER", "comment": "처리 직원 ID"},
+  "notes": {"type": "TEXT", "comment": "비고"}
+}

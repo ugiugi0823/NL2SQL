@@ -1,0 +1,22 @@
+{
+  "id": {"type": "INTEGER", "comment": "기본키"},
+  "created_at": {"type": "DATETIME", "comment": "생성일시"},
+  "updated_at": {"type": "DATETIME", "comment": "수정일시"},
+  "game_date": {"type": "DATE", "comment": "경기 날짜"},
+  "team_home": {"type": "VARCHAR(100)", "comment": "홈팀 이름"},
+  "team_away": {"type": "VARCHAR(100)", "comment": "원정팀 이름"},
+  "score_home": {"type": "INTEGER", "comment": "홈팀 점수"},
+  "score_away": {"type": "INTEGER", "comment": "원정팀 점수"},
+  "location": {"type": "VARCHAR(100)", "comment": "경기 장소"},
+  "attendance": {"type": "INTEGER", "comment": "관중 수"},
+  "referee": {"type": "VARCHAR(100)", "comment": "주심 이름"},
+  "duration": {"type": "TIME", "comment": "경기 시간"},
+  "weather": {"type": "VARCHAR(50)", "comment": "날씨 상태"},
+  "mvp_player": {"type": "VARCHAR(100)", "comment": "최우수 선수"},
+  "team_home_coach": {"type": "VARCHAR(100)", "comment": "홈팀 감독"},
+  "team_away_coach": {"type": "VARCHAR(100)", "comment": "원정팀 감독"},
+  "league": {"type": "VARCHAR(100)", "comment": "리그 이름"},
+  "season": {"type": "VARCHAR(50)", "comment": "시즌 정보"},
+  "broadcast_channel": {"type": "VARCHAR(100)", "comment": "방송 채널"},
+  "ticket_price": {"type": "DECIMAL(10, 2)", "comment": "티켓 가격"}
+}

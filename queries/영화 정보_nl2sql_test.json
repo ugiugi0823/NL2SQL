@@ -1,0 +1,408 @@
+{
+  "domain": {
+    "name": "영화 정보",
+    "description": "영화 제목, 감독, 배우, 장르, 개봉일 등 영화 관련 정보를 관리"
+  },
+  "results": [
+    {
+      "nl": "개봉일이 2020년 이후인 영화의 감독을 업데이트 해줘.",
+      "sql": "UPDATE movies SET director = '새로운 감독' WHERE release_date > '2020-01-01'",
+      "level": "Basic",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "영화 제목에 '전쟁'이 포함된 영화 중 개봉일이 2015년부터 2020년 사이인 영화를 찾아서 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE title LIKE '%전쟁%' AND release_date BETWEEN '2015-01-01' AND '2020-12-31';",
+      "level": "Intermediate",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2020년 이후인 영화들을 장르별로 집계하고, 3개 이상인 장르를 보여줘.",
+      "sql": "SELECT genre, COUNT(*) as movie_count FROM movies WHERE release_date > '2020-01-01' GROUP BY genre HAVING COUNT(*) > 3",
+      "level": "Expert",
+      "dml": "SELECT",
+      "retries": 2
+    },
+    {
+      "nl": "감독이 '스티븐 스필버그'인 영화의 평점을 9.0으로 업데이트 해줘",
+      "sql": "UPDATE movies SET rating = 9.0 WHERE director = '스티븐 스필버그' AND id IN (SELECT id FROM movies WHERE release_date < '2000-01-01')",
+      "level": "Expert",
+      "dml": "UPDATE",
+      "retries": 2
+    },
+    {
+      "nl": "장르가 코미디거나 언어가 한국어인 영화 중에서 수상 내역이 NULL인 영화의 박스 오피스 수익을 업데이트해줘.",
+      "sql": "UPDATE movies SET box_office = 1000000 WHERE (genre = '코미디' OR language = '한국어') AND awards IS NULL;",
+      "level": "Advanced",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "평점이 5.0 이하인 영화를 삭제해줘",
+      "sql": "DELETE FROM movies WHERE rating <= 5.0",
+      "level": "Basic",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "최근 5년 이내에 개봉된 영화 중에서 감독이 'Christopher Nolan'인 영화의 모든 정보를 추가해줘.",
+      "sql": "INSERT INTO movies (title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating, created_at, updated_at) SELECT 'Inception', 'Christopher Nolan', 'Leonardo DiCaprio, Joseph Gordon-Levitt', 'Science Fiction', '2010-07-16', 148, 'English', 'USA', 8.8, 160000000, 829895144, 'Warner Bros.', 'Warner Bros.', 'A thief who steals corporate secrets through the use of dream-sharing technology.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Academy Award for Best Cinematography', 'PG-13', NOW(), NOW() WHERE release_date IN (SELECT release_date FROM movies WHERE director = 'Christopher Nolan' AND release_date >= DATE_SUB(NOW(), INTERVAL 5 YEAR))",
+      "level": "Expert",
+      "dml": "INSERT",
+      "retries": 3
+    },
+    {
+      "nl": "개봉일이 2020년 이전이고 평점이 7 이상인 영화를 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE release_date < '2020-01-01' AND rating >= 7;",
+      "level": "Advanced",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "2020년 이후에 개봉한 영화의 평점을 8점 이상으로 업데이트해줘.",
+      "sql": "UPDATE movies SET rating = 8 WHERE release_date > '2020-01-01' AND rating < 8;",
+      "level": "Intermediate",
+      "dml": "UPDATE",
+      "retries": 2
+    },
+    {
+      "nl": "2021년 이후에 개봉한 모든 영화의 제목과 개봉일을 리스트로 보여줘.",
+      "sql": "SELECT title, release_date FROM movies WHERE release_date > '2021-01-01' ORDER BY release_date;",
+      "level": "Intermediate",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 액션인 영화 리스트로 제공해줘.",
+      "sql": "SELECT * FROM movies WHERE genre = '액션'",
+      "level": "Basic",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "감독이 '스티븐 스필버그'인 영화들의 개봉일을 1년 뒤로 수정해줘.",
+      "sql": "UPDATE movies SET release_date = DATE_ADD(release_date, INTERVAL 1 YEAR) WHERE director = '스티븐 스필버그';",
+      "level": "Intermediate",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2023년 이후인 영화 정보를 제공해줘.",
+      "sql": "INSERT INTO movies (release_date) VALUES ('2023-01-01')",
+      "level": "Basic",
+      "dml": "INSERT",
+      "retries": 2
+    },
+    {
+      "nl": "평점이 7 이상이고 제작비가 50000000 이상인 영화의 주연 배우와 개봉일을 수정해줘.",
+      "sql": "UPDATE movies SET main_actors = '새로운 배우', release_date = '2023-01-01' WHERE rating >= 7 AND budget >= 50000000;",
+      "level": "Advanced",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 '액션'인 영화의 평균 평점을 확인해줘.",
+      "sql": "INSERT INTO movies (rating) SELECT AVG(rating) FROM movies WHERE genre = '액션';",
+      "level": "Intermediate",
+      "dml": "INSERT",
+      "retries": 1
+    },
+    {
+      "nl": "2020년 이후에 개봉된 영화 중에서 평점이 8점 이상인 영화들을 삭제해주세요.",
+      "sql": "DELETE FROM movies WHERE release_date > '2020-01-01' AND rating >= 8;",
+      "level": "Intermediate",
+      "dml": "DELETE",
+      "retries": 2
+    },
+    {
+      "nl": "장르가 액션인 영화의 평점을 7.5로 변경해줘.",
+      "sql": "UPDATE movies SET rating = 7.5 WHERE genre = '액션'",
+      "level": "Basic",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 '스릴러'가 아니고, 주연 배우가 '홍길동'이 아닌 영화를 찾아서 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE genre != '스릴러' AND main_actors NOT LIKE '%홍길동%';",
+      "level": "Advanced",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "평점이 7 이상이고 장르가 액션이 아닌 영화 목록을 알려줘.",
+      "sql": "SELECT * FROM movies WHERE rating >= 7 AND genre != '액션'",
+      "level": "Advanced",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 '코미디'인 영화들 중에서 주연 배우가 '김철수'인 영화들을 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE genre = '코미디' AND main_actors IN (SELECT main_actors FROM movies WHERE main_actors = '김철수');",
+      "level": "Expert",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "연령 등급이 NULL이 아닌 영화 중에서 감독이 '홍길동'이 아닌 영화 리스트를 보여줘.",
+      "sql": "SELECT * FROM movies WHERE age_rating IS NOT NULL AND director != '홍길동'",
+      "level": "Advanced",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "유명한 감독이 만든 작품 중에서 평점이 8 이상인 영화를 리스트로 추가해줘.",
+      "sql": "INSERT INTO movies (title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating, created_at, updated_at) SELECT 'Famous Movie', director, main_actors, genre, '2022-05-01', duration, language, country, 8.5, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating, NOW(), NOW() FROM movies WHERE director IN (SELECT director FROM movies GROUP BY director HAVING COUNT(*) > 3) AND rating > 8;",
+      "level": "Expert",
+      "dml": "INSERT",
+      "retries": 1
+    },
+    {
+      "nl": "2015년부터 2020년 사이에 개봉한 영화들의 평균 평점을 알려줘.",
+      "sql": "SELECT AVG(rating) FROM movies WHERE release_date BETWEEN '2015-01-01' AND '2020-12-31';",
+      "level": "Intermediate",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2020년 이후이고 장르가 스릴러가 아닌 영화의 제목과 감독을 업데이트해줘.",
+      "sql": "UPDATE movies SET title = '새로운 제목', director = '새로운 감독' WHERE release_date > '2020-01-01' AND genre != '스릴러';",
+      "level": "Advanced",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2020년 이전인 영화를 삭제해줘",
+      "sql": "DELETE FROM movies WHERE release_date < '2020-01-01'",
+      "level": "Basic",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "특정 감독이 연출한 영화 중에서 수익이 1000만 달러 미만인 영화들을 찾아서 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE director IN (SELECT director FROM movies GROUP BY director HAVING SUM(box_office) < 10000000);",
+      "level": "Expert",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "2020년에 개봉한 영화의 제목과 감독을 리스트로 제공해줘.",
+      "sql": "INSERT INTO movies (title, director, release_date) SELECT title, director, release_date FROM movies WHERE release_date BETWEEN '2020-01-01' AND '2020-12-31';",
+      "level": "Intermediate",
+      "dml": "INSERT",
+      "retries": 1
+    },
+    {
+      "nl": "평점이 7 이상이고 장르가 '스릴러'가 아닌 영화 정보를 추가해줘.",
+      "sql": "INSERT INTO movies (title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES ('영화 제목', '감독 이름', '주연 배우들', '장르', '2023-01-01', 120, '한국어', '한국', 8, 20000000, 50000000, '제작사', '배급사', '영화 줄거리', '포스터 이미지 URL', '트레일러 영상 URL', '수상 내역', '연령 등급') WHERE rating >= 7 AND genre != '스릴러' LIMIT 1;",
+      "level": "Advanced",
+      "dml": "INSERT",
+      "retries": 1
+    },
+    {
+      "nl": "평점이 7.5 이상인 영화 리스트로 확인해줘.",
+      "sql": "INSERT INTO movies (rating) VALUES (7.5)",
+      "level": "Basic",
+      "dml": "INSERT",
+      "retries": 2
+    },
+    {
+      "nl": "가장 높은 평점을 받은 영화들의 제목과 감독을 찾아줘.",
+      "sql": "SELECT title, director FROM movies WHERE rating IN (SELECT MAX(rating) FROM movies)",
+      "level": "Expert",
+      "dml": "SELECT",
+      "retries": 2
+    },
+    {
+      "nl": "3회 이상 수상을 한 감독의 영화를 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE director IN (SELECT director FROM movies GROUP BY director HAVING COUNT(awards) > 3)",
+      "level": "Expert",
+      "dml": "DELETE",
+      "retries": 2
+    },
+    {
+      "nl": "제작비가 1억 이하인 영화의 주연 배우 정보를 수정해줘.",
+      "sql": "UPDATE movies SET main_actors = '변경된 주연 배우' WHERE budget <= 100000000",
+      "level": "Basic",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 '드라마'인 영화들을 제거해줘",
+      "sql": "DELETE FROM movies WHERE genre = '드라마'",
+      "level": "Basic",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2020년 이후인 영화를 보여줘.",
+      "sql": "SELECT * FROM movies WHERE release_date > '2020-01-01'",
+      "level": "Basic",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "2020년 이후 개봉한 영화 중 평점이 8 이상인 영화의 개봉일을 현재 날짜로 업데이트해줘.",
+      "sql": "UPDATE movies SET release_date = NOW() WHERE id IN (SELECT id FROM movies WHERE release_date > '2020-01-01' AND rating >= 8)",
+      "level": "Expert",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "모든 감독에 대해 세 편 이상의 영화를 제작한 감독의 이름과 영화 수를 보여줘.",
+      "sql": "SELECT director, COUNT(*) AS movie_count FROM movies GROUP BY director HAVING COUNT(*) > 3;",
+      "level": "Expert",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "평점이 7.5 이상인 영화들을 확인해줘.",
+      "sql": "SELECT * FROM movies WHERE rating >= 7.5",
+      "level": "Basic",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 NULL이 아니면서 제작비가 1000만 이하인 영화를 찾아서 추가해줘.",
+      "sql": "INSERT INTO movies (title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES ('영화 제목', '감독 이름', '주연 배우들', '장르', '2023-01-01', 90, '영어', '미국', 9, 8000000, 30000000, '제작사', '배급사', '영화 줄거리', '포스터 이미지 URL', '트레일러 영상 URL', '수상 내역', '연령 등급') WHERE release_date IS NOT NULL AND budget <= 10000000 LIMIT 1;",
+      "level": "Advanced",
+      "dml": "INSERT",
+      "retries": 1
+    },
+    {
+      "nl": "모든 감독의 영화 개수가 5편 이상인 감독들의 정보를 업데이트해주세요.",
+      "sql": "UPDATE movies SET updated_at = NOW() WHERE director IN (SELECT director FROM movies GROUP BY director HAVING COUNT(*) > 5)",
+      "level": "Expert",
+      "dml": "UPDATE",
+      "retries": 1
+    },
+    {
+      "nl": "언어가 NULL이거나 연령 등급이 15세 미만인 영화를 리스트로 제공해줘.",
+      "sql": "DELETE FROM movies WHERE language IS NULL OR age_rating < 15;",
+      "level": "Advanced",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "장르가 '액션'인 영화들의 수를 확인해줘.",
+      "sql": "SELECT COUNT(*) FROM movies WHERE genre = '액션';",
+      "level": "Intermediate",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "2020년 이후 개봉한 영화 중 평점이 5점 이하인 영화를 삭제해줘.",
+      "sql": "DELETE FROM movies WHERE release_date > '2020-01-01' AND rating <= 5;",
+      "level": "Intermediate",
+      "dml": "DELETE",
+      "retries": 1
+    },
+    {
+      "nl": "개봉일이 2020년 이후이고, 제작비가 5000000 이상인 영화 정보를 제공해줘.",
+      "sql": "SELECT * FROM movies WHERE release_date > '2020-01-01' AND budget >= 5000000",
+      "level": "Advanced",
+      "dml": "SELECT",
+      "retries": 1
+    },
+    {
+      "nl": "2020년 이후 개봉한 영화들의 평균 평점을 업데이트해줘.",
+      "sql": "UPDATE movies SET rating = (SELECT AVG(rating) FROM movies WHERE release_date > '2020-01-01') WHERE release_date > '2020-01-01';",
+      "level": "Intermediate",
+      "dml": "UPDATE",
+      "retries": 1
+    }
+  ],
+  "retry_counts": {
+    "SELECT": {
+      "Basic": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Intermediate": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Advanced": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Expert": {
+        "total_retries": 2,
+        "total_attempts": 2
+      }
+    },
+    "INSERT": {
+      "Basic": {
+        "total_retries": 2,
+        "total_attempts": 2
+      },
+      "Intermediate": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Advanced": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Expert": {
+        "total_retries": 3,
+        "total_attempts": 3
+      }
+    },
+    "UPDATE": {
+      "Basic": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Intermediate": {
+        "total_retries": 2,
+        "total_attempts": 2
+      },
+      "Advanced": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Expert": {
+        "total_retries": 2,
+        "total_attempts": 2
+      }
+    },
+    "DELETE": {
+      "Basic": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Intermediate": {
+        "total_retries": 2,
+        "total_attempts": 2
+      },
+      "Advanced": {
+        "total_retries": 1,
+        "total_attempts": 1
+      },
+      "Expert": {
+        "total_retries": 2,
+        "total_attempts": 2
+      }
+    }
+  },
+  "statistics": {
+    "total_pairs": 44,
+    "type_counts": {
+      "UPDATE": 12,
+      "DELETE": 12,
+      "SELECT": 12,
+      "INSERT": 8
+    },
+    "level_counts": {
+      "Basic": 11,
+      "Intermediate": 11,
+      "Expert": 11,
+      "Advanced": 11
+    },
+    "total_retries": 24,
+    "total_attempts": 24,
+    "avg_retries_per_type_level": 1.5
+  }
+}

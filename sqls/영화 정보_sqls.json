@@ -1,0 +1,495 @@
+[
+  {
+    "query": "주연 배우가 바뀐 영화의 배우 명단을 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET main_actors='새로운 배우 명단' WHERE id=영화의_id",
+    "retry_count": 5,
+    "error_msg": "no such column: 영화의_id"
+  },
+  {
+    "query": "장르가 액션인 영화들의 감독을 마이클 베이로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET director='마이클 베이' WHERE genre='액션'",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 '홍길동'인 영화를 목록에서 제거해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE director = '홍길동'",
+    "retry_count": 1
+  },
+  {
+    "query": "러닝타임이 90분 미만인 영화를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE duration < 90",
+    "retry_count": 1
+  },
+  {
+    "query": "어벤져스 영화의 감독을 루소 형제로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET director='루소 형제' WHERE title='어벤져스'",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 잘못 입력된 영화를 올바른 장르로 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='올바른 장르' WHERE id=잘못된_장르_영화_id",
+    "retry_count": 5,
+    "error_msg": "no such column: 잘못된_장르_영화_id"
+  },
+  {
+    "query": "감독이 '봉준호'인 영화의 제목과 개봉일을 출력해줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT title, release_date FROM sample WHERE director = '봉준호'",
+    "retry_count": 1
+  },
+  {
+    "query": "2015년부터 2022년 사이에 개봉한 영화의 장르별 개수를 계산해줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT genre, COUNT(*) FROM sample WHERE release_date BETWEEN '2015-01-01' AND '2022-12-31' GROUP BY genre",
+    "retry_count": 1
+  },
+  {
+    "query": "2015년부터 2020년 사이에 개봉한 로맨스 영화의 제목과 감독을 개봉일 순으로 정렬해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT title, director FROM sample WHERE genre = '로맨스' AND release_date BETWEEN '2015-01-01' AND '2020-12-31' ORDER BY release_date",
+    "retry_count": 1
+  },
+  {
+    "query": "2020년 이전에 개봉한 영화를 모두 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE release_date < '2020-01-01'",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 공포인 영화를 모두 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE genre = '공포'",
+    "retry_count": 1
+  },
+  {
+    "query": "배우가 '김철수'인 영화는 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE main_actors LIKE '%김철수%'",
+    "retry_count": 1
+  },
+  {
+    "query": "톰 행크스가 출연한 영화의 제목과 감독을 알려줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT title, director FROM sample WHERE main_actors LIKE '%톰 행크스%'",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 영화 '타이타닉'의 장르를 로맨스로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='로맨스' WHERE title='타이타닉'",
+    "retry_count": 1
+  },
+  {
+    "query": "배우 '김철수'가 출연한 영화를 삭제해 줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE main_actors LIKE '%김철수%'",
+    "retry_count": 1
+  },
+  {
+    "query": "타이타닉 영화의 주연 배우를 레오나르도 디카프리오와 케이트 윈슬렛으로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET main_actors='레오나르도 디카프리오, 케이트 윈슬렛' WHERE title='타이타닉'",
+    "retry_count": 1
+  },
+  {
+    "query": "사용자 평점이 3점 이하인 영화를 모두 삭제해 줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE rating <= 3.0",
+    "retry_count": 1
+  },
+  {
+    "query": "2015년부터 2020년까지 개봉한 영화의 장르별 평균 평점을 계산해줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT genre, AVG(rating) FROM sample WHERE release_date BETWEEN '2015-01-01' AND '2020-12-31' GROUP BY genre",
+    "retry_count": 1
+  },
+  {
+    "query": "로맨스 장르의 영화를 개봉일 기준으로 최신 3개만 가져와줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT * FROM sample WHERE genre = '로맨스' ORDER BY release_date DESC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 '로맨스'인 영화를 모두 삭제해 줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE genre = '로맨스'",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 배우 정보를 영화 데이터베이스에 삽입해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'Sample Movie', 'Sample Director', 'New Actor', 'Drama', '2023-10-10', 120, 'English', 'USA', 8.5, 10000000, 50000000, 'Sample Production', 'Sample Distributor', 'This is a sample synopsis.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Sample Award', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "데이터베이스에 최신 개봉 영화 정보를 등록해 주세요",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', '최신 영화 제목', '감독 이름', '주연 배우1, 주연 배우2', '드라마', '2023-10-05', 120, '한국어', '한국', 8.5, 10000000000, 50000000000, '제작사 이름', '배급사 이름', '영화 줄거리', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', '수상 내역', '15세 이상 관람가')",
+    "retry_count": 1
+  },
+  {
+    "query": "로버트 다우니 주니어가 출연한 영화 중 평점이 8점 이상인 영화의 제목과 개봉일을 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT title, release_date FROM sample WHERE main_actors LIKE '%로버트 다우니 주니어%' AND rating >= 8.0",
+    "retry_count": 1
+  },
+  {
+    "query": "매트릭스 영화의 장르를 사이버펑크 액션으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET genre='사이버펑크 액션' WHERE title='매트릭스'",
+    "retry_count": 1
+  },
+  {
+    "query": "2020년 이전에 개봉한 영화를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE release_date < '2020-01-01'",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 '인셉션'의 감독을 크리스토퍼 놀란으로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET director='크리스토퍼 놀란' WHERE title='인셉션'",
+    "retry_count": 1
+  },
+  {
+    "query": "감독 크리스토퍼 놀란의 최신 작품 제목을 '테넷'으로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET title='테넷' WHERE director='크리스토퍼 놀란' ORDER BY release_date DESC LIMIT 1",
+    "retry_count": 5,
+    "error_msg": "near \"ORDER\": syntax error"
+  },
+  {
+    "query": "배우 중에 '김철수'가 포함된 영화를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE main_actors LIKE '%김철수%'",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 평점이 7점 이상인 액션 영화의 감독과 영화 수를 감독 이름 순으로 정렬해서 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT director, COUNT(*) AS movie_count FROM sample WHERE genre = '액션' AND rating >= 7 GROUP BY director ORDER BY director",
+    "retry_count": 1
+  },
+  {
+    "query": "인셉션 영화의 개봉일을 2010년 7월 16일로 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2010-07-16' WHERE title='인셉션'",
+    "retry_count": 1
+  },
+  {
+    "query": "2021년에 개봉한 영화 중 평점이 8점 이상인 영화의 제목과 감독을 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT title, director FROM sample WHERE release_date BETWEEN '2021-01-01' AND '2021-12-31' AND rating >= 8.0",
+    "retry_count": 1
+  },
+  {
+    "query": "주연 배우 목록에 새로운 배우를 추가해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '', '', '새로운 배우', '', NULL, NULL, '', '', NULL, NULL, NULL, '', '', '', '', '', '', '')",
+    "retry_count": 1
+  },
+  {
+    "query": "배우 레오나르도 디카프리오가 출연한 영화의 개봉일을 2010년으로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2010-01-01' WHERE main_actors LIKE '%레오나르도 디카프리오%'",
+    "retry_count": 1
+  },
+  {
+    "query": "특정 영화의 러닝타임을 120분으로 변경해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration=120 WHERE title='특정 영화 제목'",
+    "retry_count": 1
+  },
+  {
+    "query": "출연 배우 중에 김영희가 없는 영화를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE main_actors NOT LIKE '%김영희%'",
+    "retry_count": 1
+  },
+  {
+    "query": "올해 개봉한 영화를 영화 목록에 등록해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-01-01 00:00:00', '2023-01-01 00:00:00', 'Sample Movie', 'Sample Director', 'Actor A, Actor B', 'Drama', '2023-01-01', 120, 'English', 'USA', 8.5, 10000000, 50000000, 'Sample Production', 'Sample Distributor', 'This is a sample synopsis.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Sample Award', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 '홍길동'인 영화를 모두 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE director = '홍길동'",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 '인셉션'의 개봉일을 2010년 7월 16일로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='2010-07-16' WHERE title='인셉션'",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 '박영수'인 영화들을 삭제해 줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE director = '박영수'",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 '액션'인 영화 중 가장 높은 평점을 받은 영화의 제목과 평점을 알려줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT title, rating FROM sample WHERE genre = '액션' ORDER BY rating DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "2020년 이전에 개봉한 영화를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE release_date < '2020-01-01'",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 '봉준호'인 영화의 제목을 개봉일 순으로 정렬해 3개만 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT title FROM sample WHERE director = '봉준호' ORDER BY release_date LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 장르별로 영화의 개수를 계산하고, 개수가 10개 이상인 장르만 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT genre, COUNT(*) FROM sample GROUP BY genre HAVING COUNT(*) >= 10",
+    "retry_count": 1
+  },
+  {
+    "query": "스티븐 스필버그 감독의 모든 영화 제목을 출시일 순으로 나열해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT title FROM sample WHERE director = '스티븐 스필버그' ORDER BY release_date",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 '어바웃 타임'의 러닝타임을 123분으로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration=123 WHERE title='어바웃 타임'",
+    "retry_count": 1
+  },
+  {
+    "query": "배우 톰 행크스의 출연작 목록에 '포레스트 검프'를 추가해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET main_actors = main_actors || ', 톰 행크스' WHERE title = '포레스트 검프'",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 홍길동인 영화를 목록에서 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE director = '홍길동'",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 감독의 작품을 영화 목록에 추가해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'New Director Movie', 'New Director', 'Actor A, Actor B', 'Drama', '2023-12-01', 120, 'English', 'USA', 8.5, 50000000, 150000000, 'New Production', 'New Distributor', 'A thrilling new drama by a new director.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Best New Director Award', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "유명 배우가 출연한 영화를 데이터베이스에 삽입해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 10:00:00', '2023-10-01 10:00:00', 'Famous Actor Movie', 'John Doe', 'Famous Actor', 'Drama', '2023-12-01', 120, 'English', 'USA', 8.5, 50000000, 150000000, 'Famous Productions', 'Global Distributors', 'A thrilling drama featuring a famous actor.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Best Actor Award', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 공포인 모든 영화를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE genre = '공포'",
+    "retry_count": 1
+  },
+  {
+    "query": "액션 장르 영화의 평균 상영 시간을 구하고 이를 120분과 비교해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT AVG(duration) > 120 FROM sample WHERE genre = '액션'",
+    "retry_count": 1
+  },
+  {
+    "query": "주연 배우가 '레오나르도 디카프리오'인 영화의 총 개수를 구해줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT COUNT(*) FROM sample WHERE main_actors LIKE '%레오나르도 디카프리오%'",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 공포인 영화들을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE genre = '공포'",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 장르의 영화를 데이터베이스에 추가해 주세요",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'New Genre Movie', 'Director Name', 'Actor1, Actor2', 'New Genre', '2023-12-01', 120, 'English', 'USA', 8.5, 100000000, 500000000, 'Production Company', 'Distributor', 'This is a synopsis of the new genre movie.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Award1, Award2', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "평점이 7.5 이상인 영화의 감독을 중복 없이 나열해 줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT DISTINCT director FROM sample WHERE rating >= 7.5",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 감독 정보를 데이터베이스에 등록해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (director) VALUES ('감독 이름')",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 '코미디'인 영화의 평균 평점을 알려줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT AVG(rating) FROM sample WHERE genre = '코미디'",
+    "retry_count": 1
+  },
+  {
+    "query": "박스오피스 수익이 100만 달러 이하인 영화를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE box_office <= 1000000",
+    "retry_count": 1
+  },
+  {
+    "query": "각 배우 별로 출연한 영화 수를 계산하고, 5편 이상 출연한 배우의 이름과 출연 영화 수를 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT main_actors, COUNT(*) AS movie_count FROM sample GROUP BY main_actors HAVING movie_count >= 5",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 변경된 영화의 새로운 감독 이름을 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET director='새로운 감독 이름' WHERE director='변경된 감독 이름'",
+    "retry_count": 1
+  },
+  {
+    "query": "개봉일이 연기된 영화의 개봉일을 최신 날짜로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET release_date='최신 날짜' WHERE release_date='연기된 날짜'",
+    "retry_count": 3
+  },
+  {
+    "query": "영화 목록에 감독과 배우 정보가 포함된 새로운 영화를 추가해 주세요",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', 'New Movie', 'Director Name', 'Actor1, Actor2', 'Drama', '2023-12-01', 120, 'English', 'USA', 8.5, 100000000, 500000000, 'Production Company', 'Distributor', 'This is a synopsis of the movie.', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', 'Award1, Award2', 'PG-13')",
+    "retry_count": 1
+  },
+  {
+    "query": "해리포터 시리즈의 마지막 영화 제목을 '죽음의 성물'로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET title='죽음의 성물' WHERE title LIKE '%해리포터%' AND title LIKE '%죽음의 성물%'",
+    "retry_count": 1
+  },
+  {
+    "query": "영화 '어벤져스: 엔드게임'의 상영 시간을 181분으로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration=181 WHERE title='어벤져스: 엔드게임'",
+    "retry_count": 1
+  },
+  {
+    "query": "최신 개봉작 정보를 영화 데이터베이스에 등록해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, title, director, main_actors, genre, release_date, duration, language, country, rating, budget, box_office, production_company, distributor, synopsis, poster_url, trailer_url, awards, age_rating) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '최신 영화 제목', '감독 이름', '주연 배우1, 주연 배우2', '장르', '2023-10-01', 120, '한국어', '한국', 8.5, 10000000000, 15000000000, '제작사 이름', '배급사 이름', '영화 줄거리', 'http://example.com/poster.jpg', 'http://example.com/trailer.mp4', '수상 내역', '15세')",
+    "retry_count": 1
+  },
+  {
+    "query": "상영 시간이 90분 미만인 영화를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE duration < 90",
+    "retry_count": 1
+  },
+  {
+    "query": "개봉일이 2000년 이전인 영화를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE release_date < '2000-01-01'",
+    "retry_count": 1
+  },
+  {
+    "query": "장르가 액션인 영화의 감독을 '제임스 카메론'으로 변경해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET director='제임스 카메론' WHERE genre='액션'",
+    "retry_count": 1
+  },
+  {
+    "query": "배우 '톰 행크스'가 출연한 영화의 제목을 개봉일 순으로 3개만 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT title FROM sample WHERE main_actors LIKE '%톰 행크스%' ORDER BY release_date LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "감독이 크리스토퍼 놀란인 영화 중 평점이 8점 이상인 영화의 제목을 개봉일 내림차순으로 정렬해서 확인하고 싶어",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT title FROM sample WHERE director = '크리스토퍼 놀란' AND rating >= 8 ORDER BY release_date DESC",
+    "retry_count": 1
+  }
+]

@@ -1,0 +1,23 @@
+{
+  "id": {"type": "INTEGER", "comment": "기본키"},
+  "created_at": {"type": "DATETIME", "comment": "생성일시"},
+  "updated_at": {"type": "DATETIME", "comment": "수정일시"},
+  "patient_id": {"type": "INTEGER", "comment": "환자 ID"},
+  "doctor_id": {"type": "INTEGER", "comment": "의사 ID"},
+  "appointment_id": {"type": "INTEGER", "comment": "예약 ID"},
+  "prescription_id": {"type": "INTEGER", "comment": "처방전 ID"},
+  "visit_date": {"type": "DATETIME", "comment": "진료 날짜"},
+  "diagnosis": {"type": "VARCHAR(255)", "comment": "진단 내용"},
+  "treatment": {"type": "VARCHAR(255)", "comment": "치료 내용"},
+  "notes": {"type": "TEXT", "comment": "추가 메모"},
+  "patient_name": {"type": "VARCHAR(100)", "comment": "환자 이름"},
+  "patient_dob": {"type": "DATE", "comment": "환자 생년월일"},
+  "patient_gender": {"type": "VARCHAR(10)", "comment": "환자 성별"},
+  "doctor_name": {"type": "VARCHAR(100)", "comment": "의사 이름"},
+  "specialization": {"type": "VARCHAR(100)", "comment": "전문 분야"},
+  "appointment_status": {"type": "VARCHAR(50)", "comment": "예약 상태"},
+  "prescription_details": {"type": "TEXT", "comment": "처방전 세부사항"},
+  "billing_amount": {"type": "DECIMAL(10, 2)", "comment": "청구 금액"},
+  "insurance_provider": {"type": "VARCHAR(100)", "comment": "보험 제공자"},
+  "insurance_policy_number": {"type": "VARCHAR(50)", "comment": "보험 증권 번호"}
+}

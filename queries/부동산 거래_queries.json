@@ -1,0 +1,380 @@
+{
+  "queries": [
+    {
+      "nl": "매물 가격이 5000만원 이상인 경우, 계약 상태를 '판매 완료'로 변경해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "방 개수가 3개 이상이고 관리비가 10만원 이하인 매물 리스트를 보여줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "계약 상태가 '완료'인 경우, 해당 매물을 리스트로 보여줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "주차 공간 수가 2개 미만인 매물의 관리비를 10만원으로 수정해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "중개인 이름에 '김'이 포함된 매물의 목록 상태를 '판매 중'으로 업데이트해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 경우 해당 매물의 설명과 방 개수를 리스트로 보여줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "매물 주소에 '서울'이 포함된 항목을 찾아줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "매물 주소에 '서울'이 포함된 경우 매물 상태를 '판매 중'으로 업데이트해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "중개인 이름에 '김'이 포함된 매물의 정보를 리스트로 제공해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "매물 가격이 5000만원 이상인 매물의 목록을 리스트로 제공해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물의 관리비를 50000으로 설정해줘",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "거래 일자가 2023년 1월부터 6월 사이인 매물의 정보를 찾아줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 설명에 '바다 전망'이 포함된 경우, 거래 일자를 오늘로 업데이트해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "방 개수가 3개 미만인 매물을 확인해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 매물의 상세 정보를 확인해줘",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "관리비가 100달러 이상인 매물의 정보를 제공해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "관리비가 50만원 이상인 매물 중에서 방 개수가 3개 이상인 것들을 확인해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 경우에 해당 매물을 삭제해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물의 주소와 방 개수를 상세히 알려줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "2021년 이후에 건축된 매물의 방 개수를 3개로 변경해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "매물 가격이 1억 이하이고 매물 상태가 '판매중'인 경우, 해당 매물을 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물의 상세 정보를 보여줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 크기가 50제곱미터 이하인 매물들을 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물 리스트를 확인해줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 가격이 5억원 이상인 매물을 리스트로 보여줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 매물의 상세 정보를 제공해줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "2020년 이후에 건축된 매물을 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "방 개수가 3개 이하인 매물의 매물 상태를 '판매 중지'로 변경해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2020년 이후에 건축된 매물의 거래 내역을 조회해주세요",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "중개인 이름이 '홍길동'인 중개인의 연락처를 '010-1234-5678'로 업데이트해줘",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "가격이 5000만원 이하인 매물의 목록을 보여줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "매물 가격이 5000만원 이상인 매물의 관리비를 10만원으로 설정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "거래 일자가 2022년 1월 1일 이전인 매물을 삭제해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "2023년 이후에 거래된 모든 매물의 상세 정보를 제공해줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "건축 연도가 2015년 이후인 매물의 매물 설명을 '최근 리모델링 완료'로 변경해줘",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "매물 크기가 100제곱미터 이상이고 방 개수가 3개인 매물의 관리비를 '5만원'으로 변경해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물 중에서 관리비가 없는 매물을 찾아줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "매물 주소가 '서울시 강남구'인 매물의 계약 상태를 '완료'로 변경해줘",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "거래 일자가 2023년 1월 1일 이전인 매물의 계약 상태를 '취소'로 변경해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 매물 데이터를 찾아줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "특정 중개인이 관리하는 매물 설명을 포함한 리스트를 제공해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "계약 상태가 '취소'인 경우에만 매물을 삭제해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "가격이 5000만원 이상이고 방 개수가 3개 이상인 매물을 찾아줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 경우 매물 주소를 '서울특별시 강남구'로 수정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "연도별로 2010년 이후에 건축된 매물의 가격을 10% 인상해줄 수 있을까?",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2022년 이후에 거래된 매물의 리스트를 제공해줘",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2021년 이후에 거래된 매물의 주소와 가격을 제공해줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2021년 이후에 거래된 매물의 정보와 중개인 이름을 제공해줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2020년 이후에 건축된 매물의 주소를 알려줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "거래 일자가 2023년 1월 1일 이전인 매물을 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "관리비가 NULL이 아닌 매물의 주소와 가격을 조회해주세요",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "관리비가 NULL인 매물의 주소를 찾아줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "특정 중개인의 이름이 '김철수'인 매물의 주소와 가격을 보여줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "거래 일자가 2023년 이전인 매물의 계약 상태를 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "2022년 이후에 거래된 모든 매물의 계약 상태를 '완료'로 변경해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "거래 일자가 2023년 1월 1일 이후인 매물 리스트로 확인해줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 설명에 '전망 좋은'이라는 문구가 포함된 경우 해당 매물의 가격을 10% 인상해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "중개인 이름이 '김철수'인 경우 그의 연락처를 '010-1234-5678'로 수정해줘",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "가격이 5000만원 이하인 매물 목록을 제공해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "매물 주소가 '서울특별시 강남구'인 경우 정보를 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "최근 1년 이내에 거래된 매물의 수를 확인해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "2020년 이후에 건축된 매물의 리스트를 제공해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 가격이 50000 이상인 매물의 매물 상태를 '판매중'으로 변경해줘",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2020년 이후에 거래된 매물의 주소와 가격을 보여줘",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "상태가 '판매중'인 매물의 주소와 크기를 확인해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "방 개수가 3개 이상인 매물을 찾고, 각 매물의 거래 일자를 알려줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "매물 주소가 '서울'이 아닌 경우의 매물을 보여줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "매물 가격이 500,000 이상인 경우 중개인 이름과 연락처를 보여줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "상태가 '판매 완료'인 매물 정보를 제거해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "가격이 500,000 이하인 매물의 중개인 이름을 제공해줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    }
+  ],
+  "retry_counts": {
+    "SELECT": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "INSERT": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "UPDATE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "DELETE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    }
+  }
+}

@@ -1,0 +1,380 @@
+{
+  "queries": [
+    {
+      "nl": "아티스트 이름이 '김아무개'인 경우 그 아티스트의 모든 노래를 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 false인 플레이리스트를 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "2021년 이후 발매된 노래의 제목과 아티스트 이름을 리스트로 제공해줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "장르가 '팝'인 노래 중에서 즐겨찾기 된 곡을 리스트로 보여줘.",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2022년 이후 발매된 앨범의 즐겨찾기 여부가 false인 노래를 제거해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "아티스트 이름에 'Smith'가 포함된 노래 제목을 가진 곡들을 찾아줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "사용자 ID가 1인 사용자의 이메일을 업데이트해줘.",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "사용자 ID가 1인 사용자의 재생목록 이름과 노래 제목을 리스트로 제공해줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "재생횟수가 100회 이상인 노래의 제목을 변경해줘.",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 true인 사용자 이름과 이메일을 조회해주세요",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "재생 횟수가 100회 이상인 노래의 제목을 수정해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "사용자 이메일이 NULL인 사용자를 목록에서 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "사용자 이름이 'JohnDoe'인 사용자의 이메일을 'john.doe@example.com'으로 설정해줘.",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "특정 아티스트의 모든 노래를 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "최근 발매된 앨범이 아닌 노래를 찾아서 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "최근 발매된 앨범의 제목과 아티스트 이름을 알려줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자 ID가 1인 사용자의 이메일을 'newemail@example.com'으로 변경해주세요.",
+      "level": "Basic",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "2022년 이후에 발매된 앨범의 제목을 상세히 확인해줘.",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "장르가 '팝'인 노래를 리스트로 제공해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "노래 길이가 3분 이상인 노래의 제목과 아티스트 이름을 상세히 보여줘.",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "2021년 이후에 발매된 앨범 제목과 장르를 리스트로 제공해줘.",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "재생 횟수가 100회 이상인 노래의 제목과 아티스트 이름을 보여줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "2020년 이후 발매된 앨범의 제목과 아티스트 이름을 알려줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자 ID가 123인 사용자에 대해, 즐겨찾기 여부가 TRUE인 재생목록을 추가해줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "사용자 ID가 10인 사용자의 이메일을 'newemail@example.com'으로 변경해줘",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "사용자 ID가 1인 경우, 즐겨찾기 여부가 true인 재생목록의 이름을 보여줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "사용자 ID가 10인 사용자의 이메일을 변경해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "재생 횟수가 100회 이하인 모든 노래를 리스트로 보여줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "2022년 이후에 발매된 노래의 제목을 포함하여, 장르가 '록'인 곡들을 보여줘.",
+      "level": "Advanced",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "노래 길이가 300초 이하인 노래의 평점을 4.5로 변경하는데, 아티스트 이름이 'Artist A'인 경우에만 적용해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2023년 이후에 발매된 앨범의 제목과 아티스트 이름을 확인해줘",
+      "level": "Intermediate",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "앨범 제목이 'Best Hits'인 경우, 해당 앨범의 발매일을 '2022-01-01'로 업데이트해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "사용자 ID가 5인 사용자의 재생목록을 삭제해줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "아티스트 이름에 'Smith'가 포함된 모든 재생목록의 이름을 변경할 때, 사용자가 생성한 날짜가 최근인 경우에만 진행해줘.",
+      "level": "Intermediate",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 true인 사용자 이름과 이메일을 확인해줘.",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "장르가 '팝'인 노래 리스트를 제공해줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "장르가 '팝'인 앨범의 제목과 발매일을 확인해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "재생목록 이름에 '최애'가 포함된 재생목록의 ID와 이름을 확인해줘",
+      "level": "Intermediate",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "장르가 '재즈'이면서 발매일이 2015년 이후인 노래들의 평점을 4.5로 수정해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "재생 횟수가 100회 이상인 노래의 제목을 조회해주세요",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자가 작성한 모든 재생목록을 삭제하는데, 해당 사용자의 아이디가 123인 경우에만.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "특정 아티스트의 모든 노래를 삭제해주세요.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 true인 재생목록의 이름을 상세히 보여줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자 ID가 1인 경우 사용자 이름을 '새로운이름'으로 변경해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "재생 횟수가 100회 미만인 노래를 리스트로 보여줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "아티스트 이름에 'Smith'가 포함된 노래를 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "가장 많은 재생 횟수를 기록한 노래의 제목과 아티스트 이름을 알려줘.",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "노래 제목에 'Love'가 포함된 모든 노래의 재생 횟수를 100회로 설정해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 false인 노래를 찾아서 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "2021년 이후 발매된 앨범을 가진 재생목록을 제거해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "즐겨찾기 여부가 true인 사용자들의 이메일 주소를 리스트로 제공해줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "장르가 '락'인 노래 중에서 재생 횟수가 100회 미만인 노래를 찾아줘",
+      "level": "Advanced",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "발매일이 2021년 이후인 앨범의 제목을 변경해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "사용자 이름이 '홍길동'인 사용자의 이메일을 찾아줘",
+      "level": "Basic",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자 ID가 5인 사용자의 모든 재생목록을 삭제해줘",
+      "level": "Intermediate",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "재생 횟수가 100 이상인 노래의 제목과 앨범 제목을 상세히 확인해줘",
+      "level": "Expert",
+      "dml": "INSERT"
+    },
+    {
+      "nl": "재생목록 이름이 '최고의 팝송'인 경우 재생목록 ID를 10으로 설정해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "평점이 3 이하인 노래를 삭제해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "재생 목록의 이름이 '최애곡'인 경우에만 해당 재생 목록의 ID와 사용자 이름을 찾아줘.",
+      "level": "Advanced",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "즐겨찾기 상태가 true인 모든 노래를 확인해줘.",
+      "level": "Expert",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "앨범 제목이 'Best Hits'가 아닌 경우 앨범 발매일을 오늘 날짜로 업데이트해줘.",
+      "level": "Advanced",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "재생목록 이름이 '최애곡'인 경우, 해당 재생목록의 ID를 변경해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2021년 이전에 발매된 앨범을 정리해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "가장 많이 재생된 노래의 제목과 아티스트 이름을 알려줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "즐겨찾기가 true인 노래의 장르를 '팝'으로 업데이트해줘.",
+      "level": "Basic",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "재생 횟수가 100회 이하인 노래를 제거해줘",
+      "level": "Basic",
+      "dml": "DELETE"
+    },
+    {
+      "nl": "사용자 평점이 4.5 이상인 재생목록의 이름을 상세히 찾아줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "아티스트 이름에 'Smith'가 포함된 모든 아티스트의 재생 횟수를 0으로 초기화해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    },
+    {
+      "nl": "2023년 이후에 발매된 노래의 제목과 아티스트 이름을 보여줘",
+      "level": "Expert",
+      "dml": "SELECT"
+    },
+    {
+      "nl": "사용자 ID가 3인 사용자의 이메일을 'new_email@example.com'으로 변경해줘.",
+      "level": "Expert",
+      "dml": "UPDATE"
+    }
+  ],
+  "retry_counts": {
+    "SELECT": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "INSERT": {
+      "Basic": 2,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    },
+    "UPDATE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 2,
+      "Expert": 1
+    },
+    "DELETE": {
+      "Basic": 1,
+      "Intermediate": 1,
+      "Advanced": 1,
+      "Expert": 1
+    }
+  }
+}

@@ -1,0 +1,502 @@
+[
+  {
+    "query": "평균 실점이 80점 이상인 경기를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE (score_home + score_away) / 2.0 >= 80",
+    "retry_count": 1
+  },
+  {
+    "query": "플레이어 홍길동의 시즌 득점 기록을 15점으로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=15 WHERE mvp_player='홍길동'",
+    "retry_count": 1
+  },
+  {
+    "query": "2021년 시즌 동안 승리한 경기 수가 10 이상인 팀의 이름과 총 득점을 조회해",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT team_name, total_score FROM (SELECT team_home AS team_name, SUM(score_home) AS total_score, SUM(CASE WHEN score_home > score_away THEN 1 ELSE 0 END) AS wins FROM sample WHERE season = '2021' GROUP BY team_home UNION ALL SELECT team_away AS team_name, SUM(score_away) AS total_score, SUM(CASE WHEN score_away > score_home THEN 1 ELSE 0 END) AS wins FROM sample WHERE season = '2021' GROUP BY team_away) WHERE wins >= 10",
+    "retry_count": 1
+  },
+  {
+    "query": "최소 5경기 연속 무득점을 기록한 선수를 명단에서 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE mvp_player IN (SELECT mvp_player FROM sample GROUP BY mvp_player HAVING SUM(score_home = 0 AND team_home = mvp_player OR score_away = 0 AND team_away = mvp_player) >= 5)",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 시즌에 한 경기도 출전하지 않은 선수의 정보를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id NOT IN (SELECT DISTINCT mvp_player FROM sample WHERE season = '지난 시즌')",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 선수를 팀 명단에 등록해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "I'm sorry, I can't assist with that request.",
+    "retry_count": 5,
+    "error_msg": "near \"I\": syntax error"
+  },
+  {
+    "query": "현재 시즌에서 경기당 평균 어시스트가 7 이상인 선수들의 이름과 소속 팀을 나열해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "I'm sorry, but I can't assist with that request.",
+    "retry_count": 5,
+    "error_msg": "near \"I\": syntax error"
+  },
+  {
+    "query": "올해 우승 가능성이 0%인 팀을 목록에서 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home IN (SELECT team_home FROM sample WHERE score_home = 0 AND score_away > 0 AND game_date BETWEEN date('now', 'start of year') AND date('now', 'localtime')) OR team_away IN (SELECT team_away FROM sample WHERE score_away = 0 AND score_home > 0 AND game_date BETWEEN date('now', 'start of year') AND date('now', 'localtime'))",
+    "retry_count": 1
+  },
+  {
+    "query": "승률이 30% 이하인 팀을 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home IN (SELECT team_home FROM sample GROUP BY team_home HAVING SUM(CASE WHEN score_home > score_away THEN 1 ELSE 0 END) / COUNT(*) <= 0.3) OR team_away IN (SELECT team_away FROM sample GROUP BY team_away HAVING SUM(CASE WHEN score_away > score_home THEN 1 ELSE 0 END) / COUNT(*) <= 0.3)",
+    "retry_count": 1
+  },
+  {
+    "query": "선수의 개인 기록을 데이터베이스에 추가해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "I'm sorry, but the provided schema does not include any columns for storing individual player records.",
+    "retry_count": 5,
+    "error_msg": "near \"I\": syntax error"
+  },
+  {
+    "query": "이번 시즌의 경기 결과를 데이터베이스에 추가해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-01', 'Team A', 'Team B', 3, 2, 'Stadium A', 50000, 'Referee A', '01:30:00', 'Sunny', 'Player A', 'Coach A', 'Coach B', 'League A', '2023', 'Channel A', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "3점 슛 성공률이 30% 미만인 선수를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE \"3점 슛 성공률\" < 30",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 경기의 최종 점수를 3-2로 변경해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=3, score_away=2 WHERE game_date=(SELECT MAX(game_date) FROM sample)",
+    "retry_count": 1
+  },
+  {
+    "query": "팀 B의 순위를 2위로 변경해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "I'm sorry, but I can't assist with that request.",
+    "retry_count": 5,
+    "error_msg": "near \"I\": syntax error"
+  },
+  {
+    "query": "새로운 팀을 리그 테이블에 등록해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (NULL, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-01', 'New Home Team', 'New Away Team', 0, 0, 'New Location', 0, 'New Referee', '00:00:00', 'Clear', 'New MVP', 'New Home Coach', 'New Away Coach', 'New League', '2023', 'New Channel', 0.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "팀 C의 코치를 새로운 코치로 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET team_home_coach='새로운 코치' WHERE team_home='팀 C' OR team_away='팀 C'",
+    "retry_count": 1
+  },
+  {
+    "query": "이번 달에 열린 모든 테니스 경기에서 승리한 선수의 이름과 경기 날짜를 승리 횟수 순으로 정렬하여 상위 3개를 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, game_date FROM sample WHERE league = 'Tennis' AND strftime('%Y-%m', game_date) = strftime('%Y-%m', 'now') ORDER BY COUNT(mvp_player) DESC LIMIT 3",
+    "retry_count": 5,
+    "error_msg": "misuse of aggregate: COUNT()"
+  },
+  {
+    "query": "선수 김철수의 시즌 기록을 15골로 업데이트해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "I'm sorry, but I can't assist with that request.",
+    "retry_count": 5,
+    "error_msg": "near \"I\": syntax error"
+  },
+  {
+    "query": "새로운 팀 정보를 시스템에 입력해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-01', 'Team A', 'Team B', 3, 2, 'Stadium A', 50000, 'Referee A', '01:30:00', 'Sunny', 'Player A', 'Coach A', 'Coach B', 'League A', '2023', 'Channel A', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 시즌에서 가장 많은 득점을 기록한 선수의 이름과 총 득점 수를 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, SUM(score_home + score_away) AS total_score FROM sample WHERE season = '지난 시즌' GROUP BY mvp_player ORDER BY total_score DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "선수 박영희의 어시스트 개수를 10개로 바꿔줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "죄송합니다. 요청하신 작업을 수행할 수 없습니다.",
+    "retry_count": 5,
+    "error_msg": "near \"죄송합니다\": syntax error"
+  },
+  {
+    "query": "지난 시즌 동안 축구 리그에서 가장 많은 골을 넣은 선수의 이름과 골 수를 알려줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, COUNT(*) AS goals FROM sample WHERE league = '축구 리그' AND season = '지난 시즌' GROUP BY mvp_player ORDER BY goals DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "2023년 월드컵 결승전의 최종 점수를 3-2로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=3, score_away=2 WHERE game_date='2023-12-18' AND league='월드컵' AND season='2023' AND team_home='홈팀이름' AND team_away='원정팀이름'",
+    "retry_count": 1
+  },
+  {
+    "query": "B팀의 감독 이름을 이민호로 변경해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET team_away_coach='이민호' WHERE team_away='B팀'",
+    "retry_count": 1
+  },
+  {
+    "query": "경기 일정을 오후 7시로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration='19:00:00'",
+    "retry_count": 1
+  },
+  {
+    "query": "선수가 기록한 새로운 개인 점수를 데이터베이스에 추가해줘",
+    "level": "Basic",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023-10-01', 'Team A', 'Team B', 3, 2, 'Stadium X', 5000, 'Referee Y', '01:30:00', 'Clear', 'Player Z', 'Coach A', 'Coach B', 'League 1', '2023', 'Channel 1', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "모든 배드민턴 경기에서 경기당 평균 득점이 15점 이상인 선수를 선수 이름과 평균 득점을 기준으로 오름차순 정렬하여 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, AVG(score_home + score_away) AS avg_score FROM sample WHERE league = '배드민턴' GROUP BY mvp_player HAVING avg_score >= 15 ORDER BY mvp_player, avg_score",
+    "retry_count": 1
+  },
+  {
+    "query": "현재 시즌의 경기 결과를 데이터베이스에 추가해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-01', 'Team A', 'Team B', 3, 2, 'Stadium X', 50000, 'Referee Y', '01:30:00', 'Sunny', 'Player Z', 'Coach A', 'Coach B', 'League 1', '2023/2024', 'Channel 1', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 시즌에 단 한 번도 출전하지 않은 선수를 명단에서 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id NOT IN (SELECT DISTINCT mvp_player FROM sample WHERE season = '지난 시즌')",
+    "retry_count": 1
+  },
+  {
+    "query": "2023년 시즌 경기에서 가장 적은 실점을 기록한 팀의 이름을 순위대로 3개만 알려줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT team_home FROM sample WHERE season = '2023년' ORDER BY score_away ASC LIMIT 3",
+    "retry_count": 1
+  },
+  {
+    "query": "팀별로 평균 점수가 100점 이상인 팀의 이름과 평균 점수를 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT team_home AS team_name, AVG(score_home) AS average_score FROM sample GROUP BY team_home HAVING AVG(score_home) >= 100 UNION SELECT team_away AS team_name, AVG(score_away) AS average_score FROM sample GROUP BY team_away HAVING AVG(score_away) >= 100",
+    "retry_count": 1
+  },
+  {
+    "query": "팀 A의 최근 경기 승률을 0.75로 업데이트해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home = score_home + 1 WHERE team_home = '팀 A' AND score_home / (score_home + score_away) < 0.75",
+    "retry_count": 1
+  },
+  {
+    "query": "가장 많은 득점을 기록한 선수의 이름과 해당 경기의 점수를 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, (score_home + score_away) AS total_score FROM sample ORDER BY total_score DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "4승 이하인 감독의 기록을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home_coach IN (SELECT team_home_coach FROM sample GROUP BY team_home_coach HAVING SUM(CASE WHEN score_home > score_away THEN 1 ELSE 0 END) <= 4) OR team_away_coach IN (SELECT team_away_coach FROM sample GROUP BY team_away_coach HAVING SUM(CASE WHEN score_away > score_home THEN 1 ELSE 0 END) <= 4)",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 선수의 기록을 데이터베이스에 등록해줘",
+    "level": "Advanced",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (NULL, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, '2023-10-15', 'Team A', 'Team B', 3, 2, 'Stadium X', 50000, 'Referee Y', '01:30:00', 'Clear', 'Player Z', 'Coach A', 'Coach B', 'Premier League', '2023/2024', 'Channel 1', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "선수의 이름과 그 선수가 참여한 경기 수를 순서대로 보여줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, COUNT(*) FROM sample GROUP BY mvp_player",
+    "retry_count": 1
+  },
+  {
+    "query": "2023년에 치러진 경기 중에서 점수 차가 가장 컸던 경기의 날짜와 두 팀의 이름을 알려줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT game_date, team_home, team_away FROM sample WHERE strftime('%Y', game_date) = '2023' ORDER BY ABS(score_home - score_away) DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "경기당 평균 리바운드가 5개 이하인 선수를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE mvp_player IN (SELECT player_name FROM player_stats WHERE average_rebounds <= 5)",
+    "retry_count": 5,
+    "error_msg": "no such table: player_stats"
+  },
+  {
+    "query": "지난 5년간 승리가 없는 팀을 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE (team_home IN (SELECT team_home FROM sample WHERE score_home <= score_away AND game_date >= date('now', '-5 years')) AND team_away IN (SELECT team_away FROM sample WHERE score_away <= score_home AND game_date >= date('now', '-5 years')))",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 시즌에서 출전 기록이 없는 선수를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE mvp_player IS NULL AND season = (SELECT MAX(season) FROM sample)",
+    "retry_count": 1
+  },
+  {
+    "query": "LA 레이커스의 승리 기록을 45승으로 업데이트해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=45 WHERE team_home='LA 레이커스' AND score_home > score_away",
+    "retry_count": 1
+  },
+  {
+    "query": "3연패 중인 팀의 정보를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home IN (SELECT team_home FROM sample ORDER BY game_date DESC LIMIT 3) AND score_home < score_away",
+    "retry_count": 1
+  },
+  {
+    "query": "A팀의 최근 경기 날짜를 2023년 11월 15일로 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET game_date='2023-11-15' WHERE team_home='A팀' ORDER BY game_date DESC LIMIT 1",
+    "retry_count": 5,
+    "error_msg": "near \"ORDER\": syntax error"
+  },
+  {
+    "query": "2022년 이후 진행된 모든 농구 경기의 팀별 평균 점수를 계산하여 80점 이상인 팀의 이름을 보여줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT team_name FROM (SELECT team_home AS team_name, AVG(score_home) AS avg_score FROM sample WHERE game_date >= '2022-01-01' AND league = '농구' GROUP BY team_home UNION SELECT team_away AS team_name, AVG(score_away) AS avg_score FROM sample WHERE game_date >= '2022-01-01' AND league = '농구' GROUP BY team_away) WHERE avg_score >= 80",
+    "retry_count": 1
+  },
+  {
+    "query": "C팀의 홈런 기록을 30개로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=30 WHERE team_home='C팀'",
+    "retry_count": 1
+  },
+  {
+    "query": "팀 A의 최근 경기 점수를 3-1로 수정해줘",
+    "level": "Advanced",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=3, score_away=1 WHERE id=(SELECT id FROM sample WHERE team_home='팀 A' OR team_away='팀 A' ORDER BY game_date DESC LIMIT 1)",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 경기에서 3점 이상 차이로 패한 경기를 삭제해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE ABS(score_home - score_away) > 3 AND ((score_home < score_away) OR (score_away < score_home))",
+    "retry_count": 1
+  },
+  {
+    "query": "보스턴 마라톤 경기의 우승 기록 시간을 2시간 10분으로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET duration='02:10:00' WHERE league='보스턴 마라톤'",
+    "retry_count": 1
+  },
+  {
+    "query": "팀별로 평균 득점 수를 계산하고, 그 평균이 80 이상인 팀의 이름을 오름차순으로 보여줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT team_home FROM sample GROUP BY team_home HAVING AVG(score_home) >= 80 UNION SELECT team_away FROM sample GROUP BY team_away HAVING AVG(score_away) >= 80 ORDER BY team_home",
+    "retry_count": 1
+  },
+  {
+    "query": "모든 경기에서 패배한 경기를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE (team_home = '우리팀' AND score_home < score_away) OR (team_away = '우리팀' AND score_away < score_home)",
+    "retry_count": 1
+  },
+  {
+    "query": "리그에서 평균 득점이 20 이상인 선수의 이름과 소속 팀을 평점 순으로 3명만 확인해",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "죄송합니다. 주어진 조건을 만족하는 SQL 쿼리를 생성할 수 없습니다.",
+    "retry_count": 5,
+    "error_msg": "near \"죄송합니다\": syntax error"
+  },
+  {
+    "query": "최근 한 달 동안 가장 많은 득점을 기록한 선수의 이름과 점수를 알려줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, MAX(score_home + score_away) FROM sample WHERE game_date >= DATE('now', '-1 month')",
+    "retry_count": 1
+  },
+  {
+    "query": "신규 기록을 선수 데이터베이스에 업데이트해줘",
+    "level": "Expert",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-01', 'Team A', 'Team B', 3, 2, 'Stadium X', 50000, 'Referee Y', '01:30:00', 'Sunny', 'Player Z', 'Coach A', 'Coach B', 'League 1', '2023', 'Channel 1', 50.00)",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 5년 동안 우승한 팀의 이름과 우승 연도를 오름차순으로 정렬해줘",
+    "level": "Basic",
+    "type": "SELECT",
+    "sql": "SELECT team_home AS winner, strftime('%Y', game_date) AS winning_year FROM sample WHERE score_home > score_away AND game_date >= date('now', '-5 years') UNION SELECT team_away AS winner, strftime('%Y', game_date) AS winning_year FROM sample WHERE score_away > score_home AND game_date >= date('now', '-5 years') ORDER BY winning_year ASC",
+    "retry_count": 1
+  },
+  {
+    "query": "평균 실점이 100점 이상인 경기를 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE (score_home + score_away) / 2 >= 100",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 5년간 우승한 팀의 이름을 연도별로 정렬해서 표시해줘",
+    "level": "Advanced",
+    "type": "SELECT",
+    "sql": "SELECT DISTINCT CASE WHEN score_home > score_away THEN team_home ELSE team_away END AS winning_team FROM sample WHERE game_date >= DATE('now', '-5 years') ORDER BY game_date",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 5년간 야구 경기에서 한 경기에서 가장 많은 홈런을 기록한 팀의 이름과 경기 날짜를 알려줘",
+    "level": "Expert",
+    "type": "SELECT",
+    "sql": "SELECT team_home, game_date FROM sample WHERE league = '야구' AND game_date >= date('now', '-5 years') ORDER BY score_home DESC LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "플레이어 박영희의 어시스트 횟수를 10회로 업데이트해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET mvp_player='박영희' WHERE mvp_player='박영희'",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 5경기에서 무득점인 팀을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id IN (SELECT id FROM sample ORDER BY game_date DESC LIMIT 5) AND (score_home = 0 OR score_away = 0)",
+    "retry_count": 1
+  },
+  {
+    "query": "최근 5경기에서 득점이 없는 선수를 삭제해줘",
+    "level": "Advanced",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE id IN (SELECT id FROM sample ORDER BY game_date DESC LIMIT 5) AND score_home = 0 AND score_away = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "승률이 30% 이하인 팀을 삭제해줘",
+    "level": "Basic",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home IN (SELECT team_home FROM sample GROUP BY team_home HAVING SUM(CASE WHEN score_home > score_away THEN 1 ELSE 0 END) / COUNT(*) <= 0.3) OR team_away IN (SELECT team_away FROM sample GROUP BY team_away HAVING SUM(CASE WHEN score_away > score_home THEN 1 ELSE 0 END) / COUNT(*) <= 0.3)",
+    "retry_count": 1
+  },
+  {
+    "query": "이번 시즌에 득점이 없는 선수를 삭제해줘",
+    "level": "Intermediate",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE season = '이번 시즌' AND score_home = 0 AND score_away = 0",
+    "retry_count": 1
+  },
+  {
+    "query": "모든 경기에서 가장 적은 실점을 기록한 팀의 이름과 실점 수를 보여줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT team_away AS team_name, MIN(score_home) AS goals_conceded FROM sample GROUP BY team_away ORDER BY goals_conceded LIMIT 1",
+    "retry_count": 1
+  },
+  {
+    "query": "승률이 30% 이하인 팀을 기록에서 제거해줘",
+    "level": "Expert",
+    "type": "DELETE",
+    "sql": "DELETE FROM sample WHERE team_home IN (SELECT team_home FROM sample GROUP BY team_home HAVING SUM(CASE WHEN score_home > score_away THEN 1 ELSE 0 END) / COUNT(*) <= 0.3) OR team_away IN (SELECT team_away FROM sample GROUP BY team_away HAVING SUM(CASE WHEN score_away > score_home THEN 1 ELSE 0 END) / COUNT(*) <= 0.3)",
+    "retry_count": 1
+  },
+  {
+    "query": "로날두의 시즌 총 득점을 25점으로 수정해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=25 WHERE mvp_player='로날두'",
+    "retry_count": 1
+  },
+  {
+    "query": "선수 김철수의 이적 팀을 B팀으로 수정해줘",
+    "level": "Intermediate",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET team_away='B팀' WHERE mvp_player='김철수'",
+    "retry_count": 1
+  },
+  {
+    "query": "첼시 FC의 감독을 새로운 감독으로 변경해줘",
+    "level": "Basic",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET team_home_coach='새로운 감독' WHERE team_home='첼시 FC' OR team_away='첼시 FC'",
+    "retry_count": 1
+  },
+  {
+    "query": "지난 달 경기에 출전한 선수들의 총 출전 시간을 선수별로 그룹화해서 내림차순으로 정렬해줘",
+    "level": "Intermediate",
+    "type": "SELECT",
+    "sql": "SELECT mvp_player, SUM(strftime('%s', duration) / 60) AS total_minutes FROM sample WHERE strftime('%Y-%m', game_date) = strftime('%Y-%m', 'now', '-1 month') GROUP BY mvp_player ORDER BY total_minutes DESC",
+    "retry_count": 1
+  },
+  {
+    "query": "선수 김철수의 경기 기록을 20점으로 수정해줘",
+    "level": "Expert",
+    "type": "UPDATE",
+    "sql": "UPDATE sample SET score_home=20 WHERE mvp_player='김철수'",
+    "retry_count": 1
+  },
+  {
+    "query": "새로운 축구 경기를 일정표에 등록해줘",
+    "level": "Intermediate",
+    "type": "INSERT",
+    "sql": "INSERT INTO sample (id, created_at, updated_at, game_date, team_home, team_away, score_home, score_away, location, attendance, referee, duration, weather, mvp_player, team_home_coach, team_away_coach, league, season, broadcast_channel, ticket_price) VALUES (1, '2023-10-01 12:00:00', '2023-10-01 12:00:00', '2023-10-15', 'FC Seoul', 'Incheon United', 0, 0, 'Seoul World Cup Stadium', 30000, 'Kim Young-joo', '01:45:00', 'Clear', 'Lee Dong-gook', 'Choi Yong-soo', 'Jo Sung-hwan', 'K League 1', '2023', 'KBS2', 15000.00)",
+    "retry_count": 1
+  }
+]
