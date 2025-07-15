@@ -1,57 +1,26 @@
 {
   "results": [
     {
-      "nl": "모든 음악의 제목과 아티스트를 선택하되, 발매 날짜가 2020년 이후인 음악만 포함해 주세요.",
-      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE release_date > '2020-01-01';",
+      "nl": "모든 아티스트의 음악 제목과 장르를 가져와라.",
+      "sql": "SELECT title, genre FROM 음악_스트리밍;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "release_date",
-        "artist"
+        "genre"
       ],
       "matched_fields": [
         "title"
       ]
     },
     {
-      "nl": "재생 횟수가 1000회 이상인 음악의 제목과 장르를 가져와서, 장르가 '힙합'인 음악만 필터링해 주세요.",
-      "sql": "SELECT title, genre FROM 음악_스트리밍 WHERE play_count >= 1000 AND genre = '힙합';",
+      "nl": "재생 횟수가 100회 이상인 음악의 제목과 아티스트를 조회하라.",
+      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE play_count >= 100;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "genre",
-        "play_count"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "평점이 4.5 이상인 음악의 제목과 아티스트를 선택하고, 음악의 길이가 180초 이하인 음악만 포함해 주세요.",
-      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE rating >= 4.5 AND duration <= 180;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "rating",
         "artist",
-        "duration"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "활성 상태인 음악의 제목과 앨범명을 가져오되, 재생 횟수가 500회 미만인 경우는 제외해 주세요.",
-      "sql": "SELECT title, album FROM 음악_스트리밍 WHERE is_active = TRUE AND play_count >= 500;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "is_active",
-        "album",
         "play_count"
       ],
       "matched_fields": [
@@ -59,337 +28,308 @@
       ]
     },
     {
-      "nl": "아티스트가 '방탄소년단'인 음악의 제목과 발매 날짜를 가져오고, 발매 날짜가 2019년보다 늦은 경우만 포함해 주세요.",
-      "sql": "SELECT title, release_date FROM 음악_스트리밍 WHERE artist = '방탄소년단' AND release_date > '2019-12-31';",
+      "nl": "발매 날짜가 2020년 이후인 음악의 제목과 앨범 이름을 표시하라.",
+      "sql": "SELECT title, album FROM 음악_스트리밍 WHERE release_date > '2020-01-01';",
       "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "release_date",
-        "artist"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "장르가 '클래식'인 음악의 평균 평점을 계산하고, 평점이 3.0 이상인 경우만 표시해 주세요.",
-      "sql": "SELECT AVG(rating) AS average_rating FROM 음악_스트리밍 WHERE genre = '클래식' HAVING average_rating >= 3.0;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "rating",
-        "genre",
-        "average_rating"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "음악의 제목과 아티스트를 선택하되, 제목이 'Love'로 시작하지 않는 음악만 포함해 주세요.",
-      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE title NOT LIKE 'Love%';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "artist"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "모든 음악의 제목과 재생 횟수를 가져오되, 재생 횟수가 100회 이하인 음악은 제외하고, 재생 횟수가 가장 높은 음악부터 정렬해 주세요.",
-      "sql": "SELECT title, play_count FROM 음악_스트리밍 WHERE play_count > 100 ORDER BY play_count DESC;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "play_count"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "앨범명이 'The Best'인 음악의 제목과 아티스트를 가져오고, 발매 날짜가 2021년 이전인 경우만 포함해 주세요.",
-      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE album = 'The Best' AND release_date < '2021-01-01';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "release_date",
-        "artist",
-        "album"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "장르가 '재즈'인 음악 중에서 평점이 4.0 이상인 음악의 제목과 발매 날짜를 선택해 주세요.",
-      "sql": "SELECT title, release_date FROM 음악_스트리밍 WHERE genre = '재즈' AND rating >= 4.0;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "rating",
-        "release_date",
-        "genre"
-      ],
-      "matched_fields": [
-        "title"
-      ]
-    },
-    {
-      "nl": "2021년에 발매된 팝 음악 중에서 재생 횟수가 1000회 이상인 음악을 추가해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, status) VALUES ('제목', '아티스트', '앨범', '2021-01-01', '팝', 180, 1000, TRUE, NOW(), 1, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "아티스트가 '비틀즈'인 음악의 제목과 앨범을 추가해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, status) VALUES ('제목', '비틀즈', '앨범', '1970-01-01', '기타', 240, 0, TRUE, NOW(), 1, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "재생 횟수가 500회 이하인 힙합 장르의 음악을 추가하고, 평점은 3.5 이상으로 설정해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, rating, status) VALUES ('제목', '아티스트', '앨범', '1970-01-01', '힙합', 200, 500, TRUE, NOW(), 1, 3.5, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "앨범 이름이 'Thriller'인 클래식 음악을 추가하고, 발매 날짜는 1982년으로 해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, status) VALUES ('제목', '아티스트', 'Thriller', '1982-01-01', '클래식', 300, 0, TRUE, NOW(), 1, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "음악 길이가 300초 이상인 락 장르의 음악을 추가하고, 상태는 '활성'으로 설정해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, status) VALUES ('제목', '아티스트', '앨범', '1970-01-01', '락', 300, 0, TRUE, NOW(), 1, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "사용자 ID가 1인 음악 중에서 평점이 4.0 이하인 음악을 추가해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, rating, status) VALUES ('제목', '아티스트', '앨범', '1970-01-01', '기타', 240, 0, TRUE, NOW(), 1, 4.0, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "재생 횟수가 2000회를 초과하는 음악을 추가하고, 장르는 '기타'로 해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, status) VALUES ('제목', '아티스트', '앨범', '1970-01-01', '기타', 250, 2001, TRUE, NOW(), 1, '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "발매 날짜가 2020년 이후인 재즈 음악을 추가하고, 언어는 '영어'로 설정해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, language, status) VALUES ('제목', '아티스트', '앨범', '2021-01-01', '재즈', 300, 0, TRUE, NOW(), 1, '영어', '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "앨범 커버 이미지가 있는 활성 상태의 음악을 추가하고, 평점은 4.5 이상으로 해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, rating, album_cover, status) VALUES ('제목', '아티스트', '앨범', '1970-01-01', '기타', 300, 0, TRUE, NOW(), 1, 4.5, '앨범 커버 데이터', '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "결제 상태가 '완료'인 음악을 추가하고, 아티스트 이름은 '아델'로 해줘.",
-      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, user_id, payment_status, status) VALUES ('제목', '아델', '앨범', '1970-01-01', '기타', 300, 0, TRUE, NOW(), 1, '완료', '활성')",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "모든 힙합 음악의 재생 횟수를 100회로 업데이트 해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET play_count = 100 WHERE genre = '힙합';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "genre",
-        "play_count"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "재생 횟수가 500회 이상인 모든 음악의 상태를 '완료'로 변경해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET status = '완료' WHERE play_count >= 500;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "play_count"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "발매 날짜가 2020년 이후인 팝 장르의 음악을 비활성으로 업데이트 해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET is_active = FALSE WHERE genre = '팝' AND release_date > '2020-01-01';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "release_date",
-        "is_active",
-        "genre"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "평점이 4.5 이상인 모든 클래식 음악의 설명을 '추천'으로 수정해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET description = '추천' WHERE genre = '클래식' AND rating >= 4.5;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "description",
-        "rating",
-        "genre"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "앨범 제목이 'Best Hits'인 음악의 아티스트 이름을 'Various Artists'로 변경해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET artist = 'Various Artists' WHERE album = 'Best Hits';",
-      "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "album",
-        "artist"
+        "release_date"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "title"
+      ]
     },
     {
-      "nl": "재생 횟수가 0인 음악의 상태를 '비활성'으로 업데이트 해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET status = '비활성' WHERE play_count = 0;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "play_count"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2021년 1월 1일 이전에 추가된 모든 음악의 결제 상태를 '취소'로 변경해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET payment_status = '취소' WHERE created_at < '2021-01-01';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "created_at",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "음악 길이가 300초 이하인 모든 음악의 재생 횟수를 50회로 업데이트 해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET play_count = 50 WHERE duration <= 300;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration",
-        "play_count"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "현재 활성 상태인 음악의 평점을 3.0으로 변경해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET rating = 3.0 WHERE is_active = TRUE;",
-      "dml": "UPDATE",
+      "nl": "장르가 '힙합'인 음악의 평균 평점을 구해라.",
+      "sql": "SELECT AVG(rating) AS average_rating FROM 음악_스트리밍 WHERE genre = '힙합';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "rating",
+        "genre"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "재생 횟수가 50회 미만인 음악의 제목을 가져와라.",
+      "sql": "SELECT title FROM 음악_스트리밍 WHERE play_count < 50;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "play_count"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "평점이 4.00 이상인 음악의 아티스트 이름과 제목을 조회하라.",
+      "sql": "SELECT artist, title FROM 음악_스트리밍 WHERE rating >= 4.00;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "artist",
+        "rating"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "앨범 이름이 'Hits'인 음악의 총 재생 횟수를 합산하라.",
+      "sql": "SELECT SUM(play_count) AS total_play_count FROM 음악_스트리밍 WHERE album = 'Hits';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "album",
+        "play_count"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "활성 상태인 음악 중에서 발매 날짜가 가장 오래된 음악의 제목을 찾으라.",
+      "sql": "SELECT title FROM 음악_스트리밍 WHERE is_active = TRUE ORDER BY release_date ASC LIMIT 1;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date",
         "is_active"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "title"
+      ]
     },
     {
-      "nl": "아티스트 이름이 '아이유'인 모든 음악의 발매 날짜를 2022년으로 업데이트 해주세요.",
-      "sql": "UPDATE 음악_스트리밍 SET release_date = '2022-01-01' WHERE artist = '아이유';",
-      "dml": "UPDATE",
+      "nl": "장르가 '재즈'이고 평점이 3.50 이상인 음악의 목록을 가져와라.",
+      "sql": "SELECT * FROM 음악_스트리밍 WHERE genre = '재즈' AND rating >= 3.50;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "release_date",
-        "artist"
+        "rating",
+        "genre"
       ],
       "matched_fields": []
     },
     {
-      "nl": "모든 음악 중에서 발매 날짜가 2020년 1월 1일 이후인 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE release_date > '2020-01-01';",
-      "dml": "DELETE",
+      "nl": "사용자 ID가 1인 음악 중 재생 횟수가 가장 많은 음악의 제목과 아티스트를 보여줘.",
+      "sql": "SELECT title, artist FROM 음악_스트리밍 WHERE user_id = 1 ORDER BY play_count DESC LIMIT 1;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "user_id",
+        "artist",
+        "play_count"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "발매 날짜가 2020년 이후인 팝 음악을 추가해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Pop Song', 'Artist Name', 'New Album', '2021-01-01', '팝', 200, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '한국어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "재생 횟수가 100회 이상인 힙합 음악을 추가하고, 평점은 4.0 이상으로 설정해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Hip Hop Song', 'Hip Hop Artist', 'Hip Hop Album', '2020-01-01', '힙합', 180, 100, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 4.5, '영어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "음악 길이가 240초 이하인 클래식 음악을 추가해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Classical Song', 'Classical Artist', 'Classical Album', '2019-01-01', '클래식', 240, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '기타', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "아티스트가 '비욘세'인 음악을 추가하고, 상태는 '활성'으로 설정해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Beyoncé Song', '비욘세', 'New Album', '2022-01-01', '팝', 210, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '영어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "앨범 이름에 'Love'가 포함된 음악을 추가하고, 장르는 '락'으로 설정해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('Love Rock Song', 'Rock Artist', 'Love Rock Album', '2018-01-01', '락', 300, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '한국어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "재생 횟수가 50회 미만인 재즈 음악을 추가하고, 설명란에 '신나는 재즈 곡'이라고 적어줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Jazz Song', 'Jazz Artist', 'Jazz Album', '2021-01-01', '재즈', 320, 30, TRUE, NOW(), NULL, '신나는 재즈 곡', 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '기타', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "평점이 3.5 이하인 기타 장르의 음악을 추가해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Other Genre Song', 'Other Artist', 'Other Album', '2017-01-01', '기타', 250, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 3.0, '한국어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "발매 날짜가 2015년부터 2021년 사이인 음악을 추가하고, 아티스트 이름은 '방탄소년단'으로 해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('BTS Song', '방탄소년단', 'BTS Album', '2020-01-01', '팝', 210, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '한국어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 2인 음악을 추가하고, 상태는 '대기'로 설정해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('User 2 Song', 'User Artist', 'User Album', '2023-01-01', '락', 180, 0, TRUE, NOW(), NULL, NULL, 2, NULL, '대기', '대기', '주문완료', NULL, 0.00, '영어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "장르가 '락'인 음악을 추가하고, 재생 횟수는 0으로 설정해줘.",
+      "sql": "INSERT INTO 음악_스트리밍 (title, artist, album, release_date, genre, duration, play_count, is_active, created_at, updated_at, description, user_id, playlist_id, status, payment_status, order_status, album_cover, rating, language, label) VALUES ('New Rock Song', 'Rock Artist', 'Rock Album', '2023-01-01', '락', 300, 0, TRUE, NOW(), NULL, NULL, 1, NULL, '활성', '대기', '주문완료', NULL, 0.00, '한국어', NULL);",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "활성 상태인 음악 중에서 재생 횟수가 100회 이상인 음악의 제목과 아티스트 이름을 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET title = '업데이트된 제목', artist = '업데이트된 아티스트' WHERE is_active = TRUE AND play_count >= 100;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "artist",
+        "play_count",
+        "is_active"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "발매 날짜가 2020년 이후인 음악의 평점을 4.5 이상으로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET rating = 4.5 WHERE release_date > '2020-01-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
         "release_date"
       ],
       "matched_fields": []
     },
     {
-      "nl": "아티스트가 '방탄소년단'인 모든 음악을 삭제하고 싶어.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE artist = '방탄소년단';",
-      "dml": "DELETE",
+      "nl": "재생 횟수가 50회 미만인 비활성 음악의 상태를 '비활성'에서 '완료'로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET status = '완료' WHERE play_count < 50 AND is_active = FALSE;",
+      "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "artist"
+        "is_active",
+        "play_count",
+        "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "재생 횟수가 100회 미만인 음악을 모두 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE play_count < 100;",
-      "dml": "DELETE",
+      "nl": "장르가 '팝'인 음악 중에서 길이가 180초 이하인 음악의 설명을 수정해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET description = '수정된 설명' WHERE genre = '팝' AND duration <= 180;",
+      "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "genre",
+        "duration",
+        "description"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "아티스트 이름이 '김범수'인 음악의 발매 날짜를 2021년으로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET release_date = '2021-01-01' WHERE artist = '김범수';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "artist",
+        "release_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "평점이 3.0 이하인 음악의 상태를 '완료'로 업데이트 하고, 사용자 ID는 2로 변경해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET status = '완료', user_id = 2 WHERE rating <= 3.0;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_id",
+        "rating",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "앨범 이름이 '사계'인 음악의 재생 횟수를 200회로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET play_count = 200 WHERE album = '사계';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "album",
         "play_count"
       ],
       "matched_fields": []
     },
     {
-      "nl": "장르가 '힙합'인 음악 중에서 평점이 3.00 이하인 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE genre = '힙합' AND rating <= 3.00;",
-      "dml": "DELETE",
+      "nl": "길이가 240초 이상인 음악 중에서 아티스트가 '아이유'인 음악의 결제 상태를 '완료'로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET payment_status = '완료' WHERE duration >= 240 AND artist = '아이유';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "artist",
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "장르가 '힙합'인 음악의 평점을 4.0 이상으로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET rating = 4.0 WHERE genre = '힙합';",
+      "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
@@ -399,71 +339,134 @@
       "matched_fields": []
     },
     {
-      "nl": "상태가 '비활성'인 음악을 모두 삭제하고 싶어.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE status = '비활성';",
-      "dml": "DELETE",
+      "nl": "활성 음악 중에서 재생 횟수가 500회를 초과하는 음악의 상태를 '비활성'으로 업데이트 해줘.",
+      "sql": "UPDATE 음악_스트리밍 SET status = '비활성' WHERE is_active = TRUE AND play_count > 500;",
+      "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "is_active",
+        "play_count",
         "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "앨범 이름이 'Love Yourself'인 음악 중에서 발매 날짜가 2019년 이전인 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE album = 'Love Yourself' AND release_date < '2019-01-01';",
+      "nl": "삭제된 음악 중에서 재생 횟수가 100회 이상인 음악을 모두 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE play_count >= 100 AND is_active = FALSE;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "release_date",
-        "album"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "모든 음악 중에서 길이가 300초 이상인 음악을 삭제하고 싶어.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE duration >= 300;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "사용자 ID가 5인 모든 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE user_id = 5;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "user_id"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "재생 횟수가 50회 이상이고, 장르가 '클래식'인 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE play_count >= 50 AND genre = '클래식';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "genre",
+        "is_active",
         "play_count"
       ],
       "matched_fields": []
     },
     {
-      "nl": "평점이 4.50 이상인 음악 중에서 아티스트가 '아이유'인 음악을 삭제해줘.",
-      "sql": "DELETE FROM 음악_스트리밍 WHERE rating >= 4.50 AND artist = '아이유';",
+      "nl": "발매 날짜가 2020년 1월 1일 이후이고 평점이 4.5 이상인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE release_date > '2020-01-01' AND rating >= 4.5;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "rating",
-        "artist"
+        "release_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "아티스트가 '아이유'인 음악 중에서 상태가 '비활성'인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE artist = '아이유' AND status = '비활성';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "artist",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "장르가 '힙합'인 음악 중에서 재생 횟수가 50회 미만인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE genre = '힙합' AND play_count < 50;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "play_count",
+        "genre"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "평점이 3.0 이하인 음악을 모두 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE rating <= 3.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "발매 날짜가 2015년 이전인 음악 중에서 상태가 '완료'인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE release_date < '2015-01-01' AND status = '완료';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "release_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "재생 횟수가 0인 음악을 모두 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE play_count = 0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "play_count"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 2인 음악 중에서 앨범 이름이 '사랑'인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE user_id = 2 AND album = '사랑';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "album",
+        "user_id"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "리뷰 수가 10개 미만인 음악 중에서 장르가 '클래식'인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE genre = '클래식' AND (SELECT COUNT(*) FROM reviews WHERE music_id = 음악_스트리밍.music_id) < 10;",
+      "dml": "DELETE",
+      "db_success": false,
+      "db_error": "1146 (42S02): Table '음악_스트리밍.reviews' doesn't exist",
+      "missing_fields": [
+        "genre"
+      ],
+      "matched_fields": [
+        "music_id"
+      ]
+    },
+    {
+      "nl": "상태가 '취소'인 음악 중에서 발매 날짜가 2019년 이후인 음악을 삭제해줘.",
+      "sql": "DELETE FROM 음악_스트리밍 WHERE status = '취소' AND release_date > '2019-01-01';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "release_date"
       ],
       "matched_fields": []
     }

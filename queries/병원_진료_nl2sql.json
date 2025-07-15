@@ -1,30 +1,49 @@
 {
   "results": [
     {
-      "nl": "모든 환자의 진료 기록을 조회하되, 진료 상태가 '완료'인 경우만 포함해줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE status = '완료';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "status"
-      ]
-    },
-    {
-      "nl": "진료 시간이 30분 이상인 모든 기록을 찾아줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE duration >= 30;",
+      "nl": "진료 상태가 '완료'인 환자들의 이름과 예약 날짜를 조회해줘.",
+      "sql": "SELECT name, appointment_date FROM 병원_진료 WHERE status = '완료';",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "duration"
+        "name"
+      ],
+      "matched_fields": [
+        "appointment_date",
+        "status"
+      ]
+    },
+    {
+      "nl": "진료 시간이 30분 이상 걸린 진료 기록의 의사 ID와 진단 내용을 가져와줘.",
+      "sql": "SELECT doctor_id, diagnosis FROM 병원_진료 WHERE duration >= 30;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "diagnosis"
+      ],
+      "matched_fields": [
+        "doctor_id"
+      ]
+    },
+    {
+      "nl": "결제 상태가 '대기'인 진료 기록의 환자 연락처와 이메일 주소를 보여줘.",
+      "sql": "SELECT phone, email FROM 병원_진료 WHERE payment_status = '대기';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "email",
+        "payment_status",
+        "phone"
       ],
       "matched_fields": []
     },
     {
-      "nl": "예약 날짜가 2023년 1월 1일 이후인 진료 기록을 보여줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE appointment_date > '2023-01-01';",
+      "nl": "예약 날짜가 현재 날짜보다 이후인 모든 진료 기록을 조회해줘.",
+      "sql": "SELECT * FROM 병원_진료 WHERE appointment_date > CURDATE();",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
@@ -34,8 +53,8 @@
       ]
     },
     {
-      "nl": "환자 ID가 1001인 환자의 모든 진료 기록을 조회해줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE patient_id = 1001;",
+      "nl": "환자 ID가 100 이상인 진료 기록의 수를 세어줘.",
+      "sql": "SELECT COUNT(*) FROM 병원_진료 WHERE patient_id >= 100;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
@@ -45,32 +64,8 @@
       ]
     },
     {
-      "nl": "진료 상태가 '대기'이고 결제 상태가 '완료'인 기록을 찾아줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE status = '대기' AND payment_status = '완료';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "payment_status"
-      ],
-      "matched_fields": [
-        "status"
-      ]
-    },
-    {
-      "nl": "예약 시간이 현재 시각 이후인 모든 진료 기록을 나열해줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE appointment_time > NOW();",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "appointment_time"
-      ]
-    },
-    {
-      "nl": "진료 제목이 '검진'인 모든 진료 기록의 수를 세어줘.",
-      "sql": "SELECT COUNT(*) FROM 병원_진료 WHERE title = '검진';",
+      "nl": "진료 제목에 '검사'가 포함된 모든 진료 기록을 가져와줘.",
+      "sql": "SELECT * FROM 병원_진료 WHERE title LIKE '%검사%';",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
@@ -80,8 +75,19 @@
       "matched_fields": []
     },
     {
-      "nl": "환자 이름이 '김철수'인 진료 기록 중 진료 시간이 20분 이하인 것만 보여줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE name = '김철수' AND duration <= 20;",
+      "nl": "후속 진료 날짜가 현재 날짜보다 이전인 진료 기록을 찾아줘.",
+      "sql": "SELECT * FROM 병원_진료 WHERE follow_up_date < CURDATE();",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "follow_up_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '대기'이면서 진료 시간이 15분 이하인 환자들의 이름을 조회해줘.",
+      "sql": "SELECT name FROM 병원_진료 WHERE status = '대기' AND duration <= 15;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
@@ -89,213 +95,240 @@
         "duration",
         "name"
       ],
-      "matched_fields": []
-    },
-    {
-      "nl": "후속 진료 날짜가 2023년 12월 31일 이전인 모든 기록을 나열해줘.",
-      "sql": "SELECT * FROM 병원_진료 WHERE follow_up_date < '2023-12-31';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "follow_up_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 상태가 '취소'인 경우의 수를 세어줘.",
-      "sql": "SELECT COUNT(*) FROM 병원_진료 WHERE status = '취소';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
       "matched_fields": [
         "status"
       ]
     },
     {
-      "nl": "환자 ID가 100인 환자의 진료를 '완료' 상태로 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (patient_id, status) VALUES (100, '완료');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'doctor_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 10월 1일에 예약된 진료의 상태를 '취소'로 설정해줘.",
-      "sql": "UPDATE 병원_진료 SET status = '취소' WHERE appointment_date = '2023-10-01';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "status",
-        "appointment_date"
-      ]
-    },
-    {
-      "nl": "진료 시간이 30분 이상인 환자의 정보를 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (duration) VALUES (30) WHERE duration >= 30;",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE duration >= 30' at line 1",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 제목이 '검진'인 환자의 진료 기록을 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (title) VALUES ('검진');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "후속 진료 날짜가 2023년 11월 15일인 환자의 진료를 등록해줘.",
-      "sql": "INSERT INTO 병원_진료 (follow_up_date) VALUES ('2023-11-15');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 상태가 '대기'인 환자를 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (status) VALUES ('대기');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 지속 시간이 60분 이하인 환자의 정보를 입력해줘.",
-      "sql": "INSERT INTO 병원_진료 (duration) VALUES (60) WHERE duration <= 60;",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE duration <= 60' at line 1",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "환자 이름이 '홍길동'인 환자의 진료 기록을 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (name) VALUES ('홍길동');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "결제 상태가 '완료'인 진료를 등록해줘.",
-      "sql": "INSERT INTO 병원_진료 (payment_status) VALUES ('완료');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "예약 날짜가 2023년 10월 5일인 환자의 진료를 추가해줘.",
-      "sql": "INSERT INTO 병원_진료 (appointment_date) VALUES ('2023-10-05');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'patient_id' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 상태가 '완료'인 환자들의 진료 시간을 30분으로 업데이트 해줘.",
-      "sql": "UPDATE 병원_진료 SET duration = 30 WHERE status = '완료';",
-      "dml": "UPDATE",
+      "nl": "진료 의뢰 경로가 '추천'인 진료 기록의 수를 계산해줘.",
+      "sql": "SELECT COUNT(*) FROM 병원_진료 WHERE referral_source = '추천';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "duration"
+        "referral_source"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '완료'인 진료 기록 중 진료 시간이 60분 이상인 것들의 진단 내용을 보여줘.",
+      "sql": "SELECT diagnosis FROM 병원_진료 WHERE status = '완료' AND duration >= 60;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "diagnosis"
       ],
       "matched_fields": [
         "status"
       ]
     },
     {
-      "nl": "예약 날짜가 2023년 10월 1일 이전인 모든 진료의 상태를 '취소'로 변경해줘.",
-      "sql": "UPDATE 병원_진료 SET status = '취소' WHERE appointment_date < '2023-10-01';",
+      "nl": "환자 ID가 123인 환자의 진료 상태가 '완료'인 진료 기록을 추가해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (123, NULL, NULL, NULL, '완료', '대기', NULL, NULL, NULL, TRUE, 0, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'doctor_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "의사 ID가 456인 의사의 진료 시간이 30분 이상인 진료 기록을 입력해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, 456, NULL, NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 30, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "예약 날짜가 2023년 10월 1일인 진료를 추가하고, 진료 제목을 '정기 검사'로 설정해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, '2023-10-01', NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 0, NULL, NULL, NULL, '정기 검사', NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "결제 상태가 '완료'인 환자의 진료 기록을 추가하고, 진료 메모에 '추가 검사 필요'라고 적어 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, NULL, NULL, '활성', '완료', NULL, NULL, '추가 검사 필요', TRUE, 0, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 시간이 20분 이하인 진료를 추가하고, 환자 이름을 '홍길동'으로 입력해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, NULL, NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 20, NULL, NULL, '홍길동', NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '대기'인 환자의 예약 날짜를 2023년 11월 15일로 설정해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, '2023-11-15', NULL, '대기', '대기', NULL, NULL, NULL, TRUE, 0, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "후속 진료 날짜가 2023년 10월 30일인 진료 기록을 추가하고, 의사 ID를 789로 설정해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, 789, NULL, NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 0, NULL, NULL, NULL, NULL, NULL, '직접', '2023-10-30');",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 제목이 '치과 진료'인 환자의 진료 기록을 추가하고, 환자 연락처를 '01012345678'로 입력해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, NULL, NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 0, '01012345678', NULL, NULL, '치과 진료', NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '취소'인 진료 기록을 추가하고, 결제 상태를 '실패'로 설정해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (NULL, NULL, NULL, NULL, '취소', '실패', NULL, NULL, NULL, TRUE, 0, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'patient_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "환자 ID가 999이고 진료 시간이 60분 이상인 진료 기록을 추가해 주세요.",
+      "sql": "INSERT INTO 병원_진료 (patient_id, doctor_id, appointment_date, appointment_time, status, payment_status, prescription, diagnosis, notes, is_active, duration, phone, email, name, title, description, referral_source, follow_up_date) VALUES (999, NULL, NULL, NULL, '활성', '대기', NULL, NULL, NULL, TRUE, 60, NULL, NULL, NULL, NULL, NULL, '직접', NULL);",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1048 (23000): Column 'doctor_id' cannot be null",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '완료'인 모든 진료 기록의 결제 상태를 '완료'로 업데이트 해주세요.",
+      "sql": "UPDATE 병원_진료 SET payment_status = '완료' WHERE status = '완료';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [],
+      "missing_fields": [
+        "payment_status"
+      ],
       "matched_fields": [
-        "status",
-        "appointment_date"
+        "status"
       ]
     },
     {
-      "nl": "결제 상태가 '대기'인 진료의 진료 제목을 '재진료 필요'로 업데이트 해줘.",
-      "sql": "UPDATE 병원_진료 SET title = '재진료 필요' WHERE payment_status = '대기';",
+      "nl": "진료 시간이 30분 이상인 환자의 진료 제목을 '장기 진료'로 변경해주세요.",
+      "sql": "UPDATE 병원_진료 SET title = '장기 진료' WHERE duration >= 30;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "title",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "후속 진료 날짜가 오늘 이후인 모든 환자의 연락처를 NULL로 변경해줘.",
-      "sql": "UPDATE 병원_진료 SET phone = NULL WHERE follow_up_date > CURDATE();",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "phone",
-        "follow_up_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 시간이 60분 이상인 진료의 진단 내용을 '추가 검사 필요'로 수정해줘.",
-      "sql": "UPDATE 병원_진료 SET diagnosis = '추가 검사 필요' WHERE duration >= 60;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "diagnosis",
         "duration"
       ],
       "matched_fields": []
     },
     {
-      "nl": "환자 이름이 '김철수'인 환자의 이메일 주소를 'kim@example.com'으로 변경해줘.",
-      "sql": "UPDATE 병원_진료 SET email = 'kim@example.com' WHERE name = '김철수';",
+      "nl": "예약 날짜가 2023년 10월 1일 이후인 모든 진료의 상태를 '대기'로 변경해주세요.",
+      "sql": "UPDATE 병원_진료 SET status = '대기' WHERE appointment_date > '2023-10-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "appointment_date",
+        "status"
+      ]
+    },
+    {
+      "nl": "환자 ID가 5보다 큰 모든 진료의 의사 ID를 2로 업데이트 해주세요.",
+      "sql": "UPDATE 병원_진료 SET doctor_id = 2 WHERE patient_id > 5;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "doctor_id",
+        "patient_id"
+      ]
+    },
+    {
+      "nl": "진료 상태가 '취소'인 모든 진료 기록의 활성 여부를 false로 설정해주세요.",
+      "sql": "UPDATE 병원_진료 SET is_active = FALSE WHERE status = '취소';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "email",
+        "is_active"
+      ],
+      "matched_fields": [
+        "status"
+      ]
+    },
+    {
+      "nl": "진료 시간이 60분 이하인 진료의 진단 내용을 '검사 필요'로 변경해주세요.",
+      "sql": "UPDATE 병원_진료 SET diagnosis = '검사 필요' WHERE duration <= 60;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "diagnosis"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "후속 진료 날짜가 2023년 12월 31일 이전인 모든 진료의 결제 상태를 '대기'로 업데이트 해주세요.",
+      "sql": "UPDATE 병원_진료 SET payment_status = '대기' WHERE follow_up_date < '2023-12-31';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status",
+        "follow_up_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "환자 이름이 '홍길동'인 진료의 진료 제목을 '정기 검진'으로 수정해주세요.",
+      "sql": "UPDATE 병원_진료 SET title = '정기 검진' WHERE name = '홍길동';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
         "name"
       ],
       "matched_fields": []
     },
     {
-      "nl": "진료 상태가 '대기'이고 예약 날짜가 오늘인 모든 진료의 진료 제목을 '긴급'으로 업데이트 해줘.",
-      "sql": "UPDATE 병원_진료 SET title = '긴급' WHERE status = '대기' AND appointment_date = CURDATE();",
+      "nl": "진료 상태가 '활성'이면서 결제 상태가 '실패'인 모든 진료의 메모를 '재결제 필요'로 업데이트 해주세요.",
+      "sql": "UPDATE 병원_진료 SET notes = '재결제 필요' WHERE status = '활성' AND payment_status = '실패';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "title"
+        "payment_status",
+        "notes"
       ],
       "matched_fields": [
-        "status",
-        "appointment_date"
+        "status"
       ]
     },
     {
-      "nl": "진료 기록 생성 시각이 2023년 1월 1일 이후인 진료의 상태를 '활성'으로 변경해줘.",
-      "sql": "UPDATE 병원_진료 SET status = '활성' WHERE created_at > '2023-01-01';",
+      "nl": "진료 기록이 생성된 날짜가 2023년 1월 1일 이전인 모든 진료의 상태를 '비활성'으로 변경해주세요.",
+      "sql": "UPDATE 병원_진료 SET status = '비활성' WHERE created_at < '2023-01-01';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
@@ -307,44 +340,19 @@
       ]
     },
     {
-      "nl": "진료 상태가 '완료'인 환자들의 처방전 내용을 '검사 결과 대기 중'으로 업데이트 해줘.",
-      "sql": "UPDATE 병원_진료 SET prescription = '검사 결과 대기 중' WHERE status = '완료';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "prescription"
-      ],
-      "matched_fields": [
-        "status"
-      ]
-    },
-    {
-      "nl": "추천 경로가 '기타'인 진료의 진료 시간을 45분으로 수정해줘.",
-      "sql": "UPDATE 병원_진료 SET duration = 45 WHERE referral_source = '기타';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration",
-        "referral_source"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "진료 상태가 '완료'인 모든 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE status = '완료';",
+      "nl": "환자 ID가 123인 진료 기록을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE patient_id = 123;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [],
       "matched_fields": [
-        "status"
+        "patient_id"
       ]
     },
     {
-      "nl": "예약 날짜가 2023년 1월 1일 이전인 진료 기록을 모두 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE appointment_date < '2023-01-01';",
+      "nl": "예약 날짜가 2023년 10월 1일인 모든 진료를 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE appointment_date = '2023-10-01';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -354,18 +362,18 @@
       ]
     },
     {
-      "nl": "결제 상태가 '취소'인 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE payment_status = '취소';",
+      "nl": "진료 상태가 '취소'인 기록을 모두 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE status = '취소';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [
-        "payment_status"
-      ],
-      "matched_fields": []
+      "missing_fields": [],
+      "matched_fields": [
+        "status"
+      ]
     },
     {
-      "nl": "진료 시간이 30분 이하인 모든 진료 기록을 삭제해 주세요.",
+      "nl": "진료 시간이 30분 이하인 모든 진료를 삭제해줘.",
       "sql": "DELETE FROM 병원_진료 WHERE duration <= 30;",
       "dml": "DELETE",
       "db_success": true,
@@ -376,19 +384,19 @@
       "matched_fields": []
     },
     {
-      "nl": "환자 ID가 100보다 큰 모든 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE patient_id > 100;",
+      "nl": "결제 상태가 '실패'인 환자들의 진료 기록을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE payment_status = '실패';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "patient_id"
-      ]
+      "missing_fields": [
+        "payment_status"
+      ],
+      "matched_fields": []
     },
     {
-      "nl": "진료 제목이 NULL인 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE title IS NULL;",
+      "nl": "진료 제목에 '검진'이 포함된 모든 기록을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE title LIKE '%검진%';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -398,32 +406,8 @@
       "matched_fields": []
     },
     {
-      "nl": "상태가 '비활성'인 진료 기록 중 진료 시간이 60분 이상인 것들을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE status = '비활성' AND duration >= 60;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration"
-      ],
-      "matched_fields": [
-        "status"
-      ]
-    },
-    {
-      "nl": "진료 고유 ID가 50 이하인 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE id <= 50;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "id"
-      ]
-    },
-    {
-      "nl": "후속 진료 날짜가 오늘 날짜 이후인 모든 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE follow_up_date > CURDATE();",
+      "nl": "후속 진료 날짜가 오늘보다 이전인 진료를 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE follow_up_date < CURDATE();",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -433,15 +417,38 @@
       "matched_fields": []
     },
     {
-      "nl": "진료 의뢰 경로가 '기타'인 진료 기록을 삭제해 주세요.",
-      "sql": "DELETE FROM 병원_진료 WHERE referral_source = '기타';",
+      "nl": "진단 내용이 비어 있는 모든 진료 기록을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE diagnosis IS NULL OR diagnosis = '';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "referral_source"
+        "diagnosis"
       ],
       "matched_fields": []
+    },
+    {
+      "nl": "환자 이름이 '홍길동'인 진료 기록을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE name = '홍길동';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "name"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "진료 상태가 '대기'인 기록 중에서 예약 날짜가 오늘인 것을 삭제해줘.",
+      "sql": "DELETE FROM 병원_진료 WHERE status = '대기' AND appointment_date = CURDATE();",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "appointment_date",
+        "status"
+      ]
     }
   ]
 }

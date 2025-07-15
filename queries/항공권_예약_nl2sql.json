@@ -1,124 +1,132 @@
 {
   "results": [
     {
-      "nl": "모든 사용자의 예약 목록을 보여줘.",
-      "sql": "SELECT * FROM 항공권_예약;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 1월 1일 이후에 출발하는 모든 항공편 예약을 조회해줘.",
-      "sql": "SELECT * FROM 항공권_예약 WHERE departure_date > '2023-01-01';",
+      "nl": "총 가격이 100000원 이상인 모든 예약의 승객 이름과 항공편 번호를 조회해 주세요.",
+      "sql": "SELECT passenger_name, flight_number FROM 항공권_예약 WHERE total_price >= 100000;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "departure_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "총 가격이 100,000원 이상인 예약을 찾아줘.",
-      "sql": "SELECT * FROM 항공권_예약 WHERE total_price >= 100000;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
+        "passenger_name",
         "total_price"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "비행기 번호가 'AB123'인 예약의 승객 이름을 알려줘.",
-      "sql": "SELECT passenger_name FROM 항공권_예약 WHERE flight_number = 'AB123';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "passenger_name"
       ],
       "matched_fields": [
         "flight_number"
       ]
     },
     {
-      "nl": "결제 상태가 '완료'인 예약의 수를 세어줘.",
-      "sql": "SELECT COUNT(*) FROM 항공권_예약 WHERE payment_status = '완료';",
+      "nl": "2023년 1월 1일 이후에 생성된 예약의 출발 도시와 도착 도시를 알려주세요.",
+      "sql": "SELECT departure_city, arrival_city FROM 항공권_예약 WHERE created_at > '2023-01-01';",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "출발 도시가 '서울'이고 도착 도시가 '부산'인 예약을 검색해줘.",
-      "sql": "SELECT * FROM 항공권_예약 WHERE departure_city = '서울' AND arrival_city = '부산';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "departure_city",
-        "arrival_city"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "수하물 허용량이 20kg 이하인 예약의 리스트를 보여줘.",
-      "sql": "SELECT * FROM 항공권_예약 WHERE baggage_allowance <= 20;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "baggage_allowance"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "식사 선호도가 '채식'인 예약의 승객 정보를 조회해줘.",
-      "sql": "SELECT passenger_name, passenger_phone, passenger_email FROM 항공권_예약 WHERE meal_preference = '채식';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "passenger_phone",
-        "meal_preference",
-        "passenger_email",
-        "passenger_name"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "예약 상태가 '활성'이고 결제 상태가 '대기'인 예약을 찾아줘.",
-      "sql": "SELECT * FROM 항공권_예약 WHERE status = '활성' AND payment_status = '대기';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 12월 31일 이전에 예약된 모든 항공편의 총 가격 평균을 알려줘.",
-      "sql": "SELECT AVG(total_price) FROM 항공권_예약 WHERE created_at < '2023-12-31';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
+        "arrival_city",
         "created_at",
+        "departure_city"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "식사 선호도가 '채식'인 승객들의 예약 정보를 모두 출력해 주세요.",
+      "sql": "SELECT * FROM 항공권_예약 WHERE meal_preference = '채식';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "meal_preference"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "예약 상태가 '완료'인 예약의 총 가격의 평균을 구해 주세요.",
+      "sql": "SELECT AVG(total_price) AS average_price FROM 항공권_예약 WHERE status = '완료';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "귀국 날짜가 출발 날짜보다 늦은 모든 예약을 조회해 주세요.",
+      "sql": "SELECT * FROM 항공권_예약 WHERE return_date > departure_date;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "departure_date",
+        "return_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "총 가격이 50000원 이하인 예약의 승객 전화번호와 이메일을 확인해 주세요.",
+      "sql": "SELECT passenger_phone, passenger_email FROM 항공권_예약 WHERE total_price <= 50000;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "passenger_email",
+        "passenger_phone",
         "total_price"
       ],
       "matched_fields": []
     },
     {
-      "nl": "사용자 ID가 5인 예약의 총 가격이 200,000원보다 큰 항공권 정보를 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (user_id, total_price) VALUES (5, 200001.00);",
+      "nl": "수하물 허용량이 20kg 이상인 예약의 승객 이름과 예약 상태를 가져와 주세요.",
+      "sql": "SELECT passenger_name, status FROM 항공권_예약 WHERE baggage_allowance >= 20;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "passenger_name",
+        "baggage_allowance",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "결제 상태가 '완료'인 예약의 수를 세어주세요.",
+      "sql": "SELECT COUNT(*) AS completed_reservations FROM 항공권_예약 WHERE payment_status = '완료';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "특가 티켓 유형을 가진 예약 중에서 출발 도시가 '서울'인 예약의 정보를 조회해 주세요.",
+      "sql": "SELECT * FROM 항공권_예약 WHERE ticket_type = '특가' AND departure_city = '서울';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "ticket_type",
+        "departure_city"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "2023년에 생성된 예약 중에서 귀국 날짜가 없는 예약의 총 가격 합계를 계산해 주세요.",
+      "sql": "SELECT SUM(total_price) AS total_price_sum FROM 항공권_예약 WHERE YEAR(created_at) = 2023 AND return_date = '1970-01-01';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "created_at",
+        "return_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 1인 예약의 총 가격이 100,000원 이상인 항공권 예약을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (user_id, total_price) VALUES (1, 100000.00);",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -126,7 +134,7 @@
       "matched_fields": []
     },
     {
-      "nl": "출발 도시가 '서울'이고 도착 도시가 '뉴욕'인 항공편의 예약을 추가해주세요.",
+      "nl": "출발 도시가 '서울'이고 도착 도시가 '뉴욕'인 항공편을 예약하고 싶어.",
       "sql": "INSERT INTO 항공권_예약 (departure_city, arrival_city) VALUES ('서울', '뉴욕');",
       "dml": "INSERT",
       "db_success": false,
@@ -135,16 +143,7 @@
       "matched_fields": []
     },
     {
-      "nl": "식사 선호도가 '채식'인 승객의 예약 정보를 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (meal_preference) VALUES ('채식');",
-      "dml": "INSERT",
-      "db_success": false,
-      "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
-      "missing_fields": [],
-      "matched_fields": []
-    },
-    {
-      "nl": "귀국 날짜가 2023년 12월 31일인 예약을 추가해주세요.",
+      "nl": "귀국 날짜가 2023년 12월 31일인 항공권 예약을 추가해줘.",
       "sql": "INSERT INTO 항공권_예약 (return_date) VALUES ('2023-12-31');",
       "dml": "INSERT",
       "db_success": false,
@@ -153,8 +152,8 @@
       "matched_fields": []
     },
     {
-      "nl": "수하물 허용량이 30kg 이상인 항공권 예약을 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (baggage_allowance) VALUES (30);",
+      "nl": "식사 선호도가 '채식'인 승객의 항공권 예약을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (meal_preference) VALUES ('채식');",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -162,8 +161,8 @@
       "matched_fields": []
     },
     {
-      "nl": "결제 상태가 '완료'인 예약을 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (payment_status) VALUES ('완료');",
+      "nl": "결제 상태가 '완료'인 예약의 총 가격이 50,000원 이하인 항공권을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (payment_status, total_price) VALUES ('완료', 50000.00);",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -171,8 +170,8 @@
       "matched_fields": []
     },
     {
-      "nl": "티켓 유형이 '특가'이고, 예약 상태가 '활성'인 항공권 정보를 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (ticket_type, status) VALUES ('특가', '활성');",
+      "nl": "수하물 허용량이 20kg 이상인 항공권 예약을 추가하고 싶어.",
+      "sql": "INSERT INTO 항공권_예약 (baggage_allowance) VALUES (20);",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -180,8 +179,8 @@
       "matched_fields": []
     },
     {
-      "nl": "예약 시각이 현재 시각 이전인 항공권 예약을 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (created_at) VALUES (NOW() - INTERVAL 1 DAY);",
+      "nl": "예약 상태가 '활성'이고 총 가격이 200,000원 미만인 항공권을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (status, total_price) VALUES ('활성', 199999.99);",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -189,8 +188,8 @@
       "matched_fields": []
     },
     {
-      "nl": "총 가격이 150,000원 이하이고, 식사 선호도가 '비채식'인 예약을 추가해주세요.",
-      "sql": "INSERT INTO 항공권_예약 (total_price, meal_preference) VALUES (150000.00, '비채식');",
+      "nl": "출발 날짜가 2023년 10월 1일 이후인 항공권 예약을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (departure_date) VALUES ('2023-10-02');",
       "dml": "INSERT",
       "db_success": false,
       "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
@@ -198,7 +197,16 @@
       "matched_fields": []
     },
     {
-      "nl": "회원 프로그램 코드가 'VIP'인 사용자의 예약 정보를 추가해주세요.",
+      "nl": "티켓 유형이 '특가'인 항공권 예약을 추가해줘.",
+      "sql": "INSERT INTO 항공권_예약 (ticket_type) VALUES ('특가');",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1364 (HY000): Field 'flight_number' doesn't have a default value",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "회원 프로그램 코드가 'VIP'인 사용자의 항공권 예약을 추가해줘.",
       "sql": "INSERT INTO 항공권_예약 (loyalty_program) VALUES ('VIP');",
       "dml": "INSERT",
       "db_success": false,
@@ -207,129 +215,143 @@
       "matched_fields": []
     },
     {
-      "nl": "모든 예약의 결제 상태를 '완료'로 업데이트 하세요.",
-      "sql": "UPDATE 항공권_예약 SET payment_status = '완료';",
+      "nl": "결제 상태가 '대기'인 항공권 예약의 총 가격을 100000으로 업데이트 하세요.",
+      "sql": "UPDATE 항공권_예약 SET total_price = 100000 WHERE payment_status = '대기';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "total_price",
         "payment_status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "총 가격이 500000원 이상인 예약의 상태를 '완료'로 변경하세요.",
-      "sql": "UPDATE 항공권_예약 SET status = '완료' WHERE total_price >= 500000;",
+      "nl": "출발 도시가 '서울'이고 도착 도시가 '뉴욕'인 예약의 상태를 '완료'로 변경하세요.",
+      "sql": "UPDATE 항공권_예약 SET status = '완료' WHERE departure_city = '서울' AND arrival_city = '뉴욕';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "arrival_city",
+        "status",
+        "departure_city"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "예약 상태가 '취소'인 모든 예약의 식사 선호도를 '채식'으로 업데이트 하세요.",
+      "sql": "UPDATE 항공권_예약 SET meal_preference = '채식' WHERE status = '취소';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "status",
-        "total_price"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "출발 도시가 '서울'인 모든 예약의 식사 선호도를 '채식'으로 업데이트 하세요.",
-      "sql": "UPDATE 항공권_예약 SET meal_preference = '채식' WHERE departure_city = '서울';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "departure_city",
         "meal_preference"
       ],
       "matched_fields": []
     },
     {
-      "nl": "예약 상태가 '대기'인 모든 예약의 귀국 날짜를 오늘 날짜로 변경하세요.",
-      "sql": "UPDATE 항공권_예약 SET return_date = CURDATE() WHERE status = '대기';",
+      "nl": "수하물 허용량이 20kg 이하인 예약의 결제 상태를 '완료'로 변경하세요.",
+      "sql": "UPDATE 항공권_예약 SET payment_status = '완료' WHERE baggage_allowance <= 20;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "return_date",
-        "status"
+        "payment_status",
+        "baggage_allowance"
       ],
       "matched_fields": []
     },
     {
-      "nl": "사용자 ID가 3인 예약의 전화번호를 '01012345678'로 업데이트 하세요.",
-      "sql": "UPDATE 항공권_예약 SET passenger_phone = '01012345678' WHERE user_id = 3;",
+      "nl": "사용자 ID가 5인 예약의 귀국 날짜를 오늘 날짜로 업데이트 하세요.",
+      "sql": "UPDATE 항공권_예약 SET return_date = CURDATE() WHERE user_id = 5;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "passenger_phone"
+        "return_date"
       ],
       "matched_fields": [
         "user_id"
       ]
     },
     {
-      "nl": "수하물 허용량이 20kg 이하인 예약의 총 가격을 100000원으로 변경하세요.",
-      "sql": "UPDATE 항공권_예약 SET total_price = 100000 WHERE baggage_allowance <= 20;",
+      "nl": "총 가격이 500000 이상인 예약의 결제 상태를 '실패'로 변경하세요.",
+      "sql": "UPDATE 항공권_예약 SET payment_status = '실패' WHERE total_price >= 500000;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "total_price",
-        "baggage_allowance"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "식사 선호도가 '비채식'인 예약의 상태를 '취소'로 업데이트 하세요.",
-      "sql": "UPDATE 항공권_예약 SET status = '취소' WHERE meal_preference = '비채식';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "meal_preference"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "특가 티켓 유형인 예약의 결제 상태를 '대기'로 바꾸세요.",
-      "sql": "UPDATE 항공권_예약 SET payment_status = '대기' WHERE ticket_type = '특가';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "ticket_type",
         "payment_status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "귀국 날짜가 현재 날짜보다 이전인 예약의 상태를 '취소'로 변경하세요.",
-      "sql": "UPDATE 항공권_예약 SET status = '취소' WHERE return_date < CURDATE();",
+      "nl": "식사 선호도가 '글루텐프리'인 예약의 노트를 '특별 요청'으로 업데이트 하세요.",
+      "sql": "UPDATE 항공권_예약 SET notes = '특별 요청' WHERE meal_preference = '글루텐프리';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "return_date",
-        "status"
+        "meal_preference",
+        "notes"
       ],
       "matched_fields": []
     },
     {
-      "nl": "항공편 번호가 'AA123'인 예약의 메모를 '특별 요청 없음'으로 업데이트 하세요.",
-      "sql": "UPDATE 항공권_예약 SET notes = '특별 요청 없음' WHERE flight_number = 'AA123';",
+      "nl": "항공편 번호가 'AA123'인 예약의 좌석 번호를 '12A'로 변경하세요.",
+      "sql": "UPDATE 항공권_예약 SET seat_number = '12A' WHERE flight_number = 'AA123';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "notes"
+        "seat_number"
       ],
       "matched_fields": [
         "flight_number"
       ]
     },
     {
-      "nl": "사용자 ID가 5인 모든 항공권 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE user_id = 5;",
+      "nl": "예약 시각이 2023년 1월 1일 이후인 모든 예약의 활성 여부를 'FALSE'로 업데이트 하세요.",
+      "sql": "UPDATE 항공권_예약 SET is_active = FALSE WHERE created_at > '2023-01-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "is_active",
+        "created_at"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "티켓 유형이 '특가'인 예약의 총 가격을 300000으로 변경하세요.",
+      "sql": "UPDATE 항공권_예약 SET total_price = 300000 WHERE ticket_type = '특가';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "ticket_type"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "모든 활성 예약 중에서 총 가격이 100,000원 이상의 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE status = '활성' AND total_price >= 100000",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 5인 모든 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE user_id = 5",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -339,19 +361,20 @@
       ]
     },
     {
-      "nl": "총 가격이 100000원보다 큰 모든 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE total_price > 100000;",
+      "nl": "도착 도시가 '서울'인 예약 중에서 귀국 날짜가 오늘 이후인 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE arrival_city = '서울' AND return_date > CURDATE()",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "total_price"
+        "arrival_city",
+        "return_date"
       ],
       "matched_fields": []
     },
     {
-      "nl": "결제 상태가 '취소'인 항공권 예약을 모두 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE payment_status = '취소';",
+      "nl": "결제 상태가 '취소'인 모든 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE payment_status = '취소'",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -361,42 +384,8 @@
       "matched_fields": []
     },
     {
-      "nl": "출발 도시가 '서울'이고 도착 도시가 '뉴욕'인 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE departure_city = '서울' AND arrival_city = '뉴욕';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "departure_city",
-        "arrival_city"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "귀국 날짜가 오늘 날짜보다 이전인 모든 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE return_date < CURDATE();",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "return_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "식사 선호도가 '비채식'인 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE meal_preference = '비채식';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "meal_preference"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "수하물 허용량이 20kg 이하인 모든 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE baggage_allowance <= 20;",
+      "nl": "수하물 허용량이 20kg 이하인 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE baggage_allowance <= 20",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -406,36 +395,61 @@
       "matched_fields": []
     },
     {
-      "nl": "티켓 유형이 '환불불가'인 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE ticket_type = '환불불가';",
+      "nl": "식사 선호도가 '채식'인 예약 중에서 예약 상태가 '대기'인 모든 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE meal_preference = '채식' AND status = '대기'",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "meal_preference"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "총 가격이 50,000원보다 적은 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE total_price < 50000",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "예약 시각이 2023년 1월 1일 이전인 모든 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE created_at < '2023-01-01'",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "created_at"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "티켓 유형이 '환불불가'인 예약 중에서 사용자 ID가 3인 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE ticket_type = '환불불가' AND user_id = 3",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "ticket_type"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "user_id"
+      ]
     },
     {
-      "nl": "결제 상태가 '대기'이고 예약 상태가 '활성'인 모든 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE payment_status = '대기' AND status = '활성';",
+      "nl": "예약 상태가 '완료'인 모든 예약 중에서 귀국 날짜가 2023년 12월 31일인 예약을 삭제해 주세요.",
+      "sql": "DELETE FROM 항공권_예약 WHERE status = '완료' AND return_date = '2023-12-31'",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "status",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "회원 프로그램 코드가 'VIP'인 모든 예약을 삭제해 주세요.",
-      "sql": "DELETE FROM 항공권_예약 WHERE loyalty_program = 'VIP';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "loyalty_program"
+        "return_date"
       ],
       "matched_fields": []
     }

@@ -1,335 +1,519 @@
 {
   "results": [
     {
-      "nl": "2023년 1월 1일 이후에 열린 모든 경기의 팀 A와 팀 B의 점수를 조회해줘.",
-      "sql": "SELECT team_a, team_b, score_a, score_b FROM 스포츠_경기 WHERE match_date >= '2023-01-01'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "team_b",
-        "match_date",
-        "score_a",
-        "score_b"
-      ],
-      "matched_fields": [
-        "team_a"
-      ]
-    },
-    {
-      "nl": "관중 수가 5000명 이상인 경기에서 팀 A의 점수가 팀 B의 점수보다 높은 경기를 찾아줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE attendance >= 5000 AND score_a > score_b",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "attendance",
-        "score_a",
-        "score_b"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "리그 이름이 '프리미어리그'인 경기의 평균 점수를 계산해줘.",
-      "sql": "SELECT AVG((score_a + score_b) / 2) AS average_score FROM 스포츠_경기 WHERE league = '프리미어리그'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "league",
-        "score_a",
-        "score_b"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 길이가 90분 이상인 경기 중에서 주심 이름이 '김철수'인 경기를 조회해줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE duration >= 90 AND referee = '김철수'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration",
-        "referee"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 시즌의 경기 중에서 점수가 3대 2인 경기의 ID를 찾아줘.",
-      "sql": "SELECT match_id FROM 스포츠_경기 WHERE season = '2023' AND score_a = 3 AND score_b = 2",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "season",
-        "score_a",
-        "score_b"
-      ],
-      "matched_fields": [
-        "match_id"
-      ]
-    },
-    {
-      "nl": "경기 상태가 '완료'인 경기 중에서 팀 A가 4점 이상 득점한 경기를 조회해줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE status = '완료' AND score_a >= 4",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "score_a",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 날짜가 2023년 5월 15일 이전인 경기의 장소와 관중 수를 조회해줘.",
-      "sql": "SELECT location, attendance FROM 스포츠_경기 WHERE match_date < '2023-05-15'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "match_date",
-        "location",
-        "attendance"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "최우수 선수가 '이강인'인 경기의 팀 A와 팀 B의 이름을 알려줘.",
-      "sql": "SELECT team_a, team_b FROM 스포츠_경기 WHERE man_of_the_match = '이강인'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "team_b",
-        "man_of_the_match"
-      ],
-      "matched_fields": [
-        "team_a"
-      ]
-    },
-    {
-      "nl": "경기 유형이 '컵대회'인 경기의 수를 세어줘.",
-      "sql": "SELECT COUNT(*) AS cup_match_count FROM 스포츠_경기 WHERE match_type = '컵대회'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "match_type"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 장소가 '서울'인 경기 중에서 점수가 1대 1인 경기의 하이라이트를 조회해줘.",
-      "sql": "SELECT highlights FROM 스포츠_경기 WHERE location = '서울' AND score_a = 1 AND score_b = 1",
+      "nl": "모든 경기에서 팀 A의 점수가 팀 B의 점수보다 높은 경기를 선택해 주세요.",
+      "sql": "SELECT * FROM 스포츠_경기 WHERE score_a > score_b;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "score_b",
-        "location",
-        "score_a",
-        "highlights"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "팀 A가 3점 이상 득점한 모든 경기를 보여줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE score_a >= 3;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
         "score_a"
       ],
       "matched_fields": []
     },
     {
-      "nl": "2023년 1월 1일 이후에 열린 경기 중에서 관중 수가 1000명 이상인 경기를 찾아줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE match_date > '2023-01-01' AND attendance >= 1000;",
-      "dml": "INSERT",
+      "nl": "2023년 1월 1일 이후에 열린 모든 경기의 팀 A와 팀 B의 이름과 점수를 보여주세요.",
+      "sql": "SELECT team_a, team_b, score_a, score_b FROM 스포츠_경기 WHERE match_date > '2023-01-01';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_b",
+        "team_b",
+        "match_date",
+        "score_a"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "관중 수가 5000명 이상인 경기의 경기 날짜와 장소를 확인해 주세요.",
+      "sql": "SELECT match_date, location FROM 스포츠_경기 WHERE attendance >= 5000;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "match_date",
-        "attendance"
+        "attendance",
+        "location"
       ],
       "matched_fields": []
     },
     {
-      "nl": "팀 B의 점수가 팀 A의 점수보다 높은 경기를 모두 리스트해줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE score_b > score_a;",
-      "dml": "INSERT",
+      "nl": "팀 A가 'FC 서울'인 경기 중에서 경기 상태가 '완료'인 경기의 점수를 조회해 주세요.",
+      "sql": "SELECT score_a, score_b FROM 스포츠_경기 WHERE team_a = 'FC 서울' AND status = '완료';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "score_a",
-        "score_b"
+        "status",
+        "score_b",
+        "score_a"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "team_a"
+      ]
     },
     {
-      "nl": "특정 시즌의 리그 경기를 모두 선택해 줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE season = '특정 시즌' AND match_type = '리그';",
-      "dml": "INSERT",
+      "nl": "경기 길이가 90분 이상인 모든 경기를 선택하고, 그 중에서 주심 이름도 함께 보여주세요.",
+      "sql": "SELECT *, referee FROM 스포츠_경기 WHERE duration >= 90;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "season",
-        "match_type"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 상태가 '완료'인 경기 중에서 팀 A가 5점 이상 득점한 경기를 찾아줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE status = '완료' AND score_a >= 5;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "score_a",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 5월 1일부터 2023년 5월 31일 사이에 열린 경기를 보여줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE match_date BETWEEN '2023-05-01' AND '2023-05-31';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "match_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "주심 이름이 '김철수'인 모든 경기를 나열해줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE referee = '김철수';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
+        "duration",
         "referee"
       ],
       "matched_fields": []
     },
     {
-      "nl": "관중 수가 500명 이하인 경기 중에서 경기 시간이 90분 이상인 경기를 찾아줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE attendance <= 500 AND duration >= 90;",
-      "dml": "INSERT",
+      "nl": "최우수 선수가 '홍길동'인 경기의 경기 날짜와 팀 A의 점수를 출력해 주세요.",
+      "sql": "SELECT match_date, score_a FROM 스포츠_경기 WHERE man_of_the_match = '홍길동';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "duration",
-        "attendance"
+        "man_of_the_match",
+        "match_date",
+        "score_a"
       ],
       "matched_fields": []
     },
     {
-      "nl": "팀 A가 2점 이상 이긴 경기를 모두 보여줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE (score_a - score_b) >= 2;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "score_a",
-        "score_b"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "리그 유형의 경기 중에서 팀 B가 1점 이상 득점한 경기를 리스트해줘.",
-      "sql": "SELECT * FROM 스포츠_경기 WHERE match_type = '리그' AND score_b >= 1;",
-      "dml": "INSERT",
+      "nl": "2023년의 모든 리그 경기 중에서 팀 B의 점수가 3점 이상인 경기의 팀 A와 팀 B의 이름을 나열해 주세요.",
+      "sql": "SELECT team_a, team_b FROM 스포츠_경기 WHERE YEAR(match_date) = 2023 AND score_b >= 3 AND match_type = '리그';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "score_b",
+        "team_b",
+        "match_date",
         "match_type"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "team_a"
+      ]
     },
     {
-      "nl": "팀 A가 3점 이상 득점한 모든 경기를 완료 상태로 업데이트해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE score_a >= 3;",
-      "dml": "UPDATE",
+      "nl": "경기 상태가 '진행중'인 경기의 수를 세어 주세요.",
+      "sql": "SELECT COUNT(*) FROM 스포츠_경기 WHERE status = '진행중';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "score_a",
         "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "2023년 1월 1일 이후의 경기들 중 관중 수가 5000명 이하인 경기를 취소 상태로 변경해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '취소' WHERE match_date > '2023-01-01' AND attendance <= 5000;",
-      "dml": "UPDATE",
+      "nl": "경기 장소가 '서울'인 모든 경기의 경기 날짜와 팀 A의 점수를 보여주세요.",
+      "sql": "SELECT match_date, score_a FROM 스포츠_경기 WHERE location = '서울';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "match_date",
+        "location",
+        "score_a"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "팀 A의 점수와 팀 B의 점수의 차이가 2점 이상인 경기를 찾아 주세요.",
+      "sql": "SELECT * FROM 스포츠_경기 WHERE ABS(score_a - score_b) >= 2;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_b",
+        "score_a"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "2023년에 열린 모든 리그 경기에서 팀 A의 점수가 3 이상인 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, '리그', venue FROM 스포츠_경기 WHERE YEAR(match_date) = 2023 AND score_a >= 3;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "지난 5년 동안에 진행된 모든 경기 중에서 관중 수가 1000명 이상인 경기를 등록해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE match_date >= DATE_SUB(CURDATE(), INTERVAL 5 YEAR) AND attendance >= 1000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "팀 B의 점수가 팀 A의 점수보다 높은 모든 컵대회 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, '컵대회', venue FROM 스포츠_경기 WHERE score_b > score_a;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "2023년 1월 1일 이후에 열린 모든 친선경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, '친선경기', venue FROM 스포츠_경기 WHERE match_date >= '2023-01-01';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "경기 상태가 '완료'이고 팀 A의 점수가 2 이하인 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE status = '완료' AND score_a <= 2;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "status",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "2022년에 열린 모든 경기를 추가하되, 경기 길이가 90분 이상인 경우로 제한해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE YEAR(match_date) = 2022 AND duration >= 90;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "리그 이름이 '프리미어리그'인 모든 경기에서 팀 A와 팀 B의 점수가 동일한 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE league = '프리미어리그' AND score_a = score_b;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "경기 날짜가 2023년 10월 1일 이전인 경기 중에서 주심 이름이 '김철수'인 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE match_date < '2023-10-01' AND referee = '김철수';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "관중 수가 500명 이하인 모든 경기의 정보를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE attendance <= 500;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "팀 A가 'FC 서울'이고 경기 상태가 '진행중'인 모든 경기를 추가해 주세요.",
+      "sql": "INSERT INTO 스포츠_경기 (team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, status, is_active, season, league, attendance, man_of_the_match, highlights, match_type, venue) SELECT team_a, team_b, score_a, score_b, match_date, match_time, location, referee, duration, '대기', TRUE, season, league, attendance, man_of_the_match, highlights, match_type, venue FROM 스포츠_경기 WHERE team_a = 'FC 서울' AND status = '진행중';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "man_of_the_match",
+        "score_b",
+        "attendance",
+        "team_b",
+        "status",
+        "match_date",
+        "league",
+        "score_a",
+        "season",
+        "duration",
+        "venue",
+        "match_time",
+        "location",
+        "highlights",
+        "referee",
+        "match_type"
+      ],
+      "matched_fields": [
+        "team_a"
+      ]
+    },
+    {
+      "nl": "팀 A가 3점 이상 차이로 이긴 모든 경기를 완료 상태로 업데이트하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE (score_a - score_b) >= 3 AND status != '완료';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_a",
+        "score_b",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "관중 수가 1000명 이상인 경기를 '진행중' 상태로 변경하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '진행중' WHERE attendance >= 1000 AND status != '진행중';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
         "attendance",
         "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "리그 유형의 경기 중 팀 B의 점수가 2점 이하인 경우, 경기 상태를 진행중으로 업데이트해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '진행중' WHERE league IS NOT NULL AND score_b <= 2;",
+      "nl": "경기 시간이 2023년 10월 1일 이후인 모든 경기를 '대기'로 업데이트 하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '대기' WHERE match_time > '2023-10-01 00:00:00' AND status != '대기';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "match_time",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "팀 B의 점수가 5 이하인 경기를 '취소' 상태로 변경하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '취소' WHERE score_b <= 5 AND status != '취소';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_b",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "2023 시즌의 모든 경기를 '완료' 상태로 업데이트 하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE season = '2023' AND status != '완료';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "season"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "주심이 '김철수'인 경기를 '진행중'으로 변경하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '진행중' WHERE referee = '김철수' AND status != '진행중';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "referee",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "경기 길이가 90분 이하인 모든 경기를 '완료'로 업데이트 하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE duration <= 90 AND status != '완료';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "리그 이름이 '프리미어리그'인 모든 경기를 '취소' 상태로 변경하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '취소' WHERE league = '프리미어리그' AND status != '취소';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "league",
-        "score_b",
         "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "경기 시간이 90분을 초과한 모든 경기를 완료 상태로 변경해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE duration > 90;",
+      "nl": "팀 A의 점수가 10 이상인 경기를 '완료' 상태로 업데이트 하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE score_a >= 10 AND status != '완료';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "duration",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2022 시즌의 모든 경기 중 팀 A가 1점 이상 득점한 경기를 '완료' 상태로 업데이트해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE season = '2022' AND score_a >= 1;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "season",
         "score_a",
         "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "주심 이름이 '김철수'인 경기 중에서 점수 차이가 5점 이상인 경기를 '완료'로 변경해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE referee = '김철수' AND ABS(score_a - score_b) >= 5;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "score_b",
-        "referee",
-        "score_a",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "관중 수가 10000명 이상인 모든 경기를 '진행중' 상태로 업데이트해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '진행중' WHERE attendance >= 10000;",
+      "nl": "관중 수가 500명 이하인 경기의 상태를 '대기'로 변경하세요.",
+      "sql": "UPDATE 스포츠_경기 SET status = '대기' WHERE attendance <= 500 AND status != '대기';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
@@ -340,57 +524,19 @@
       "matched_fields": []
     },
     {
-      "nl": "팀 A와 팀 B의 점수가 같고, 2023년 5월 이후의 경기들을 '대기' 상태로 변경해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '대기' WHERE score_a = score_b AND match_date > '2023-05-01';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "match_date",
-        "score_b",
-        "score_a",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "컵대회 유형의 경기 중에서 경기 길이가 120분 이상인 경기를 '완료'로 업데이트해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '완료' WHERE match_type = '컵대회' AND duration >= 120;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration",
-        "match_type",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 장소가 '서울'인 경기를 모두 '취소' 상태로 변경해 주세요.",
-      "sql": "UPDATE 스포츠_경기 SET status = '취소' WHERE location = '서울';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "location",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "팀 A의 점수가 3보다 큰 모든 경기를 삭제해 주세요.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE score_a > 3;",
+      "nl": "경기 상태가 '완료'이고 팀 A의 점수가 3 이상인 모든 경기 데이터를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE status = '완료' AND score_a >= 3;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "score_a"
+        "score_a",
+        "status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "2023년 1월 1일 이후에 열린 경기를 삭제하고 싶습니다.",
+      "nl": "2023년 1월 1일 이후에 열린 모든 경기를 삭제해줘.",
       "sql": "DELETE FROM 스포츠_경기 WHERE match_date > '2023-01-01';",
       "dml": "DELETE",
       "db_success": true,
@@ -401,7 +547,7 @@
       "matched_fields": []
     },
     {
-      "nl": "관중 수가 1000명 미만인 경기를 모두 삭제해 주세요.",
+      "nl": "관중 수가 1000명 미만인 경기를 삭제해줘.",
       "sql": "DELETE FROM 스포츠_경기 WHERE attendance < 1000;",
       "dml": "DELETE",
       "db_success": true,
@@ -412,53 +558,20 @@
       "matched_fields": []
     },
     {
-      "nl": "팀 B의 점수가 2 이상인 경기를 삭제하려고 합니다.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE score_b >= 2;",
+      "nl": "팀 B가 2점 이상 이긴 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE score_b >= score_a + 2;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "score_b"
+        "score_b",
+        "score_a"
       ],
       "matched_fields": []
     },
     {
-      "nl": "경기 상태가 '취소'인 모든 경기를 삭제해 주세요.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE status = '취소';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023 시즌의 모든 리그 경기를 삭제해 주세요.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE season = '2023' AND match_type = '리그';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "season",
-        "match_type"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "주심 이름이 '김철수'인 경기를 삭제하고 싶습니다.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE referee = '김철수';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "referee"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "경기 길이가 90분 이상인 경기를 모두 삭제해 주세요.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE duration >= 90;",
+      "nl": "경기 길이가 90분 이하인 모든 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE duration <= 90;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -468,25 +581,63 @@
       "matched_fields": []
     },
     {
-      "nl": "특정 장소에서 열린 모든 경기를 삭제하고 싶습니다.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE location = '특정 장소';",
+      "nl": "주심 이름이 '홍길동'인 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE referee = '홍길동';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "location"
+        "referee"
       ],
       "matched_fields": []
     },
     {
-      "nl": "팀 A의 점수가 팀 B의 점수보다 큰 경기를 삭제해 주세요.",
-      "sql": "DELETE FROM 스포츠_경기 WHERE score_a > score_b;",
+      "nl": "경기 날짜가 2022년 12월 31일인 경기 중에서 점수가 같은 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE match_date = '2022-12-31' AND score_a = score_b;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_b",
+        "match_date",
+        "score_a"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "리그 이름이 '프리미어 리그'이고 점수 A가 점수 B보다 큰 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE league = '프리미어 리그' AND score_a > score_b;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "score_b",
+        "league",
+        "score_a"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "상태가 '진행중'인 경기 중에서 팀 A의 점수가 1점 이하인 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE status = '진행중' AND score_a <= 1;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "score_a",
-        "score_b"
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "시즌이 '2023'이고 경기 장소가 '서울'인 경기를 삭제해줘.",
+      "sql": "DELETE FROM 스포츠_경기 WHERE season = '2023' AND location = '서울';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "location",
+        "season"
       ],
       "matched_fields": []
     }

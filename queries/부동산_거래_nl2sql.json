@@ -1,25 +1,48 @@
 {
   "results": [
     {
-      "nl": "활성 상태의 거래 중에서 가격이 50000000보다 큰 거래를 조회해줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE status = '활성' AND price > 50000000;",
+      "nl": "모든 거래에서 거래 가격이 50000보다 큰 거래의 ID와 가격을 조회해줘.",
+      "sql": "SELECT transaction_id, price FROM 부동산_거래 WHERE price > 50000;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "transaction_id",
+        "price"
+      ]
+    },
+    {
+      "nl": "거래 상태가 '완료'인 거래의 수를 세어줘.",
+      "sql": "SELECT COUNT(*) AS completed_transactions FROM 부동산_거래 WHERE status = '완료';",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "status"
       ],
+      "matched_fields": []
+    },
+    {
+      "nl": "판매자가 3명의 구매자와 거래한 경우, 그 판매자의 ID를 보여줘.",
+      "sql": "SELECT seller_id FROM 부동산_거래 GROUP BY seller_id HAVING COUNT(DISTINCT buyer_id) = 3;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
       "matched_fields": [
-        "price"
+        "buyer_id",
+        "seller_id"
       ]
     },
     {
-      "nl": "부동산 유형이 아파트인 거래의 평균 가격을 알려줘.",
-      "sql": "SELECT AVG(price) AS 평균가격 FROM 부동산_거래 WHERE property_type = '아파트';",
+      "nl": "부동산 유형이 '아파트'이고 거래 가격이 30000 이상인 거래의 제목과 가격을 조회해줘.",
+      "sql": "SELECT title, price FROM 부동산_거래 WHERE property_type = '아파트' AND price >= 30000;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "title",
         "property_type"
       ],
       "matched_fields": [
@@ -27,346 +50,59 @@
       ]
     },
     {
-      "nl": "2023년 1월 1일 이후에 거래된 모든 거래의 총 수를 계산해줘.",
-      "sql": "SELECT COUNT(*) AS 거래수 FROM 부동산_거래 WHERE transaction_date >= '2023-01-01';",
+      "nl": "거래 날짜가 2023년 1월 1일 이후인 거래 중에서 거래 가격이 가장 높은 거래의 ID를 찾아줘.",
+      "sql": "SELECT transaction_id FROM 부동산_거래 WHERE transaction_date > '2023-01-01' ORDER BY price DESC LIMIT 1;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [],
       "matched_fields": [
-        "transaction_date"
-      ]
-    },
-    {
-      "nl": "구매자의 ID가 123인 거래 중에서 상태가 완료인 거래의 리스트를 보여줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE buyer_id = 123 AND status = '완료';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": [
-        "buyer_id"
-      ]
-    },
-    {
-      "nl": "거래 가격이 30000000 이상이고 결제 상태가 완료인 거래의 수를 세어줘.",
-      "sql": "SELECT COUNT(*) AS 거래수 FROM 부동산_거래 WHERE price >= 30000000 AND payment_status = '완료';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "payment_status"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "판매자의 ID가 456인 거래 중에서 거래 날짜가 2022년 12월 31일 이전인 거래를 조회해줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE seller_id = 456 AND transaction_date < '2022-12-31';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "seller_id",
-        "transaction_date"
-      ]
-    },
-    {
-      "nl": "면적이 100제곱미터 이상인 단독주택 거래의 평균 가격을 계산해줘.",
-      "sql": "SELECT AVG(price) AS 평균가격 FROM 부동산_거래 WHERE area_size >= 100 AND property_type = '단독주택';",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "property_type",
-        "area_size"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "거래 지속 시간이 30일 이하인 모든 거래의 상세 정보를 보여줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE duration <= 30;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년에 거래된 모든 거래 중에서 가격이 가장 높은 거래의 제목을 알려줘.",
-      "sql": "SELECT title FROM 부동산_거래 WHERE YEAR(transaction_date) = 2023 ORDER BY price DESC LIMIT 1;",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "title"
-      ],
-      "matched_fields": [
+        "transaction_id",
         "price",
         "transaction_date"
       ]
     },
     {
-      "nl": "상태가 비활성인 거래의 수를 구하고, 결제 상태가 대기인 거래의 수와 비교해줘.",
-      "sql": "SELECT (SELECT COUNT(*) FROM 부동산_거래 WHERE status = '비활성') AS 비활성수, (SELECT COUNT(*) FROM 부동산_거래 WHERE payment_status = '대기') AS 대기수;",
+      "nl": "구매자 ID가 1001인 거래의 평균 거래 가격을 계산해줘.",
+      "sql": "SELECT AVG(price) AS average_price FROM 부동산_거래 WHERE buyer_id = 1001;",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [
-        "status",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2023년 1월 1일 이후에 거래된 모든 부동산의 목록을 보여줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE transaction_date >= '2023-01-01 00:00:00';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
       "missing_fields": [],
       "matched_fields": [
-        "transaction_date"
-      ]
-    },
-    {
-      "nl": "거래 가격이 500,000,000원 이상인 부동산 거래를 검색해줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE price >= 500000000;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "구매자의 ID가 123인 거래의 상태가 '완료'인 경우를 보여줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE buyer_id = 123 AND status = '완료';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": [
+        "price",
         "buyer_id"
       ]
     },
     {
-      "nl": "면적이 100제곱미터 이하인 아파트 거래를 찾고 싶어.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE area_size <= 100 AND property_type = '아파트';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "property_type",
-        "area_size"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "2022년에 건축된 상가의 거래 목록을 가져와줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE year_built = 2022 AND property_type = '상가';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "property_type",
-        "year_built"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "거래가 활성 상태인 모든 부동산의 가격 평균을 계산해줘.",
-      "sql": "SELECT AVG(price) AS average_price FROM 부동산_거래 WHERE status = '활성';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "거래 지속 시간이 30일 이상인 거래의 제목과 가격을 보여줘.",
-      "sql": "SELECT title, price FROM 부동산_거래 WHERE duration >= 30;",
-      "dml": "INSERT",
+      "nl": "거래 상태가 '활성'인 거래 중에서 면적이 100 제곱미터 이상인 거래의 제목을 모두 보여줘.",
+      "sql": "SELECT title FROM 부동산_거래 WHERE status = '활성' AND area_size >= 100;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "title",
-        "duration"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "판매자의 ID가 456이고 거래 상태가 '대기'인 모든 거래를 검색해줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE seller_id = 456 AND status = '대기';",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": [
-        "seller_id"
-      ]
-    },
-    {
-      "nl": "가격이 300,000,000원 이상이고, 거래 날짜가 2023년인 거래의 목록을 보여줘.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE price >= 300000000 AND YEAR(transaction_date) = 2023;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [],
-      "matched_fields": [
-        "transaction_date",
-        "price"
-      ]
-    },
-    {
-      "nl": "거래의 면적이 50제곱미터 이상인 부동산 중, 가격이 200,000,000원 이하인 거래를 찾고 싶어.",
-      "sql": "SELECT * FROM 부동산_거래 WHERE area_size >= 50 AND price <= 200000000;",
-      "dml": "INSERT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
+        "status",
         "area_size"
       ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "거래 가격이 50000000 이상인 부동산 거래의 상태를 '완료'로 업데이트 해주세요.",
-      "sql": "UPDATE 부동산_거래 SET status = '완료' WHERE price >= 50000000;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "면적이 100 제곱미터 이하인 모든 부동산 거래의 결제 상태를 '취소'로 변경해주세요.",
-      "sql": "UPDATE 부동산_거래 SET payment_status = '취소' WHERE area_size <= 100;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "area_size",
-        "payment_status"
-      ],
       "matched_fields": []
     },
     {
-      "nl": "거래 날짜가 2023년 1월 1일 이후인 거래의 주문 상태를 '배송중'으로 업데이트 해주세요.",
-      "sql": "UPDATE 부동산_거래 SET order_status = '배송중' WHERE transaction_date > '2023-01-01 00:00:00';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "order_status"
-      ],
-      "matched_fields": [
-        "transaction_date"
-      ]
-    },
-    {
-      "nl": "객체 ID가 12345인 거래의 상태를 '비활성'으로 변경하고, 결제 상태는 '완료'로 설정해주세요.",
-      "sql": "UPDATE 부동산_거래 SET status = '비활성', payment_status = '완료' WHERE property_id = 12345;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "payment_status"
-      ],
-      "matched_fields": [
-        "property_id"
-      ]
-    },
-    {
-      "nl": "거래의 지속 시간이 30일 이상인 모든 거래의 가격을 10% 인상하여 업데이트 해주세요.",
-      "sql": "UPDATE 부동산_거래 SET price = price * 1.10 WHERE duration >= 30;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "duration"
-      ],
-      "matched_fields": [
-        "price"
-      ]
-    },
-    {
-      "nl": "부동산 유형이 '상가'인 거래의 상태를 '대기'로 변경해 주세요.",
-      "sql": "UPDATE 부동산_거래 SET status = '대기' WHERE property_type = '상가';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "property_type",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "구매자 ID가 67890인 거래의 가격을 30000000으로 업데이트 해주세요.",
-      "sql": "UPDATE 부동산_거래 SET price = 30000000 WHERE buyer_id = 67890;",
-      "dml": "UPDATE",
+      "nl": "거래 날짜가 2022년보다 늦고 거래 가격이 40000 이하인 거래의 수를 세어줘.",
+      "sql": "SELECT COUNT(*) AS low_price_transactions FROM 부동산_거래 WHERE transaction_date > '2022-12-31' AND price <= 40000;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [],
       "matched_fields": [
         "price",
-        "buyer_id"
+        "transaction_date"
       ]
     },
     {
-      "nl": "건축 연도가 2000년 이전인 부동산 거래의 상태를 '완료'로 변경해주세요.",
-      "sql": "UPDATE 부동산_거래 SET status = '완료' WHERE year_built < 2000;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "status",
-        "year_built"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "층수가 5층 이상인 모든 거래의 결제 상태를 '실패'로 업데이트 해주세요.",
-      "sql": "UPDATE 부동산_거래 SET payment_status = '실패' WHERE floor >= 5;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "floor",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "위치가 '서울'인 거래의 가격을 200000000 이상으로 업데이트 해 주세요.",
-      "sql": "UPDATE 부동산_거래 SET price = 200000000 WHERE location = '서울';",
-      "dml": "UPDATE",
+      "nl": "부동산 위치가 '서울'인 거래의 거래 가격 평균을 알려줘.",
+      "sql": "SELECT AVG(price) AS average_price FROM 부동산_거래 WHERE location = '서울';",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
@@ -377,23 +113,313 @@
       ]
     },
     {
-      "nl": "판매자가 ID가 100인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE seller_id = 100;",
-      "dml": "DELETE",
+      "nl": "거래 지속 시간이 30일 이상인 거래의 제목과 거래 날짜를 조회해줘.",
+      "sql": "SELECT title, transaction_date FROM 부동산_거래 WHERE duration >= 30;",
+      "dml": "SELECT",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [],
+      "missing_fields": [
+        "title",
+        "duration"
+      ],
       "matched_fields": [
+        "transaction_date"
+      ]
+    },
+    {
+      "nl": "2023년 1월 1일 이후에 거래된 모든 부동산 거래의 가격이 50000 이상인 거래를 삽입해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE transaction_date >= '2023-01-01' AND price >= 50000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
         "seller_id"
       ]
     },
     {
-      "nl": "구매자가 ID가 50이고 거래 상태가 '완료'인 모든 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE buyer_id = 50 AND status = '완료';",
-      "dml": "DELETE",
+      "nl": "상태가 '완료'인 거래 중에서 가격이 30000 이하인 거래를 추가해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '완료', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE status = '완료' AND price <= 30000;",
+      "dml": "INSERT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "status",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "부동산 유형이 '아파트'이고 면적이 100 제곱미터 이상인 거래를 삽입해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', '아파트', match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE property_type = '아파트' AND area_size >= 100;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "구매자의 ID가 12345인 거래 중에서 거래 가격이 200000 이상인 거래를 추가해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE buyer_id = 12345 AND price >= 200000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "판매자의 ID가 67890이고 거래 날짜가 2022년 5월 1일 이전인 거래를 삽입해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE seller_id = 67890 AND transaction_date < '2022-05-01';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "거래 상태가 '활성'이고 결제 상태가 '완료'인 거래 중에서 가격이 150000보다 큰 거래를 추가해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE status = '활성' AND payment_status = '완료' AND price > 150000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "status",
+        "payment_status",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "층수가 5층 이상인 빌라 유형의 거래를 삽입해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', '빌라', match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE floor >= 5 AND property_type = '빌라';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "면적이 50 제곱미터 이하이고 거래 지속 시간이 30일 이하인 거래를 추가해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE area_size <= 50 AND duration <= 30;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "건축 연도가 2010년 이후인 모든 거래를 삽입해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE year_built > 2010;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "부동산 위치가 '서울'인 거래 중에서 가격이 100000 이하인 거래를 추가해 줘.",
+      "sql": "INSERT INTO 부동산_거래 (property_id, agent_id, buyer_id, seller_id, transaction_date, price, status, payment_status, order_status, property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built) SELECT property_id, agent_id, buyer_id, seller_id, transaction_date, price, '활성', '완료', '주문완료', property_type, match_type, duration, title, description, contact_phone, location, area_size, floor, year_built FROM 부동산_거래 WHERE location = '서울' AND price <= 100000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "title",
+        "description",
+        "year_built",
+        "property_type",
+        "area_size",
+        "duration",
+        "location",
+        "floor",
+        "contact_phone",
+        "match_type"
+      ],
+      "matched_fields": [
+        "buyer_id",
+        "price",
+        "transaction_date",
+        "property_id",
+        "agent_id",
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "거래 가격이 300,000원 이상인 모든 부동산 거래의 상태를 '완료'로 업데이트 해주세요.",
+      "sql": "UPDATE 부동산_거래 SET status = '완료' WHERE price >= 300000",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": [
+        "price"
+      ]
+    },
+    {
+      "nl": "구매자의 ID가 12345인 거래 중 상태가 '활성'인 거래의 결제 상태를 '완료'로 변경하세요.",
+      "sql": "UPDATE 부동산_거래 SET payment_status = '완료' WHERE buyer_id = 12345 AND status = '활성'",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status",
         "status"
       ],
       "matched_fields": [
@@ -401,7 +427,118 @@
       ]
     },
     {
-      "nl": "거래 가격이 50000000 이상인 거래를 삭제하세요.",
+      "nl": "거래 지속 시간이 30일 이하인 모든 거래의 주문 상태를 '취소'로 업데이트 해주세요.",
+      "sql": "UPDATE 부동산_거래 SET order_status = '취소' WHERE duration <= 30",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "order_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "부동산 유형이 '상가'인 거래의 가격을 10% 인상해주세요.",
+      "sql": "UPDATE 부동산_거래 SET price = price * 1.10 WHERE property_type = '상가'",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "property_type"
+      ],
+      "matched_fields": [
+        "price"
+      ]
+    },
+    {
+      "nl": "거래 날짜가 2023년 1월 1일 이후인 거래의 상태를 '비활성'으로 변경하세요.",
+      "sql": "UPDATE 부동산_거래 SET status = '비활성' WHERE transaction_date > '2023-01-01'",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": [
+        "transaction_date"
+      ]
+    },
+    {
+      "nl": "층수가 5층 이하인 모든 거래의 거래 가격을 200,000원으로 수정해주세요.",
+      "sql": "UPDATE 부동산_거래 SET price = 200000 WHERE floor <= 5",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "floor"
+      ],
+      "matched_fields": [
+        "price"
+      ]
+    },
+    {
+      "nl": "거래가 2010년 이후에 지어진 부동산의 결제 상태를 '대기'로 업데이트 해주세요.",
+      "sql": "UPDATE 부동산_거래 SET payment_status = '대기' WHERE year_built > 2010",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status",
+        "year_built"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "면적이 100제곱미터 이상인 모든 거래의 상태를 '활성'으로 변경하세요.",
+      "sql": "UPDATE 부동산_거래 SET status = '활성' WHERE area_size >= 100",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "area_size"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "거래 가격이 500,000원 이하인 거래의 구매자 ID를 67890으로 업데이트 해주세요.",
+      "sql": "UPDATE 부동산_거래 SET buyer_id = 67890 WHERE price <= 500000",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "price",
+        "buyer_id"
+      ]
+    },
+    {
+      "nl": "거래 날짜가 2023년에 해당하는 모든 거래의 결제 상태를 '실패'로 수정해주세요.",
+      "sql": "UPDATE 부동산_거래 SET payment_status = '실패' WHERE YEAR(transaction_date) = 2023",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status"
+      ],
+      "matched_fields": [
+        "transaction_date"
+      ]
+    },
+    {
+      "nl": "구매자가 1001인 모든 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE buyer_id = 1001;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "buyer_id"
+      ]
+    },
+    {
+      "nl": "거래 가격이 50000000원 이상인 모든 거래를 삭제해 주세요.",
       "sql": "DELETE FROM 부동산_거래 WHERE price >= 50000000;",
       "dml": "DELETE",
       "db_success": true,
@@ -412,84 +549,103 @@
       ]
     },
     {
-      "nl": "거래 날짜가 2023년 1월 1일 이전인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE transaction_date < '2023-01-01 00:00:00';",
+      "nl": "거래 상태가 '취소'인 거래들 중에서 거래 날짜가 2023년 1월 1일 이전인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE status = '취소' AND transaction_date < '2023-01-01';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
-      "missing_fields": [],
+      "missing_fields": [
+        "status"
+      ],
       "matched_fields": [
         "transaction_date"
       ]
     },
     {
-      "nl": "부동산 유형이 '상가'인 거래 중에서 상태가 '비활성'인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE property_type = '상가' AND status = '비활성';",
+      "nl": "부동산 유형이 '상가'인 거래 중에서 거래 지속 시간이 30일 이하인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE property_type = '상가' AND duration <= 30;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "property_type",
-        "status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "면적이 100 제곱미터 이하인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE area_size <= 100;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "area_size"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "거래 지속 시간이 30일 이상인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE duration >= 30;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
         "duration"
       ],
       "matched_fields": []
     },
     {
-      "nl": "구매자 ID가 75이고 결제 상태가 '취소'인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE buyer_id = 75 AND payment_status = '취소';",
+      "nl": "결제 상태가 '실패'인 거래를 모두 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE payment_status = '실패';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "payment_status"
       ],
+      "matched_fields": []
+    },
+    {
+      "nl": "거래 가격이 100000000원 미만인 거래들 중에서 부동산 위치가 '서울'인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE price < 100000000 AND location = '서울';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "location"
+      ],
       "matched_fields": [
+        "price"
+      ]
+    },
+    {
+      "nl": "거래 생성 시각이 2022년 12월 31일 이후인 거래 중에서 판매자 ID가 2001인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE created_at > '2022-12-31' AND seller_id = 2001;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "created_at"
+      ],
+      "matched_fields": [
+        "seller_id"
+      ]
+    },
+    {
+      "nl": "면적이 50제곱미터 이상인 거래들 중에서 거래 상태가 '완료'인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE area_size >= 50 AND status = '완료';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "area_size"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "구매자가 1003인 거래 중에서 거래 날짜가 올해인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE buyer_id = 1003 AND YEAR(transaction_date) = YEAR(CURRENT_DATE());",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "transaction_date",
         "buyer_id"
       ]
     },
     {
-      "nl": "층수가 10층 이상인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE floor >= 10;",
+      "nl": "거래 지속 시간이 60일 이상인 거래 중에서 중개인 ID가 3001인 거래를 삭제해 주세요.",
+      "sql": "DELETE FROM 부동산_거래 WHERE duration >= 60 AND agent_id = 3001;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "floor"
+        "duration"
       ],
-      "matched_fields": []
-    },
-    {
-      "nl": "건축 연도가 2000년 이전인 거래를 삭제하세요.",
-      "sql": "DELETE FROM 부동산_거래 WHERE year_built < 2000;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "year_built"
-      ],
-      "matched_fields": []
+      "matched_fields": [
+        "agent_id"
+      ]
     }
   ]
 }

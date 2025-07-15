@@ -1,8 +1,8 @@
 {
   "results": [
     {
-      "nl": "총 가격이 10000원 이상인 모든 주문을 조회하시오.",
-      "sql": "SELECT * FROM 음식_배달 WHERE total_price >= 10000",
+      "nl": "모든 주문의 총 가격이 20,000원 이상인 주문을 선택해 주세요.",
+      "sql": "SELECT * FROM 음식_배달 WHERE total_price >= 20000",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
@@ -12,121 +12,117 @@
       "matched_fields": []
     },
     {
-      "nl": "배달 상태가 '배송중'인 주문의 주문 ID와 고객 이름을 가져오시오.",
-      "sql": "SELECT order_id, customer_name FROM 음식_배달 WHERE order_status = '배송중'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "order_status",
-        "customer_name"
-      ],
-      "matched_fields": [
-        "order_id"
-      ]
-    },
-    {
-      "nl": "주문 수량이 3개 이상인 주문의 평균 평점을 구하시오.",
-      "sql": "SELECT AVG(rating) FROM 음식_배달 WHERE quantity >= 3",
+      "nl": "배송 완료된 주문 중에서 사용자의 평점이 4.5 이상인 주문을 찾고 싶습니다.",
+      "sql": "SELECT * FROM 음식_배달 WHERE order_status = '배송완료' AND rating >= 4.5",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "rating",
-        "quantity"
+        "order_status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "결제 상태가 '완료'인 주문 중에서 배달비가 5000원 이하인 주문을 찾으시오.",
-      "sql": "SELECT * FROM 음식_배달 WHERE payment_status = '완료' AND delivery_fee <= 5000",
+      "nl": "주문 날짜가 2023년 1월 1일 이후인 모든 활성 주문을 조회해 주세요.",
+      "sql": "SELECT * FROM 음식_배달 WHERE order_date > '2023-01-01' AND is_active = TRUE",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "payment_status",
-        "delivery_fee"
+        "is_active",
+        "order_date"
       ],
       "matched_fields": []
     },
     {
-      "nl": "주문 날짜가 2023년 10월 1일 이후인 모든 주문의 총 가격을 합산하시오.",
-      "sql": "SELECT SUM(total_price) FROM 음식_배달 WHERE order_date > '2023-10-01'",
+      "nl": "배달비가 3,000원 이하인 모든 주문의 레스토랑 이름과 고객 이름을 보여주세요.",
+      "sql": "SELECT restaurant_name, customer_name FROM 음식_배달 WHERE delivery_fee <= 3000",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_date",
-        "total_price"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "평점이 4.0 이상인 주문의 고객 이름과 피드백을 조회하시오.",
-      "sql": "SELECT customer_name, feedback FROM 음식_배달 WHERE rating >= 4.0",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "rating",
         "customer_name",
-        "feedback"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "배달원 ID가 2인 주문의 주문 수량의 합계를 구하시오.",
-      "sql": "SELECT SUM(quantity) FROM 음식_배달 WHERE delivery_person_id = 2",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "delivery_person_id",
-        "quantity"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "배달 비용이 2000원 이상이고 주문 상태가 '주문완료'인 주문을 조회하시오.",
-      "sql": "SELECT * FROM 음식_배달 WHERE delivery_fee >= 2000 AND order_status = '주문완료'",
-      "dml": "SELECT",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "order_status",
+        "restaurant_name",
         "delivery_fee"
       ],
       "matched_fields": []
     },
     {
-      "nl": "2023년 10월 1일부터 현재까지의 주문 평균 가격을 계산하시오.",
-      "sql": "SELECT AVG(total_price) FROM 음식_배달 WHERE order_date >= '2023-10-01'",
+      "nl": "주문 상태가 '취소'인 모든 주문의 수량 합계를 계산해 주세요.",
+      "sql": "SELECT SUM(quantity) AS total_quantity FROM 음식_배달 WHERE order_status = '취소'",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_date",
-        "total_price"
+        "quantity",
+        "order_status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "레스토랑 이름이 'Pizza Hut'인 주문 중에서 결제 상태가 '대기'인 주문의 주문 ID를 조회하시오.",
-      "sql": "SELECT order_id FROM 음식_배달 WHERE restaurant_name = 'Pizza Hut' AND payment_status = '대기'",
+      "nl": "각 레스토랑별로 총 매출이 50,000원 이상인 레스토랑의 이름을 조회하고 싶습니다.",
+      "sql": "SELECT restaurant_name FROM 음식_배달 GROUP BY restaurant_name HAVING SUM(total_price) >= 50000",
       "dml": "SELECT",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "restaurant_name",
+        "total_price",
+        "restaurant_name"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 1인 주문 중에서 결제 상태가 '완료'인 주문을 모두 가져와 주세요.",
+      "sql": "SELECT * FROM 음식_배달 WHERE user_id = 1 AND payment_status = '완료'",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
         "payment_status"
       ],
       "matched_fields": [
-        "order_id"
+        "user_id"
       ]
     },
     {
-      "nl": "사용자 ID가 5인 고객이 주문한 음식의 총 가격이 30.00보다 큰 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (user_id, total_price) VALUES (5, 35.00);",
+      "nl": "고객 피드백이 있는 주문 중에서 평점이 3.0 미만인 주문을 선택해 주세요.",
+      "sql": "SELECT * FROM 음식_배달 WHERE feedback IS NOT NULL AND rating < 3.0",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "feedback",
+        "rating"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "배송 시간이 현재 시간보다 늦은 모든 주문을 조회해 주세요.",
+      "sql": "SELECT * FROM 음식_배달 WHERE delivery_time > NOW()",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "delivery_time"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "레스토랑 이름이 '피자'인 주문의 평균 총 가격을 계산해 주세요.",
+      "sql": "SELECT AVG(total_price) AS average_price FROM 음식_배달 WHERE restaurant_name = '피자'",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "restaurant_name"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "주문 상태가 '배송중'이고, 총 가격이 50,000원 이상인 주문을 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (order_status, total_price) VALUES ('배송중', 50000.00);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -134,8 +130,8 @@
       "matched_fields": []
     },
     {
-      "nl": "배달 상태가 '배송중'인 주문의 수량이 2 이상인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (order_status, quantity) VALUES ('배송중', 2);",
+      "nl": "사용자 ID가 2이고, 배달 비용이 3,000원 이하인 주문을 생성해주세요.",
+      "sql": "INSERT INTO 음식_배달 (user_id, delivery_fee) VALUES (2, 3000.00);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -143,8 +139,8 @@
       "matched_fields": []
     },
     {
-      "nl": "레스토랑 ID가 3이고, 결제 상태가 '완료'인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (restaurant_id, payment_status) VALUES (3, '완료');",
+      "nl": "레스토랑 ID가 5이고, 주문 수량이 2 이상인 주문을 추가해 주세요.",
+      "sql": "INSERT INTO 음식_배달 (restaurant_id, quantity) VALUES (5, 2);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -152,8 +148,8 @@
       "matched_fields": []
     },
     {
-      "nl": "주문 날짜가 2023년 10월 1일 이후인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (order_date) VALUES ('2023-10-02 12:00:00');",
+      "nl": "고객 이름이 '김철수'이고, 평점이 4.0 이상인 주문 정보를 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (customer_name, rating) VALUES ('김철수', 4.0);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -161,8 +157,8 @@
       "matched_fields": []
     },
     {
-      "nl": "고객 평점이 4.5 이상인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (rating) VALUES (4.6);",
+      "nl": "주문 날짜가 오늘 이전이고, 결제 상태가 '완료'인 주문을 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (order_date, payment_status) VALUES (NOW() - INTERVAL 1 DAY, '완료');",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -170,8 +166,8 @@
       "matched_fields": []
     },
     {
-      "nl": "배달 비용이 5.00 이하인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (delivery_fee) VALUES (4.99);",
+      "nl": "배달원 ID가 3이고, 주문 상태가 '취소'인 주문을 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (delivery_person_id, order_status) VALUES (3, '취소');",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -179,8 +175,8 @@
       "matched_fields": []
     },
     {
-      "nl": "결제 상태가 '대기'이고, 총 가격이 20.00 이상인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (payment_status, total_price) VALUES ('대기', 25.00);",
+      "nl": "총 가격이 20,000원 이하이고, 주문 수량이 1인 주문을 생성해주세요.",
+      "sql": "INSERT INTO 음식_배달 (total_price, quantity) VALUES (20000.00, 1);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -188,8 +184,8 @@
       "matched_fields": []
     },
     {
-      "nl": "주문 상태가 '취소'인 주문의 수량이 1 미만인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (order_status, quantity) VALUES ('취소', 0);",
+      "nl": "배송 주소가 '서울시 강남구'이고, 주문 상태가 '배송완료'인 주문을 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (delivery_address, order_status) VALUES ('서울시 강남구', '배송완료');",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -197,8 +193,8 @@
       "matched_fields": []
     },
     {
-      "nl": "레스토랑 이름이 '피자'인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (restaurant_name) VALUES ('피자');",
+      "nl": "고객 전화번호가 '01012345678'이고, 배달 비용이 2,000원 이상인 주문을 생성해주세요.",
+      "sql": "INSERT INTO 음식_배달 (phone, delivery_fee) VALUES ('01012345678', 2000.00);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -206,8 +202,8 @@
       "matched_fields": []
     },
     {
-      "nl": "고객 이름이 '홍길동'이고, 배송 주소가 '서울'인 주문을 추가해줘.",
-      "sql": "INSERT INTO 음식_배달 (customer_name, delivery_address) VALUES ('홍길동', '서울');",
+      "nl": "레스토랑 이름이 '이탈리안 레스토랑'이고, 배송 시간이 현재 시간 이후인 주문을 추가해주세요.",
+      "sql": "INSERT INTO 음식_배달 (restaurant_name, delivery_time) VALUES ('이탈리안 레스토랑', NOW() + INTERVAL 1 HOUR);",
       "dml": "INSERT",
       "db_success": true,
       "db_error": null,
@@ -215,20 +211,21 @@
       "matched_fields": []
     },
     {
-      "nl": "주문 상태가 '배송중'인 모든 주문의 배달 비용을 3000으로 업데이트 해주세요.",
-      "sql": "UPDATE 음식_배달 SET delivery_fee = 3000 WHERE order_status = '배송중';",
+      "nl": "주문 ID가 5인 주문의 배달 상태를 '배송완료'로 업데이트 해줘.",
+      "sql": "UPDATE 음식_배달 SET order_status = '배송완료' WHERE order_id = 5;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_status",
-        "delivery_fee"
+        "order_status"
       ],
-      "matched_fields": []
+      "matched_fields": [
+        "order_id"
+      ]
     },
     {
-      "nl": "총 가격이 50000 이상인 주문의 결제 상태를 '완료'로 변경하세요.",
-      "sql": "UPDATE 음식_배달 SET payment_status = '완료' WHERE total_price >= 50000;",
+      "nl": "총 가격이 20000원 이상인 모든 주문의 결제 상태를 '완료'로 변경해줘.",
+      "sql": "UPDATE 음식_배달 SET payment_status = '완료' WHERE total_price >= 20000;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
@@ -239,99 +236,99 @@
       "matched_fields": []
     },
     {
-      "nl": "평점이 4.5 이하인 주문의 피드백을 '만족스럽지 못했습니다.'로 수정해주세요.",
-      "sql": "UPDATE 음식_배달 SET feedback = '만족스럽지 못했습니다.' WHERE rating <= 4.5;",
+      "nl": "주문 수량이 3 이하인 주문의 배송비를 500원으로 업데이트 해줘.",
+      "sql": "UPDATE 음식_배달 SET delivery_fee = 500 WHERE quantity <= 3;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "rating",
-        "feedback"
+        "quantity",
+        "delivery_fee"
       ],
       "matched_fields": []
     },
     {
-      "nl": "주문 수량이 3 이상인 주문의 배송 주소를 '서울시 강남구'로 업데이트 해주세요.",
-      "sql": "UPDATE 음식_배달 SET delivery_address = '서울시 강남구' WHERE quantity >= 3;",
+      "nl": "고객 이름이 '홍길동'인 주문의 피드백을 '빠른 배송 감사합니다'로 수정해줘.",
+      "sql": "UPDATE 음식_배달 SET feedback = '빠른 배송 감사합니다' WHERE customer_name = '홍길동';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "quantity"
+        "feedback",
+        "customer_name"
       ],
-      "matched_fields": [
-        "delivery_address"
-      ]
+      "matched_fields": []
     },
     {
-      "nl": "주문 상태가 '취소'인 주문의 활성 여부를 FALSE로 변경해주세요.",
-      "sql": "UPDATE 음식_배달 SET is_active = FALSE WHERE order_status = '취소';",
+      "nl": "주문 날짜가 2023년 10월 1일 이후인 주문의 상태를 '취소'로 변경해줘.",
+      "sql": "UPDATE 음식_배달 SET status = '취소' WHERE order_date > '2023-10-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "order_date",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "배달원 ID가 2인 모든 주문의 활성 여부를 false로 설정해줘.",
+      "sql": "UPDATE 음식_배달 SET is_active = FALSE WHERE delivery_person_id = 2;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
         "is_active",
-        "order_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "결제 상태가 '대기'인 모든 주문의 총 가격을 0으로 설정하세요.",
-      "sql": "UPDATE 음식_배달 SET total_price = 0 WHERE payment_status = '대기';",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "total_price",
-        "payment_status"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "배달원 ID가 5인 주문의 배송 시간에 현재 시간을 추가해주세요.",
-      "sql": "UPDATE 음식_배달 SET delivery_time = NOW() WHERE delivery_person_id = 5;",
-      "dml": "UPDATE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "delivery_time",
         "delivery_person_id"
       ],
       "matched_fields": []
     },
     {
-      "nl": "고객 이름이 '김철수'인 주문의 평점을 5.0으로 수정하세요.",
-      "sql": "UPDATE 음식_배달 SET rating = 5.0 WHERE customer_name = '김철수';",
+      "nl": "레스토랑 이름이 '김밥천국'인 주문의 총 가격을 15000원으로 업데이트 해줘.",
+      "sql": "UPDATE 음식_배달 SET total_price = 15000 WHERE restaurant_name = '김밥천국';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "rating",
-        "customer_name"
+        "total_price",
+        "restaurant_name"
       ],
       "matched_fields": []
     },
     {
-      "nl": "레스토랑 이름이 '이탈리안 레스토랑'인 주문의 주문 상태를 '배송완료'로 변경해 주세요.",
-      "sql": "UPDATE 음식_배달 SET order_status = '배송완료' WHERE restaurant_name = '이탈리안 레스토랑';",
+      "nl": "주문 상태가 '배송중'인 주문의 배송 시간에 현재 시간을 추가해줘.",
+      "sql": "UPDATE 음식_배달 SET delivery_time = NOW() WHERE order_status = '배송중';",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "restaurant_name",
-        "order_status"
+        "order_status",
+        "delivery_time"
       ],
       "matched_fields": []
     },
     {
-      "nl": "주문 날짜가 2023년 1월 1일 이전인 모든 주문의 결제 상태를 '취소'로 설정하세요.",
-      "sql": "UPDATE 음식_배달 SET payment_status = '취소' WHERE order_date < '2023-01-01';",
+      "nl": "사용자 ID가 10인 주문의 평점을 4.5로 수정해줘.",
+      "sql": "UPDATE 음식_배달 SET rating = 4.5 WHERE user_id = 10;",
       "dml": "UPDATE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_date",
-        "payment_status"
+        "rating"
+      ],
+      "matched_fields": [
+        "user_id"
+      ]
+    },
+    {
+      "nl": "배달 비용이 1000원 이하인 주문의 상태를 '취소'로 변경해줘.",
+      "sql": "UPDATE 음식_배달 SET status = '취소' WHERE delivery_fee <= 1000;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "delivery_fee"
       ],
       "matched_fields": []
     },
@@ -347,67 +344,42 @@
       "matched_fields": []
     },
     {
-      "nl": "총 가격이 50000원 이하인 주문을 삭제하고 싶어.",
-      "sql": "DELETE FROM 음식_배달 WHERE total_price <= 50000;",
+      "nl": "결제 상태가 '실패'이고 총 가격이 5000원 이하인 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE payment_status = '실패' AND total_price <= 5000;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "total_price"
+        "total_price",
+        "payment_status"
       ],
       "matched_fields": []
     },
     {
-      "nl": "배달원 ID가 3인 주문 중에서 배송 완료된 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE delivery_person_id = 3 AND order_status = '배송완료';",
+      "nl": "배달 비용이 2000원보다 큰 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE delivery_fee > 2000;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_status",
-        "delivery_person_id"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "주문 날짜가 2023년 1월 1일 이전인 모든 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE order_date < '2023-01-01';",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "order_date"
-      ],
-      "matched_fields": []
-    },
-    {
-      "nl": "사용자 ID가 5인 주문 중에서 피드백이 없는 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE user_id = 5 AND feedback IS NULL;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "feedback"
-      ],
-      "matched_fields": [
-        "user_id"
-      ]
-    },
-    {
-      "nl": "배달 비용이 2000원 이하인 활성 주문을 삭제하고 싶어.",
-      "sql": "DELETE FROM 음식_배달 WHERE delivery_fee <= 2000 AND is_active = TRUE;",
-      "dml": "DELETE",
-      "db_success": true,
-      "db_error": null,
-      "missing_fields": [
-        "is_active",
         "delivery_fee"
       ],
       "matched_fields": []
     },
     {
-      "nl": "평점이 2.0 이하인 모든 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE rating <= 2.0;",
+      "nl": "주문 수량이 3개 이상인 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE quantity >= 3;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "quantity"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "평점이 4.0 이하인 모든 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE rating <= 4.0;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -417,20 +389,19 @@
       "matched_fields": []
     },
     {
-      "nl": "배송 시간이 현재 시간보다 과거인 주문 중에서 주문 상태가 '배송중'인 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE delivery_time < NOW() AND order_status = '배송중';",
+      "nl": "주문 날짜가 2023년 1월 1일 이전인 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE order_date < '2023-01-01 00:00:00';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "order_status",
-        "delivery_time"
+        "order_date"
       ],
       "matched_fields": []
     },
     {
-      "nl": "고객 이름이 '홍길동'인 모든 주문을 삭제하고 싶어.",
-      "sql": "DELETE FROM 음식_배달 WHERE customer_name = '홍길동';",
+      "nl": "고객 이름이 '김철수'인 모든 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE customer_name = '김철수';",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
@@ -440,16 +411,42 @@
       "matched_fields": []
     },
     {
-      "nl": "상태가 '완료'인 주문 중에서 주문 수량이 3 이상인 주문을 삭제해줘.",
-      "sql": "DELETE FROM 음식_배달 WHERE status = '완료' AND quantity >= 3;",
+      "nl": "레스토랑 이름이 '맛집'이고 배송 시간이 30분 이상인 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE restaurant_name = '맛집' AND TIMESTAMPDIFF(MINUTE, order_date, delivery_time) >= 30;",
       "dml": "DELETE",
       "db_success": true,
       "db_error": null,
       "missing_fields": [
-        "status",
-        "quantity"
+        "restaurant_name",
+        "order_date",
+        "MINUTE"
       ],
       "matched_fields": []
+    },
+    {
+      "nl": "주문 상태가 '배송완료'이고 총 가격이 10000원 이상인 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE order_status = '배송완료' AND total_price >= 10000;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "total_price",
+        "order_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 1이고 결제 상태가 '대기'인 모든 주문을 삭제해줘.",
+      "sql": "DELETE FROM 음식_배달 WHERE user_id = 1 AND payment_status = '대기';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "payment_status"
+      ],
+      "matched_fields": [
+        "user_id"
+      ]
     }
   ]
 }

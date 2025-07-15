@@ -125,6 +125,7 @@ def validate_sql_on_db(sql, db_name):
 def make_nl_prompt(schema_ddl, dml):
     return f"""
 아래 [참조 스키마]와 DML 유형을 참고해서 다양한 조건(WHERE, HAVING, <, >, =, <=, >= 등 부호, 집계 등)이 반드시 포함된 자연어 질의(nl) 10개를 JSON 배열로 생성해줘.
+WHERE 절에 다양한 서브쿼리(NOT IN, IN, NOT EXISTS, EXISTS, 스칼라 서브쿼리 등)를 활용한 조건이 반드시 포함되어야 해.
 
 [참조 스키마]
 {schema_ddl}
@@ -142,8 +143,15 @@ DML 유형: {dml}
 
 def make_sql_prompt(schema_ddl, dml, nl_list):
     nl_json = json.dumps([{"nl": nl} for nl in nl_list], ensure_ascii=False, indent=2)
+    extra_guide = ""
+    if dml.upper() == "INSERT":
+        extra_guide = "\nINSERT 문에는 WHERE 절을 사용하지 마세요."
     return f"""
-아래 [참조 스키마], DML 유형, 자연어 질의(nl) 10개를 참고해서 각 nl에 맞는 SQL을 생성해줘.\n\n각 SQL에는 다양한 조건(WHERE, HAVING, <, >, =, <=, >= 등 부호, 집계 등)이 반드시 포함되어야 해.\n10개 모두 JSON 배열로 반환해.
+아래 [참조 스키마], DML 유형, 자연어 질의(nl) 10개를 참고해서 각 nl에 맞는 SQL을 생성해줘.
+
+각 SQL에는 다양한 조건(WHERE, HAVING, <, >, =, <=, >= 등 부호, 집계 등)이 반드시 포함되어야 해.
+WHERE 절에 다양한 서브쿼리(NOT IN, IN, NOT EXISTS, EXISTS, 스칼라 서브쿼리 등)를 활용한 복잡한 SQL을 생성해줘.
+10개 모두 JSON 배열로 반환해.
 
 [참조 스키마]
 {schema_ddl}
@@ -158,7 +166,7 @@ DML 유형: {dml}
   ... (총 10개)
 ]
 ```
-설명 없이 JSON 배열로만 반환해줘.
+설명 없이 JSON 배열로만 반환해줘.{extra_guide}
 """
 
 def main():
