@@ -126,6 +126,7 @@ def make_nl_prompt(schema_ddl, dml):
     return f"""
 아래 [참조 스키마]와 DML 유형을 참고해서 다양한 조건(WHERE, HAVING, <, >, =, <=, >= 등 부호, 집계 등)이 반드시 포함된 자연어 질의(nl) 10개를 JSON 배열로 생성해줘.
 WHERE 절에 다양한 서브쿼리(NOT IN, IN, NOT EXISTS, EXISTS, 스칼라 서브쿼리 등)를 활용한 조건이 반드시 포함되어야 해.
+생성되는 자연어 질의와 SQL은 반드시 MySQL 규칙에 따라야 해.
 
 [참조 스키마]
 {schema_ddl}
@@ -151,6 +152,7 @@ def make_sql_prompt(schema_ddl, dml, nl_list):
 
 각 SQL에는 다양한 조건(WHERE, HAVING, <, >, =, <=, >= 등 부호, 집계 등)이 반드시 포함되어야 해.
 WHERE 절에 다양한 서브쿼리(NOT IN, IN, NOT EXISTS, EXISTS, 스칼라 서브쿼리 등)를 활용한 복잡한 SQL을 생성해줘.
+생성되는 SQL은 반드시 MySQL 규칙에 따라야 해.
 10개 모두 JSON 배열로 반환해.
 
 [참조 스키마]
@@ -171,31 +173,45 @@ DML 유형: {dml}
 
 def main():
     dml_types = ["SELECT", "INSERT", "UPDATE", "DELETE"]
+    dml_target_counts = {"SELECT": 20, "INSERT": 10, "UPDATE": 20, "DELETE": 20}
+    batch_size = 10
     os.makedirs("queries", exist_ok=True)
     schema_dir = "sqls"
     for schema_file in os.listdir(schema_dir):
         if not schema_file.endswith("_schema.sql"):
             continue
         domain_name = schema_file.replace("_schema.sql", "").replace(" ", "_")
-        # if domain_name != "날씨_정보":
-        #     continue
         schema_path = os.path.join(schema_dir, schema_file)
         schema_ddl = get_schema_ddl(schema_path)
         schema_fields = get_schema_fields(schema_ddl)
         all_results = []
         for dml in dml_types:
-            nl_prompt = make_nl_prompt(schema_ddl, dml)
-            try:
-                nl_content = call_openai_with_retry(nl_prompt)
-                nl_json_str = extract_json_from_response(nl_content)
-                nl_items = json.loads(nl_json_str)
-                nl_list = [item.get("nl", "").strip() for item in nl_items if item.get("nl", "").strip()]
-            except Exception as e:
-                print(f"[ERROR] NL 생성 실패: {e}")
+            target_count = dml_target_counts[dml]
+            generated_nl_set = set()
+            generated_sql_set = set()
+            nl_list_total = []
+            sql_items_total = []
+            while len(nl_list_total) < target_count:
+                nl_prompt = make_nl_prompt(schema_ddl, dml)
+                try:
+                    nl_content = call_openai_with_retry(nl_prompt)
+                    nl_json_str = extract_json_from_response(nl_content)
+                    nl_items = json.loads(nl_json_str)
+                    nl_list = [item.get("nl", "").strip() for item in nl_items if item.get("nl", "").strip()]
+                except Exception as e:
+                    print(f"[ERROR] NL 생성 실패: {e}")
+                    break
+                # 중복 제거 및 누적
+                for nl in nl_list:
+                    if nl not in generated_nl_set and len(nl_list_total) < target_count:
+                        nl_list_total.append(nl)
+                        generated_nl_set.add(nl)
+            if not nl_list_total:
                 continue
-            if not nl_list:
-                continue
-            sql_prompt = make_sql_prompt(schema_ddl, dml, nl_list)
+            # target_count만큼만 사용
+            nl_list_total = nl_list_total[:target_count]
+            # SQL 생성
+            sql_prompt = make_sql_prompt(schema_ddl, dml, nl_list_total)
             try:
                 sql_content = call_openai_with_retry(sql_prompt)
                 sql_json_str = extract_json_from_response(sql_content)
@@ -206,6 +222,11 @@ def main():
                     dml_val = sql_item.get("dml", dml).strip()
                     if not nl or not sql or not dml_val:
                         continue
+                    # SQL 중복 제거
+                    sql_key = (nl, sql)
+                    if sql_key in generated_sql_set:
+                        continue
+                    generated_sql_set.add(sql_key)
                     print(f"\n[NL] {nl}\n[SQL] {sql}")
                     missing_fields, matched_fields = extract_column_names_from_sql(sql, schema_fields, table_name=domain_name)
                     db_success, db_error = validate_sql_on_db(sql, domain_name)
