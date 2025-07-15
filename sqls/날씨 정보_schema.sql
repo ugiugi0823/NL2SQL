@@ -1,0 +1,22 @@
+CREATE TABLE `날씨_정보` (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '날씨 정보 고유 ID',
+  `location` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '위치 정보',
+  `temperature` DECIMAL(4,1) DEFAULT 0.0 COMMENT '온도 (섭씨)',
+  `humidity` INT DEFAULT 0 COMMENT '습도 (%)',
+  `weather_condition` ENUM('맑음', '흐림', '비', '눈', '안개') DEFAULT '맑음' COMMENT '날씨 상태',
+  `wind_speed` DECIMAL(5,2) DEFAULT 0.00 COMMENT '풍속 (m/s)',
+  `precipitation` DECIMAL(5,2) DEFAULT 0.00 COMMENT '강수량 (mm)',
+  `visibility` DECIMAL(5,2) DEFAULT 0.00 COMMENT '가시성 (km)',
+  `air_pressure` DECIMAL(5,1) DEFAULT 0.0 COMMENT '기압 (hPa)',
+  `measured_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '측정 시간',
+  `sunrise_time` DATETIME DEFAULT '1970-01-01 00:00:00' COMMENT '일출 시간',
+  `sunset_time` DATETIME DEFAULT '1970-01-01 00:00:00' COMMENT '일몰 시간',
+  `uv_index` DECIMAL(3,1) DEFAULT 0.0 COMMENT '자외선 지수',
+  `weather_description` TEXT COMMENT '날씨 설명',
+  `is_active` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '활성 여부',
+  `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '생성 시각',
+  `updated_at` TIMESTAMP NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '수정 시각',
+  PRIMARY KEY (`id`),
+  INDEX `IDX_location` (`location`),
+  INDEX `IDX_measured_time` (`measured_time`)
+) COMMENT='지역별 기온, 강수량, 습도, 풍속 등 날씨 정보 관리';

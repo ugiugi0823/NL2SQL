@@ -1,0 +1,528 @@
+{
+  "results": [
+    {
+      "nl": "개봉일이 2020년 이후인 영화 중에서 평점이 8.0 이상인 영화를 모두 선택해줘.",
+      "sql": "SELECT * FROM 영화_정보 WHERE release_date > '2020-01-01' AND rating >= 8.0;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "release_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "감독이 '홍길동'인 영화의 제목과 평점을 가져와서 평점이 7.5 이하인 영화만 보여줘.",
+      "sql": "SELECT title, rating FROM 영화_정보 WHERE director = '홍길동' AND rating <= 7.5;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "장르가 '액션'인 영화 중에서 상영 시간이 120분 이상인 영화의 제목과 개봉일을 선택해줘.",
+      "sql": "SELECT title, release_date FROM 영화_정보 WHERE genre = '액션' AND duration >= 120;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "genre",
+        "release_date",
+        "duration"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "박스 오피스 수익이 100억 원 이상인 영화의 감독과 장르를 가져오고, 그 중 평점이 9.0 이상인 영화만 보여줘.",
+      "sql": "SELECT director, genre FROM 영화_정보 WHERE box_office >= 100000000000 AND rating >= 9.0;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "box_office",
+        "genre",
+        "director"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 제목에 '전쟁'이 포함된 영화의 개봉일을 기준으로 정렬하고, 평점이 6.0 이상인 영화만 선택해줘.",
+      "sql": "SELECT release_date FROM 영화_정보 WHERE title LIKE '%전쟁%' AND rating >= 6.0 ORDER BY release_date;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "release_date"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "제작 국가가 '미국'인 영화 중에서 평점이 5.0 이하인 영화의 제목과 감독을 가져와줘.",
+      "sql": "SELECT title, director FROM 영화_정보 WHERE country = '미국' AND rating <= 5.0;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "country",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 상태가 '완료'인 영화 중에서 개봉일이 2015년부터 2021년 사이인 영화의 제목과 평점을 선택해줘.",
+      "sql": "SELECT title, rating FROM 영화_정보 WHERE status = '완료' AND release_date BETWEEN '2015-01-01' AND '2021-12-31';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "status",
+        "release_date"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "주요 배우 목록에 '이순신'이 포함된 영화의 제목과 개봉일을 가져오고, 그 중 상영 시간이 90분 이상인 영화만 보여줘.",
+      "sql": "SELECT title, release_date FROM 영화_정보 WHERE cast LIKE '%이순신%' AND duration >= 90;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date",
+        "duration",
+        "cast"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "결제 상태가 '완료'인 영화의 제목과 박스 오피스 수익을 가져와서 수익이 50억 원 이하인 영화만 선택해줘.",
+      "sql": "SELECT title, box_office FROM 영화_정보 WHERE payment_status = '완료' AND box_office <= 50000000000;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "box_office",
+        "payment_status"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화의 상태가 '비활성'인 영화 중에서 평점이 4.0 이하인 영화의 제목과 감독을 가져와줘.",
+      "sql": "SELECT title, director FROM 영화_정보 WHERE status = '비활성' AND rating <= 4.0;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "status",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 제목이 '인셉션'인 영화의 감독과 장르를 추가해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, genre) SELECT '인셉션', director, genre FROM 영화_정보 WHERE title = '인셉션';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "genre",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "2020년 이후에 개봉한 영화 중 길이가 120분 이상인 영화의 정보를 삽입해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, genre, release_date, duration) SELECT title, director, genre, release_date, duration FROM 영화_정보 WHERE release_date > '2020-01-01' AND duration >= 120;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "release_date",
+        "director",
+        "genre"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "평점이 8.0 이상인 영화의 제목과 감독을 추가해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director) SELECT title, director FROM 영화_정보 WHERE rating >= 8.0;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "장르가 '액션'이고 개봉일이 2015년 이전인 영화의 정보를 입력해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, genre, release_date) SELECT title, director, genre, release_date FROM 영화_정보 WHERE genre = '액션' AND release_date < '2015-01-01';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "genre",
+        "release_date",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "박스 오피스 수익이 1000000000 이상인 영화의 제목과 나라를 추가해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, country) SELECT title, country FROM 영화_정보 WHERE box_office >= 1000000000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "box_office",
+        "country"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 길이가 90분 이상이고 평점이 7.5 이상인 영화의 정보를 삽입해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, duration, rating) SELECT title, director, duration, rating FROM 영화_정보 WHERE duration >= 90 AND rating >= 7.5;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "duration",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "감독이 '스티븐 스필버그'인 영화의 제목을 추가해줘.",
+      "sql": "INSERT INTO 영화_정보 (title) SELECT title FROM 영화_정보 WHERE director = '스티븐 스필버그';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 상태가 '활성'인 영화 중에서 평점이 6.0 이상인 영화의 정보를 입력해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, rating, status) SELECT title, director, rating, status FROM 영화_정보 WHERE is_active = TRUE AND rating >= 6.0;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "director",
+        "rating",
+        "status",
+        "is_active"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "개봉일이 2018년 1월 1일 이후이고 장르가 '드라마'인 영화의 제목을 추가해줘.",
+      "sql": "INSERT INTO 영화_정보 (title) SELECT title FROM 영화_정보 WHERE release_date > '2018-01-01' AND genre = '드라마';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "genre",
+        "release_date"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 제목이 '타이타닉'이거나 평점이 9.0 이상인 영화의 정보를 삽입해줘.",
+      "sql": "INSERT INTO 영화_정보 (title, director, rating) SELECT title, director, rating FROM 영화_정보 WHERE title = '타이타닉' OR rating >= 9.0;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "영화 제목이 '인셉션'인 영화의 평점을 9.0으로 업데이트 해줘.",
+      "sql": "UPDATE 영화_정보 SET rating = 9.0 WHERE title = '인셉션';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "감독이 '크리스토퍼 놀란'인 모든 영화의 상태를 '완료'로 변경해줘.",
+      "sql": "UPDATE 영화_정보 SET status = '완료' WHERE director = '크리스토퍼 놀란';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "director"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "개봉일이 2020년 이후인 모든 영화의 박스 오피스 수익을 1000000으로 수정해줘.",
+      "sql": "UPDATE 영화_정보 SET box_office = 1000000 WHERE release_date > '2020-01-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date",
+        "box_office"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 길이가 120분 이상인 영화들의 결제 상태를 '완료'로 업데이트 해줘.",
+      "sql": "UPDATE 영화_정보 SET payment_status = '완료' WHERE duration >= 120;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "장르가 '액션'인 영화의 활성 여부를 false로 변경해줘.",
+      "sql": "UPDATE 영화_정보 SET is_active = FALSE WHERE genre = '액션';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "is_active",
+        "genre"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 제목에 '전쟁'이 포함된 영화들의 감독 이름을 '변경된 감독'으로 업데이트 해줘.",
+      "sql": "UPDATE 영화_정보 SET director = '변경된 감독' WHERE title LIKE '%전쟁%';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "director"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "평점이 8.0 이상인 영화들의 언어를 '영어'로 수정해줘.",
+      "sql": "UPDATE 영화_정보 SET language = '영어' WHERE rating >= 8.0;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating",
+        "language"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "국가가 '미국'인 영화들의 주문 상태를 '배송완료'로 변경해줘.",
+      "sql": "UPDATE 영화_정보 SET order_status = '배송완료' WHERE country = '미국';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "order_status",
+        "country"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "개봉일이 2015년 이전인 영화들의 영화 길이를 90분으로 업데이트 해줘.",
+      "sql": "UPDATE 영화_정보 SET duration = 90 WHERE release_date < '2015-01-01';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date",
+        "duration"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "결제 상태가 '대기'인 영화들의 상태를 '비활성'으로 변경해줘.",
+      "sql": "UPDATE 영화_정보 SET status = '비활성' WHERE payment_status = '대기';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 제목이 '인셉션'인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE title = '인셉션';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "감독이 '스티븐 스필버그'인 모든 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE director = '스티븐 스필버그';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "director"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "개봉일이 2000년 이후인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE release_date > '2000-01-01';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "평점이 8.0 이하인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE rating <= 8.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "rating"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 길이가 120분 이상인 영화 중에서 제목이 '어벤져스'인 영화 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE duration >= 120 AND title = '어벤져스';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration"
+      ],
+      "matched_fields": [
+        "title"
+      ]
+    },
+    {
+      "nl": "상태가 '비활성'인 모든 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE status = '비활성';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "박스 오피스 수익이 1억 달러 이하인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE box_office <= 100000000;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "box_office"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "장르가 '코미디'인 영화 중에서 개봉일이 2010년 이전인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE genre = '코미디' AND release_date < '2010-01-01';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "release_date",
+        "genre"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "영화 상태가 '완료'이고 결제 상태가 '취소'인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE status = '완료' AND payment_status = '취소';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "사용자 ID가 5인 영화를 삭제해줘.",
+      "sql": "DELETE FROM 영화_정보 WHERE user_id = 5;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_id"
+      ],
+      "matched_fields": []
+    }
+  ]
+}

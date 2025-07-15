@@ -1,0 +1,431 @@
+{
+  "results": [
+    {
+      "nl": "서울의 온도가 20도 이상인 날씨 정보를 조회해줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE location = '서울' AND temperature >= 20",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "temperature"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "습도가 50% 이하인 지역의 날씨 상태를 알려줘.",
+      "sql": "SELECT location, weather_condition FROM 날씨_정보 WHERE humidity <= 50",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "humidity",
+        "weather_condition"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "지난 일주일 동안 강수량이 10mm 이상인 날씨 데이터를 보여줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE measured_time >= NOW() - INTERVAL 7 DAY AND precipitation >= 10",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "precipitation",
+        "measured_time"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "풍속이 5m/s 이상인 지역의 날씨를 검색해줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE wind_speed >= 5",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "wind_speed"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "현재 기온이 15도 이하인 위치의 날씨 정보를 찾고 싶어.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE temperature <= 15",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "temperature"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "안개가 끼지 않은 지역의 날씨 조건을 알려줘.",
+      "sql": "SELECT location, weather_condition FROM 날씨_정보 WHERE weather_condition != '안개'",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "weather_condition"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "일출 시간이 오전 6시 이후인 지역의 날씨 데이터를 보여줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE sunrise_time > '1970-01-01 06:00:00'",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "sunrise_time"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "기압이 1000hPa 이하인 날씨 정보를 조회해줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE air_pressure <= 1000",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "air_pressure"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "서울에서 오늘 측정된 날씨 정보 중 습도가 70% 이상인 것을 찾아줘.",
+      "sql": "SELECT * FROM 날씨_정보 WHERE location = '서울' AND measured_time >= CURDATE() AND humidity >= 70",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "humidity",
+        "measured_time"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "자외선 지수가 3.0 이상인 지역의 날씨 상태를 알려줘.",
+      "sql": "SELECT location, weather_condition FROM 날씨_정보 WHERE uv_index >= 3.0",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "weather_condition",
+        "uv_index"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "서울의 현재 온도가 30도 이상인 날씨 정보를 추가해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, temperature, is_active) VALUES ('서울', 30.0, TRUE) WHERE temperature >= 30",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE temperature >= 30' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "습도가 70%를 초과하는 부산의 날씨 정보를 삽입해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, humidity, is_active) VALUES ('부산', 75, TRUE) WHERE humidity > 70",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE humidity > 70' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "기온이 25도 이하이고 강수량이 10mm 이상인 대전의 날씨 데이터를 추가해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, temperature, precipitation, is_active) VALUES ('대전', 20.0, 15.0, TRUE) WHERE temperature <= 25 AND precipitation >= 10",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE temperature <= 25 AND precipitation >= 10' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "광주의 풍속이 5m/s 이하인 날씨 정보를 입력해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, wind_speed, is_active) VALUES ('광주', 4.5, TRUE) WHERE wind_speed <= 5",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE wind_speed <= 5' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "대구에서 자외선 지수가 3.0 이상인 날씨 정보를 추가해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, uv_index, is_active) VALUES ('대구', 3.5, TRUE) WHERE uv_index >= 3",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE uv_index >= 3' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "인천의 날씨 상태가 '비'인 데이터를 삽입해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, weather_condition, is_active) VALUES ('인천', '비', TRUE) WHERE weather_condition = '비'",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE weather_condition = '비'' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "온도가 15도 이상이고 습도가 50% 이하인 날씨 정보를 서울에 추가해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, temperature, humidity, is_active) VALUES ('서울', 20.0, 45, TRUE) WHERE temperature >= 15 AND humidity <= 50",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE temperature >= 15 AND humidity <= 50' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "전주에서 기압이 1010hPa 이하인 날씨 데이터를 입력해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, air_pressure, is_active) VALUES ('전주', 1005.0, TRUE) WHERE air_pressure <= 1010",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE air_pressure <= 1010' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "흐림 상태의 날씨 정보를 가진 제주도의 기록을 추가해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, weather_condition, is_active) VALUES ('제주도', '흐림', TRUE) WHERE weather_condition = '흐림'",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE weather_condition = '흐림'' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "가시성이 10km 이하인 날씨 정보를 울산에 삽입해줘.",
+      "sql": "INSERT INTO 날씨_정보 (location, visibility, is_active) VALUES ('울산', 8.0, TRUE) WHERE visibility <= 10",
+      "dml": "INSERT",
+      "db_success": false,
+      "db_error": "1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE visibility <= 10' at line 1",
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "위치가 '서울'인 날씨 정보를 업데이트하여 온도를 25.0도로 설정하라.",
+      "sql": "UPDATE 날씨_정보 SET temperature = 25.0 WHERE location = '서울';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "temperature"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "습도가 60% 이상인 모든 지역의 날씨 정보를 업데이트하여 풍속을 5.0m/s로 변경하라.",
+      "sql": "UPDATE 날씨_정보 SET wind_speed = 5.0 WHERE humidity >= 60;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "wind_speed",
+        "humidity"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "기온이 30도 이하인 지역의 날씨 정보를 업데이트하여 날씨 상태를 '흐림'으로 변경하라.",
+      "sql": "UPDATE 날씨_정보 SET weather_condition = '흐림' WHERE temperature <= 30;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "temperature",
+        "weather_condition"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "강수량이 10mm 이상인 지역의 날씨 정보를 업데이트하여 가시성을 1.5km로 설정하라.",
+      "sql": "UPDATE 날씨_정보 SET visibility = 1.5 WHERE precipitation >= 10;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "visibility",
+        "precipitation"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "일출 시간이 '2023-10-01 06:00:00' 이후인 지역의 날씨 정보를 업데이트하여 자외선 지수를 3.5로 변경하라.",
+      "sql": "UPDATE 날씨_정보 SET uv_index = 3.5 WHERE sunrise_time > '2023-10-01 06:00:00';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "sunrise_time",
+        "uv_index"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "위치가 '부산'이고 활성 여부가 TRUE인 날씨 정보를 업데이트하여 기압을 1013.0hPa로 설정하라.",
+      "sql": "UPDATE 날씨_정보 SET air_pressure = 1013.0 WHERE location = '부산' AND is_active = TRUE;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "is_active",
+        "air_pressure"
+      ],
+      "matched_fields": [
+        "location"
+      ]
+    },
+    {
+      "nl": "온도가 15도 이하인 지역의 날씨 정보를 업데이트하여 날씨 설명을 '춥습니다'로 변경하라.",
+      "sql": "UPDATE 날씨_정보 SET weather_description = '춥습니다' WHERE temperature <= 15;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "temperature",
+        "weather_description"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "습도가 80% 미만인 모든 지역의 날씨 정보를 업데이트하여 강수량을 0.0mm로 설정하라.",
+      "sql": "UPDATE 날씨_정보 SET precipitation = 0.0 WHERE humidity < 80;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "humidity",
+        "precipitation"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "풍속이 10m/s 이상인 지역의 날씨 정보를 업데이트하여 날씨 상태를 '비'로 변경하라.",
+      "sql": "UPDATE 날씨_정보 SET weather_condition = '비' WHERE wind_speed >= 10;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "wind_speed",
+        "weather_condition"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "가시성이 0.5km 이하인 지역의 날씨 정보를 업데이트하여 온도를 10도로 설정하라.",
+      "sql": "UPDATE 날씨_정보 SET temperature = 10 WHERE visibility <= 0.5;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "visibility",
+        "temperature"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "위치가 '서울'인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `location` = '서울';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "습도가 80% 이상인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `humidity` >= 80;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "온도가 0도 이하인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `temperature` <= 0.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "풍속이 10m/s를 초과하는 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `wind_speed` > 10.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "강수량이 5mm 미만인 모든 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `precipitation` < 5.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "비가 오는 날씨 정보 중에서 가시성이 1km 이하인 것을 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `weather_condition` = '비' AND `visibility` <= 1.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "일출 시간이 오늘인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE DATE(`sunrise_time`) = CURDATE();",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "자외선 지수가 3.0 이하인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `uv_index` <= 3.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "기압이 1000hPa 이상인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `air_pressure` >= 1000.0;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    },
+    {
+      "nl": "측정 시간이 2023년 10월 1일 이전인 날씨 정보를 삭제해줘.",
+      "sql": "DELETE FROM `날씨_정보` WHERE `measured_time` < '2023-10-01 00:00:00';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": []
+    }
+  ]
+}

@@ -1,0 +1,490 @@
+{
+  "results": [
+    {
+      "nl": "대출된 도서의 제목이 'Python 프로그래밍'인 모든 기록을 조회해줘.",
+      "sql": "SELECT * FROM 도서관_대출 WHERE book_title = 'Python 프로그래밍';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "2023년 1월 1일 이후에 대출된 도서의 회원 이름과 대출 날짜를 보여줘.",
+      "sql": "SELECT user_name, loan_date FROM 도서관_대출 WHERE loan_date > '2023-01-01';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "상태가 '완료'인 대출 기록의 수를 세어줘.",
+      "sql": "SELECT COUNT(*) FROM 도서관_대출 WHERE status = '완료';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "연체료가 5000원 이상인 대출 기록을 모두 확인해줘.",
+      "sql": "SELECT * FROM 도서관_대출 WHERE penalty_fee >= 5000.00;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 기간이 30일 이하인 도서의 제목과 대출 상태를 조회해줘.",
+      "sql": "SELECT book_title, status FROM 도서관_대출 WHERE duration <= 30;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "status",
+        "duration"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "회원 이름이 '김철수'인 대출 기록 중에서 실제 반납 날짜가 있는 모든 정보를 보여줘.",
+      "sql": "SELECT * FROM 도서관_대출 WHERE user_name = '김철수' AND actual_return_date != '1970-01-01';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "actual_return_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 상태가 '활성'인 도서의 수를 세어줘.",
+      "sql": "SELECT COUNT(*) FROM 도서관_대출 WHERE status = '활성';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "2023년 5월 15일에 대출된 도서 중에서 반납 예정 날짜가 2023년 6월 15일인 기록을 조회해줘.",
+      "sql": "SELECT * FROM 도서관_대출 WHERE loan_date = '2023-05-15' AND return_date = '2023-06-15';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "return_date",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "연체료가 0원인 대출 기록의 평균 대출 기간을 계산해줘.",
+      "sql": "SELECT AVG(duration) FROM 도서관_대출 WHERE penalty_fee = 0.00;",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "도서 제목이 '자바 프로그래밍'이 아닌 대출 기록 중에서 회원 이름과 대출 날짜를 보여줘.",
+      "sql": "SELECT user_name, loan_date FROM 도서관_대출 WHERE book_title != '자바 프로그래밍';",
+      "dml": "SELECT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "loan_date",
+        "book_title"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 기간이 14일 이상인 도서를 대출한 회원의 이름과 도서 제목을 알려줘.",
+      "sql": "SELECT user_name, book_title FROM 도서관_대출 WHERE duration >= 14;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "book_title",
+        "duration"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "연체료가 5000원 이하인 대출 기록을 가진 회원의 이름과 연락처를 보여줘.",
+      "sql": "SELECT user_name, phone FROM 도서관_대출 WHERE penalty_fee <= 5000;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "penalty_fee",
+        "phone"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 상태가 '완료'인 도서의 제목과 실제 반납 날짜를 리스트로 제공해줘.",
+      "sql": "SELECT book_title, actual_return_date FROM 도서관_대출 WHERE status = '완료';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "actual_return_date",
+        "book_title",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출된 도서 중에서 '상가' 유형의 부동산을 가진 도서의 제목과 대출 날짜를 가져와줘.",
+      "sql": "SELECT book_title, loan_date FROM 도서관_대출 WHERE property_type = '상가';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "property_type",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 상태가 '대기'인 도서를 대출한 회원의 이름과 이메일 주소를 출력해줘.",
+      "sql": "SELECT user_name, email FROM 도서관_대출 WHERE status = '대기';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "status",
+        "email"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 기록 중에서 대출 기간이 30일 이하인 도서의 제목과 대출 날짜를 찾고 싶어.",
+      "sql": "SELECT book_title, loan_date FROM 도서관_대출 WHERE duration <= 30;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "duration",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "연체료가 0원인 대출 기록의 도서 제목과 회원 이름을 보여줘.",
+      "sql": "SELECT book_title, user_name FROM 도서관_대출 WHERE penalty_fee = 0;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "book_title",
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출된 도서 중에서 대출 기간이 7일 이상 14일 이하인 도서의 제목과 대출 날짜를 알려줘.",
+      "sql": "SELECT book_title, loan_date FROM 도서관_대출 WHERE duration >= 7 AND duration <= 14;",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "duration",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 상태가 '취소'인 도서의 제목과 회원 이름을 리스트로 보여줘.",
+      "sql": "SELECT book_title, user_name FROM 도서관_대출 WHERE status = '취소';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "book_title",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "모든 대출 기록 중에서 대출 날짜가 2023년 1월 1일 이후인 도서의 제목과 대출 상태를 가져와줘.",
+      "sql": "SELECT book_title, status FROM 도서관_대출 WHERE loan_date > '2023-01-01';",
+      "dml": "INSERT",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "status",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Update the status of all loans where the return date is less than today to '완료'.",
+      "sql": "UPDATE 도서관_대출 SET status = '완료' WHERE return_date < CURDATE();",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "return_date",
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Set the penalty fee to 5000 for users whose actual return date is greater than the return date.",
+      "sql": "UPDATE 도서관_대출 SET penalty_fee = 5000 WHERE actual_return_date > return_date;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "return_date",
+        "actual_return_date",
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Change the payment status to '완료' for loans that have a duration of more than 30 days.",
+      "sql": "UPDATE 도서관_대출 SET payment_status = '완료' WHERE duration > 30;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration",
+        "payment_status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Update the user name to '김철수' for the loan where the loan ID equals 1.",
+      "sql": "UPDATE 도서관_대출 SET user_name = '김철수' WHERE loan_id = 1;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name"
+      ],
+      "matched_fields": [
+        "loan_id"
+      ]
+    },
+    {
+      "nl": "Set the order status to '취소' for all loans that are currently '대기' and have a duration less than or equal to 7 days.",
+      "sql": "UPDATE 도서관_대출 SET order_status = '취소' WHERE status = '대기' AND duration <= 7;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "order_status",
+        "status",
+        "duration"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Change the book title to '프로그래밍의 정석' for the loan where the user ID is 10 and the book ID is 100.",
+      "sql": "UPDATE 도서관_대출 SET book_title = '프로그래밍의 정석' WHERE user_id = 10 AND book_id = 100;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "book_title",
+        "book_id"
+      ],
+      "matched_fields": [
+        "user_id"
+      ]
+    },
+    {
+      "nl": "Update the status to '비활성' for loans that are older than 1 year.",
+      "sql": "UPDATE 도서관_대출 SET status = '비활성' WHERE loan_date < DATE_SUB(CURDATE(), INTERVAL 1 YEAR);",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Set the email to 'example@example.com' for loans where the user name is '이영희'.",
+      "sql": "UPDATE 도서관_대출 SET email = 'example@example.com' WHERE user_name = '이영희';",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name",
+        "email"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Change the property type to '빌라' for loans that have a penalty fee greater than 0.",
+      "sql": "UPDATE 도서관_대출 SET property_type = '빌라' WHERE penalty_fee > 0;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "property_type",
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "Update the phone number to '01012345678' for all active loans where the user ID is less than 50.",
+      "sql": "UPDATE 도서관_대출 SET phone = '01012345678' WHERE is_active = TRUE AND user_id < 50;",
+      "dml": "UPDATE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "phone",
+        "is_active"
+      ],
+      "matched_fields": [
+        "user_id"
+      ]
+    },
+    {
+      "nl": "대출 상태가 '완료'인 모든 대출 기록을 삭제해 주세요.",
+      "sql": "DELETE FROM 도서관_대출 WHERE status = '완료';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "연체료가 100원 이상인 대출 기록을 모두 삭제해야 합니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE penalty_fee >= 100;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 기간이 30일 이하인 모든 대출을 삭제하고 싶습니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE duration <= 30;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "duration"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 날짜가 2022년 1월 1일 이전인 대출 기록을 삭제해 주세요.",
+      "sql": "DELETE FROM 도서관_대출 WHERE loan_date < '2022-01-01';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "loan_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "회원 이름이 '김철수'인 대출 기록을 삭제해야 합니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE user_name = '김철수';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "user_name"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "실제 반납 날짜가 아직 설정되지 않은 모든 대출을 삭제해 주세요.",
+      "sql": "DELETE FROM 도서관_대출 WHERE actual_return_date = '1970-01-01';",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "actual_return_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출 상태가 '대기'이고 연체료가 50원 이하인 대출 기록을 삭제해야 합니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE status = '대기' AND penalty_fee <= 50;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "status",
+        "penalty_fee"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "대출이 활성 상태인 모든 대출 기록을 삭제하고 싶습니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE is_active = TRUE;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "is_active"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "반납 예정 날짜가 오늘 날짜보다 이전인 모든 대출 기록을 삭제해 주세요.",
+      "sql": "DELETE FROM 도서관_대출 WHERE return_date < CURDATE();",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [
+        "return_date"
+      ],
+      "matched_fields": []
+    },
+    {
+      "nl": "회원 ID가 5보다 큰 모든 대출 기록을 삭제해야 합니다.",
+      "sql": "DELETE FROM 도서관_대출 WHERE user_id > 5;",
+      "dml": "DELETE",
+      "db_success": true,
+      "db_error": null,
+      "missing_fields": [],
+      "matched_fields": [
+        "user_id"
+      ]
+    }
+  ]
+}
